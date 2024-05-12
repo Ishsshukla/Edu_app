@@ -12,9 +12,17 @@ Widget lrngboxtxt(
     child: Row(
       children: [
         Container(
-              child: Image(image: imagecls),
-              ),
-        Text(text,style:TextStyle(backgroundColor: Colors.white,) ,)
+          child: Image.asset(
+            imagecls,
+            scale: 4.5,
+          ),
+        ),
+        Text(
+          text,
+          style: TextStyle(
+            backgroundColor: Colors.white,
+          ),
+        )
       ],
     ),
   );

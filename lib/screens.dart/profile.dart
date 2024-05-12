@@ -1,26 +1,25 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:edu_app/components/button.dart';
-import 'package:edu_app/components/editable_button.dart';
-import 'package:edu_app/components/learningbox.dart';
 import 'package:edu_app/components/profie_text_edit.dart';
 import 'package:edu_app/screens.dart/navbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
-class prflpage extends StatefulWidget {
+class Prflpage extends StatefulWidget {
   @override
-  State<prflpage> createState() => _prflpageState();
+  State<Prflpage> createState() => _PrflpageState();
 }
 
-class _prflpageState extends State<prflpage> {
+class _PrflpageState extends State<Prflpage> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
+    // final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
+          padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -103,8 +102,6 @@ class _prflpageState extends State<prflpage> {
                 ],
               ),
               SizedBox(height: screenHeight * 0.03),
-
-              // prflTxtEdit(context),
               CustomButton(
                   text: 'Log Out',
                   color: Colors.blue.shade700,
