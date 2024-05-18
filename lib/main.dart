@@ -1,12 +1,16 @@
 import 'package:edu_app/components/class_option.dart';
 import 'package:edu_app/screens.dart/class_options.dart';
 import 'package:edu_app/screens.dart/congo.dart';
+import 'package:edu_app/screens.dart/course.dart';
 import 'package:edu_app/screens.dart/course_description.dart';
 import 'package:edu_app/screens.dart/course_fail.dart';
 import 'package:edu_app/screens.dart/course_options.dart';
 import 'package:edu_app/screens.dart/final_pay.dart';
 import 'package:edu_app/screens.dart/home.dart';
+import 'package:edu_app/screens.dart/news.dart';
 import 'package:edu_app/screens.dart/payment_method.dart';
+import 'package:edu_app/screens.dart/paysucess.dart';
+import 'package:edu_app/screens.dart/privacypolicy.dart';
 import 'package:edu_app/screens.dart/profile.dart';
 import 'package:edu_app/screens.dart/quiz.dart';
 import 'package:edu_app/screens.dart/review.dart';
@@ -28,9 +32,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: 'coursefail',
+      initialRoute: 'courseoption',
       // initialRoute: 'subject_wise_attendance',
       routes: {
+        'paysucess': (context) => Paysucesspage(),
         'clstxt': (context) => optionpage(),
         'coursetxt': (context) => courseoptionpage(),
         'homepage': (context) => Homepage(),
@@ -42,7 +47,10 @@ class MyApp extends StatelessWidget {
         'finalpay': (context) => Finalpaypage(),
         'coursedescr': (context) => CourseDescriptionpage(),
         'quiz': (context) => QuizPage(),
-        'coursefail': (context) => CourseFailPage(),
+        'coursefail': (context) => const CourseFailPage(),
+        'privacy': (context) => const PrivacyPage(),
+        'news': (context) => Newspage(),
+        'courseoption': (context) => coursepage(),
       },
     );
   }

@@ -1,4 +1,6 @@
 import 'package:edu_app/components/const.dart';
+import 'package:edu_app/screens.dart/home.dart';
+import 'package:edu_app/screens.dart/profile.dart';
 import 'package:flutter/material.dart';
 
 class Nav extends StatefulWidget {
@@ -32,6 +34,7 @@ class _NavState extends State<Nav> {
             label: 'Home',
             isSelected: _selectedIndex == 0,
             onTap: () => _onNavItemTapped(0),
+            navi: Homepage(),
           ),
           const SizedBox(
             width: 3,
@@ -45,6 +48,7 @@ class _NavState extends State<Nav> {
             label: 'Courses',
             isSelected: _selectedIndex == 1,
             onTap: () => _onNavItemTapped(1),
+            navi: Prflpage(),
           ),
           const SizedBox(
             width: 3,
@@ -58,6 +62,7 @@ class _NavState extends State<Nav> {
             label: 'Profile',
             isSelected: _selectedIndex == 2,
             onTap: () => _onNavItemTapped(2),
+            navi: Prflpage(),
           ),
         ],
       ),
@@ -70,18 +75,27 @@ class NavBarItem extends StatelessWidget {
   final String label;
   final bool isSelected;
   final VoidCallback onTap;
+  final navi;
 
   NavBarItem({
     required this.icon,
     required this.label,
     required this.isSelected,
     required this.onTap,
+    required this.navi,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      // onTap: onTap,
+      onTap: () {
+        onTap;
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => (navi)),
+        );
+      },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

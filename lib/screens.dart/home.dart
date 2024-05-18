@@ -1,6 +1,7 @@
 import 'package:edu_app/components/learningbox.dart';
 import 'package:edu_app/components/review_componemt.dart';
 import 'package:edu_app/screens.dart/navbar.dart';
+import 'package:edu_app/screens.dart/news.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -162,8 +163,20 @@ class _HomepageState extends State<Homepage> {
                 ),
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   txt('  Latest Current Affairs', context),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => (Newspage())),
+                      );
+                    },
+                    // Add your desired functionality here
+
+                    child: txt('  See all', context),
+                  ),
                 ],
               ),
             ],
