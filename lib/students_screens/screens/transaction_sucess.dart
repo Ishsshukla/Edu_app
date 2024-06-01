@@ -1,6 +1,8 @@
 // ignore_for_file: sort_child_properties_last
 
 import 'package:edu_app/components/button.dart';
+import 'package:edu_app/components/const.dart';
+import 'package:edu_app/students_screens/screens/enrollled_crs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -41,18 +43,26 @@ class _transactionpageState extends State<transactionpage> {
                     fontWeight: FontWeight.bold,
                     fontFamily: 'poppins',
                   ),
+                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 80),
                 Container(
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: CustomButton(
                     text: 'Go to My Lesson',
-                    color: Colors.blue,
+                    color: txtColor,
                     textColor: Colors.white,
-                    function: () {},
+                    function: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => enrolledcrspage(),
+                        ),
+                      );
+                    },
                   ),
                 ),
-                const Divider(color: Colors.black),
+                // const Divider(color: Colors.black),
               ],
             ),
           ),

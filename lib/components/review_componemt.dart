@@ -17,7 +17,7 @@ Widget reivewtxt(
           Text(text,
               style: TextStyle(
                 fontSize: 16,
-                color: Colors.blue[700],
+                color: txtColor,
                 fontWeight: FontWeight.normal,
               )),
         ],
@@ -69,4 +69,3 @@ Widget txt2(
     ),
   );
 }
-

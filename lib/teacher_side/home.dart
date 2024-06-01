@@ -1,19 +1,19 @@
 import 'package:edu_app/components/learningbox.dart';
 import 'package:edu_app/components/review_componemt.dart';
-import 'package:edu_app/screens.dart/navbar.dart';
-import 'package:edu_app/screens.dart/news.dart';
+import 'package:edu_app/students_screens/screens/navbar.dart';
+import 'package:edu_app/students_screens/screens/news.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class Homepage extends StatefulWidget {
+class teachHomepage extends StatefulWidget {
   @override
-  State<Homepage> createState() => _HomepageState();
+  State<teachHomepage> createState() => _HomepageState();
 }
 
 TextEditingController _controller = TextEditingController();
 
-class _HomepageState extends State<Homepage> {
+class _HomepageState extends State<teachHomepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +24,7 @@ class _HomepageState extends State<Homepage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              '   Hi ishii  ',
+              'Hi ishii',
               style: TextStyle(
                 color: Color.fromARGB(255, 17, 1, 1),
                 letterSpacing: 1.0,
@@ -36,19 +36,19 @@ class _HomepageState extends State<Homepage> {
 
             // txt('what you want to learn today', context),
             SizedBox(
-              width: 185,
+              width: 168,
             ),
             Icon(
               Icons.notifications_rounded,
               color: Colors.grey,
-              size: 29,
+              size: 35,
             ),
           ],
         ),
         backgroundColor: Colors.white,
         elevation: 0.0,
       ),
-      bottomNavigationBar: Nav(),
+      bottomNavigationBar: Nav(initialIndex: 0),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -56,7 +56,7 @@ class _HomepageState extends State<Homepage> {
             children: [
               Row(
                 children: [
-                  txt2(' What do you want to learn today ?', context),
+                  txt2(' What do you want to Teach today ?', context),
                 ],
               ),
               const SizedBox(

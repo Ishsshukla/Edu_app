@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "130023134061",
+    "project_id": "scfacademy-51693",
+    "storage_bucket": "scfacademy-51693.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:130023134061:android:c4d38e9459e9e9b1040064",
+        "android_client_info": {
+          "package_name": "com.example.edu_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvHODWkhp1-ygK9HHQXLldYiZwq5ccKrk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

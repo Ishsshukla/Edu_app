@@ -1,20 +1,51 @@
 import 'package:edu_app/components/const.dart';
-import 'package:edu_app/screens.dart/home.dart';
-import 'package:edu_app/screens.dart/profile.dart';
+import 'package:edu_app/students_screens/screens/crs.dart';
+import 'package:edu_app/students_screens/screens/crs_options.dart';
+import 'package:edu_app/students_screens/screens/home.dart';
+import 'package:edu_app/students_screens/screens/profile.dart';
 import 'package:flutter/material.dart';
 
 class Nav extends StatefulWidget {
+  final int initialIndex;
+
+  Nav({required this.initialIndex});
+
   @override
   _NavState createState() => _NavState();
 }
 
 class _NavState extends State<Nav> {
-  int _selectedIndex = 0;
+  late int _selectedIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.initialIndex;
+  }
 
   void _onNavItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    if (_selectedIndex == index) return; // Avoid re-navigation to the same tab
+
+    switch (index) {
+      case 0:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Homepage()),
+        );
+        break;
+      case 1:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => coursepage()),
+        );
+        break;
+      case 2:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Prflpage()),
+        );
+        break;
+    }
   }
 
   @override
@@ -34,11 +65,8 @@ class _NavState extends State<Nav> {
             label: 'Home',
             isSelected: _selectedIndex == 0,
             onTap: () => _onNavItemTapped(0),
-            navi: Homepage(),
           ),
-          const SizedBox(
-            width: 3,
-          ),
+          const SizedBox(width: 3),
           NavBarItem(
             icon: Icon(
               Icons.book,
@@ -48,11 +76,8 @@ class _NavState extends State<Nav> {
             label: 'Courses',
             isSelected: _selectedIndex == 1,
             onTap: () => _onNavItemTapped(1),
-            navi: Prflpage(),
           ),
-          const SizedBox(
-            width: 3,
-          ),
+          const SizedBox(width: 3),
           NavBarItem(
             icon: Icon(
               Icons.person,
@@ -62,7 +87,6 @@ class _NavState extends State<Nav> {
             label: 'Profile',
             isSelected: _selectedIndex == 2,
             onTap: () => _onNavItemTapped(2),
-            navi: Prflpage(),
           ),
         ],
       ),
@@ -75,27 +99,18 @@ class NavBarItem extends StatelessWidget {
   final String label;
   final bool isSelected;
   final VoidCallback onTap;
-  final navi;
 
   NavBarItem({
     required this.icon,
     required this.label,
     required this.isSelected,
     required this.onTap,
-    required this.navi,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      // onTap: onTap,
-      onTap: () {
-        onTap;
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => (navi)),
-        );
-      },
+      onTap: onTap,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -104,7 +119,8 @@ class NavBarItem extends StatelessWidget {
           if (isSelected)
             Text(
               label,
-              style: TextStyle(fontSize: 18), // Increase the font size here
+              style: TextStyle(
+                  fontSize: 18, color: txtColor), // Ensure the text is blue
             ),
         ],
       ),

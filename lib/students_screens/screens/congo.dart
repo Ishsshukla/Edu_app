@@ -1,6 +1,8 @@
 // ignore_for_file: sort_child_properties_last
 
 import 'package:edu_app/components/button.dart';
+import 'package:edu_app/components/const.dart';
+import 'package:edu_app/students_screens/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -42,9 +44,16 @@ class _CongopageState extends State<Congopage> {
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: CustomButton(
                     text: 'Back to Home',
-                    color: Colors.blue,
+                    color: txtColor,
                     textColor: Colors.white,
-                    function: () {},
+                    function: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Homepage(),
+                        ),
+                      );
+                    },
                   ),
                 ),
                 const Divider(color: Colors.black),
@@ -79,7 +88,7 @@ class _CongopageState extends State<Congopage> {
                           ),
                           style: ElevatedButton.styleFrom(
                             fixedSize: Size(50, 50),
-                            backgroundColor: Colors.blue,
+                            backgroundColor: txtColor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15),
                             ),
@@ -100,7 +109,7 @@ class _CongopageState extends State<Congopage> {
                           ),
                           style: ElevatedButton.styleFrom(
                             fixedSize: Size(50, 50),
-                            backgroundColor: Colors.blue,
+                            backgroundColor: txtColor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15),
                             ),
@@ -121,7 +130,7 @@ class _CongopageState extends State<Congopage> {
                           ),
                           style: ElevatedButton.styleFrom(
                             fixedSize: Size(50, 50),
-                            backgroundColor: Colors.blue,
+                            backgroundColor: txtColor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15),
                             ),
@@ -142,7 +151,7 @@ class _CongopageState extends State<Congopage> {
                           ),
                           style: ElevatedButton.styleFrom(
                             fixedSize: Size(50, 50),
-                            backgroundColor: Colors.blue,
+                            backgroundColor: txtColor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15),
                             ),

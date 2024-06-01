@@ -7,13 +7,13 @@ Widget prflTxtEdit(
   icon,
   text,
   text2,
-  
+
   // text3,
   // Container1,
   BuildContext context,
 ) {
   return Padding(
-    padding: const EdgeInsets.only(left: 0, right: 0, top: 10, bottom: 10),
+    padding: const EdgeInsets.only(left: 0, right: 0, top: 8, bottom: 0),
     child: Row(
       children: [
         // Icon(iconimg),
@@ -21,11 +21,6 @@ Widget prflTxtEdit(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Align(
-            //   alignment: Alignment.centerLeft,
-            // ),
-
-            // SizedBox(height: 10, width: 10),
             EditableButton(
               iconData: icon,
               text: text,
@@ -34,32 +29,10 @@ Widget prflTxtEdit(
                 print('Edited text: $text');
               },
             ),
+            SizedBox(height: 10),
           ],
         ),
       ],
     ),
   );
 }
-
-// Widget prfledittxt(
-//   // iconimg,
-//   // text,
-//   // text2,
-//   text3,
-//   // container1,
-//   BuildContext context,
-// ) {
-//   return Padding(
-//     padding: const EdgeInsets.only(left: 0, right: 0, top: 10, bottom: 10),
-//     child: Row(
-//       children: [
-      
-//         ElevatedButton(
-//           onPressed: () {},
-//           child: Text(text3),
-//         ),
-//       ],
-//     ),
-//   );
-// }
-

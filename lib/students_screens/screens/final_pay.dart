@@ -1,18 +1,22 @@
 // ignore_for_file: use_key_in_widget_constructors, unused_local_variable, sort_child_properties_last
 
 import 'package:edu_app/components/button.dart';
+import 'package:edu_app/components/const.dart';
 import 'package:edu_app/components/profie_text_edit.dart';
 import 'package:edu_app/components/review_componemt.dart';
-import 'package:edu_app/screens.dart/navbar.dart';
+import 'package:edu_app/students_screens/screens/congo.dart';
+import 'package:edu_app/students_screens/screens/navbar.dart';
+import 'package:edu_app/students_screens/screens/transaction_sucess.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class Reviewpage extends StatefulWidget {
+class Finalpaypage extends StatefulWidget {
   @override
-  State<Reviewpage> createState() => _ReviewState();
+  State<Finalpaypage> createState() => _FinalpayState();
 }
 
-class _ReviewState extends State<Reviewpage> {
+class _FinalpayState extends State<Finalpaypage> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -54,7 +58,7 @@ class _ReviewState extends State<Reviewpage> {
                         height: 25,
                       ),
                       reivewtxt(
-                        'assets/payment.png',
+                        'assets/Group287.png',
                         'Method',
                         context,
                       ),
@@ -73,7 +77,7 @@ class _ReviewState extends State<Reviewpage> {
                         height: 25,
                       ),
                       reivewtxt(
-                        'assets/payment2.png',
+                        'assets/payblue.png',
                         'Payment',
                         context,
                       ),
@@ -95,7 +99,7 @@ class _ReviewState extends State<Reviewpage> {
                   ),
                   const Align(
                     alignment: Alignment.centerLeft,
-                    child: Text('Purchase Review',
+                    child: Text('Payment  Details',
                         style: TextStyle(
                           fontSize: 20,
                           color: Colors.black,
@@ -109,27 +113,17 @@ class _ReviewState extends State<Reviewpage> {
                     children: [
                       Column(
                         children: [
-                          txt('Name', context),
-                          const Text('ishii',
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 0, 70, 0),
+                            child: txt('Order ID', context),
+                          ),
+                          const Text('INV-P6FDC7WMs',
                               style: TextStyle(
                                 fontSize: 15,
                                 color: Colors.black,
                                 fontWeight: FontWeight.normal,
                               )),
                         ],
-                      ),
-                      Expanded(
-                        child: Column(
-                          children: [
-                            txt('Class', context),
-                            const Text('10th',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.normal,
-                                )),
-                          ],
-                        ),
                       ),
                     ],
                   ),
@@ -155,12 +149,6 @@ class _ReviewState extends State<Reviewpage> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      txt('Including', context),
-                    ],
-                  ),
                   const SizedBox(
                     height: 10,
                   ),
@@ -169,48 +157,8 @@ class _ReviewState extends State<Reviewpage> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            children: [
-                              Icon(Icons.menu_book_outlined,
-                                  size: 40, color: Colors.blue.shade700),
-                              txt2('  Notes', context),
-                              SizedBox(
-                                width: screenWidth * 0.18,
-                              ),
-                              Icon(Icons.movie_creation_rounded,
-                                  size: 40, color: Colors.blue.shade700),
-                              txt2(' HD Videos', context),
-                            ],
-                          ),
-                          SizedBox(
-                            height: screenHeight * 0.02,
-                          ),
-                          Row(
-                            children: [
-                              Icon(Icons.celebration,
-                                  size: 40, color: Colors.blue.shade700),
-                              txt2('  Certificate', context),
-                              SizedBox(
-                                width: screenWidth * 0.09,
-                              ),
-                              Icon(Icons.bookmark_added,
-                                  size: 40, color: Colors.blue.shade700),
-                              txt2(' Exam', context),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 14,
-                  ),
-                  Row(
-                    children: [
-                      Column(
-                        children: [
-                          txt('Duration', context),
-                          const Text('1 Month',
+                          txt('Name', context),
+                          const Text('ishii',
                               style: TextStyle(
                                 fontSize: 15,
                                 color: Colors.black,
@@ -218,71 +166,25 @@ class _ReviewState extends State<Reviewpage> {
                               )),
                         ],
                       ),
-                      const SizedBox(
-                        width: 10,
+                      SizedBox(
+                        width: screenWidth * 0.2,
                       ),
-                      Expanded(
-                        child: Column(
-                          children: [
-                            txt('Rating', context),
-                            const Text('   ★★★★★',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.normal,
-                                )),
-                          ],
-                        ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          txt('Email', context),
+                          const Text('ishii2048@gmail.com',
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.black,
+                                fontWeight: FontWeight.normal,
+                              )),
+                        ],
                       ),
                     ],
                   ),
                   const SizedBox(
-                    height: 14,
-                  ),
-                  Row(
-                    children: [
-                      Column(
-                        children: [
-                          txt('Have a Coupon Code ?', context),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 6, 0, 16),
-                              child: CustomButton(
-                                  text: '   Enter coupon   ',
-                                  color: Colors.grey.shade300,
-                                  textColor: Colors.grey.shade800,
-                                  function: () {}),
-                            ),
-                          )
-                        ],
-                      ),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 19,
-                            ),
-                            ElevatedButton(
-                              onPressed: () {},
-                              child: const Text(
-                                'Apply',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue[700],
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
+                    height: 300,
                   ),
                   const Divider(
                     color: Colors.grey,
@@ -300,13 +202,20 @@ class _ReviewState extends State<Reviewpage> {
                         width: 40,
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => transactionpage(),
+                            ),
+                          );
+                        },
                         child: const Text(
                           ' Continue ',
                           style: TextStyle(color: Colors.white, fontSize: 23),
                         ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue[700],
+                          backgroundColor: txtColor,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),

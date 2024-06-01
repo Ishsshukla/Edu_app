@@ -1,8 +1,11 @@
 // ignore_for_file: use_key_in_widget_constructors
 
 import 'package:edu_app/components/button.dart';
+import 'package:edu_app/components/const.dart';
 import 'package:edu_app/components/profie_text_edit.dart';
-import 'package:edu_app/screens.dart/navbar.dart';
+import 'package:edu_app/components/review_componemt.dart';
+import 'package:edu_app/students_screens/screens/navbar.dart';
+import 'package:edu_app/students_screens/screens/privacypolicy.dart';
 import 'package:flutter/material.dart';
 
 class Prflpage extends StatefulWidget {
@@ -66,11 +69,10 @@ class _PrflpageState extends State<Prflpage> {
                   ),
                 ],
               ),
-
               Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                     child: Column(
                       children: [
                         prflTxtEdit(
@@ -80,9 +82,6 @@ class _PrflpageState extends State<Prflpage> {
                         ),
                         prflTxtEdit(
                             Icons.email, 'Email', 'ishu30@gmail', context),
-                        const SizedBox(
-                          height: 0,
-                        ),
                         prflTxtEdit(Icons.lock_open_outlined, 'Password',
                             '52535454436', context),
                         const SizedBox(
@@ -101,17 +100,53 @@ class _PrflpageState extends State<Prflpage> {
                   ),
                 ],
               ),
+              Row(
+                children: [
+                  Icon(
+                    Icons.security_rounded,
+                    color: txtColor,
+                    size: 38,
+                  ),
+                  const SizedBox(
+                    width: 24,
+                  ),
+                  txt2('Privacy Policy', context),
+                  const SizedBox(
+                    width: 70,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PrivacyPage(),
+                        ),
+                      );
+                    },
+                    child: Icon(
+                      Icons.arrow_forward_ios_rounded,
+                      color: txtColor,
+                      size: 38,
+                    ),
+                  ),
+                ],
+              ),
               SizedBox(height: screenHeight * 0.03),
-              CustomButton(
+              GestureDetector(
+                child: CustomButton(
                   text: 'Log Out',
-                  color: Colors.blue.shade700,
+                  color: txtColor,
                   textColor: Colors.white,
-                  function: () {})
+                  function: () {
+                    Navigator.pushReplacementNamed(context, 'login');
+                  },
+                ),
+              ),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: Nav(),
+      bottomNavigationBar: Nav(initialIndex: 2),
     );
   }
 }

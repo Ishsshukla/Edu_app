@@ -1,6 +1,8 @@
 // ignore_for_file: sort_child_properties_last
 
+import 'package:edu_app/components/const.dart';
 import 'package:edu_app/components/review_componemt.dart';
+import 'package:edu_app/students_screens/screens/final_pay.dart';
 import 'package:flutter/material.dart';
 
 class PayMethodPage extends StatefulWidget {
@@ -110,10 +112,10 @@ class _PayMethodState extends State<PayMethodPage> {
                     width: double.infinity,
                     height: 60,
                     decoration: BoxDecoration(
-                      color: isSelected1 ? Colors.blue : Colors.white,
+                      color: isSelected1 ? txtColor: Colors.white,
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
-                        color: isSelected1 ? Colors.blue : Colors.grey,
+                        color: isSelected1 ? txtColor: Colors.grey,
                         width: 2,
                       ),
                     ),
@@ -123,13 +125,13 @@ class _PayMethodState extends State<PayMethodPage> {
                           padding: const EdgeInsets.all(10),
                           child: CircleAvatar(
                             backgroundColor:
-                                isSelected1 ? Colors.blue : Colors.grey,
+                                isSelected1 ? txtColor : Colors.grey,
                             child: isSelected1
                                 ? const Icon(Icons.check, color: Colors.white)
                                 : null,
                           ),
                         ),
-                        const SizedBox(width: 10),
+                        const SizedBox(width: 0),
                         Text(
                           'PayPal', // Adjust this to your payment mode 1 name
                           style: TextStyle(
@@ -161,10 +163,10 @@ class _PayMethodState extends State<PayMethodPage> {
                     width: double.infinity,
                     height: 60,
                     decoration: BoxDecoration(
-                      color: isSelected2 ? Colors.blue : Colors.white,
+                      color: isSelected2 ? txtColor : Colors.white,
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
-                        color: isSelected2 ? Colors.blue : Colors.grey,
+                        color: isSelected2 ? txtColor : Colors.grey,
                         width: 2,
                       ),
                     ),
@@ -174,13 +176,13 @@ class _PayMethodState extends State<PayMethodPage> {
                           padding: const EdgeInsets.all(10),
                           child: CircleAvatar(
                             backgroundColor:
-                                isSelected2 ? Colors.blue : Colors.grey,
+                                isSelected2 ? txtColor : Colors.grey,
                             child: isSelected2
                                 ? const Icon(Icons.check, color: Colors.white)
                                 : null,
                           ),
                         ),
-                        const SizedBox(width: 10),
+                        const SizedBox(width: 0),
                         Text(
                           'Credit Card', // Adjust this to your payment mode 2 name
                           style: TextStyle(
@@ -198,7 +200,7 @@ class _PayMethodState extends State<PayMethodPage> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 400),
+                const SizedBox(height: 350),
 
                 // Divider and continue button
                 const Divider(color: Colors.grey),
@@ -225,17 +227,44 @@ class _PayMethodState extends State<PayMethodPage> {
                         ),
                       ],
                     ),
-                    const SizedBox(width: 40),
+                    const SizedBox(width: 34),
 
                     // Continue button
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (isSelected1 || isSelected2) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Finalpaypage(),
+                            ),
+                          );
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text('Error'),
+                                content: const Text('Please select a payment method.'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
+                      },
                       child: const Text(
                         ' Continue ',
                         style: TextStyle(color: Colors.white, fontSize: 23),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue[700],
+                        backgroundColor: txtColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),

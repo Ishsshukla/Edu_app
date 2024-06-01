@@ -1,4 +1,6 @@
 import 'package:edu_app/components/const.dart';
+import 'package:edu_app/students_screens/screens/congo.dart';
+import 'package:edu_app/students_screens/screens/quiz2.dart';
 import 'package:flutter/material.dart';
 
 class QuizPage extends StatefulWidget {
@@ -92,9 +94,16 @@ class _QuizPageState extends State<QuizPage> {
             const SizedBox(height: 50),
             Container(
               width: MediaQuery.of(context).size.width * .9,
-              height: 85,
+              height: 65,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => QuizPage2(),
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),

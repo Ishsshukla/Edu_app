@@ -1,3 +1,4 @@
+import 'package:edu_app/components/const.dart';
 import 'package:flutter/material.dart';
 
 Widget crcl(
@@ -5,7 +6,7 @@ Widget crcl(
   BuildContext context,
 ) {
   return Padding(
-    padding: const EdgeInsets.only(left: 0, right: 0, top: 10, bottom: 10),
+    padding: const EdgeInsets.only(left: 0, right: 0, top: 0, bottom: 10),
     child: Container(
       width: double.infinity,
       height: 200,
@@ -19,7 +20,7 @@ Widget crcl(
       child: Container(
         padding: EdgeInsets.fromLTRB(60, 10, 60, 10),
         decoration: BoxDecoration(
-          color: Colors.blue,
+          color: txtColor,
           borderRadius: const BorderRadius.only(
             bottomLeft: Radius.circular(400),
             bottomRight: Radius.circular(400),
