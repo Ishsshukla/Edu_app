@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: 'login',
+      initialRoute: 'profile',
       // initialRoute: 'subject_wise_attendance',
       routes: {
         'paysucess': (context) => Paysucesspage(),

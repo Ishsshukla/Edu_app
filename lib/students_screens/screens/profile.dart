@@ -1,12 +1,16 @@
-// ignore_for_file: use_key_in_widget_constructors
-
 import 'package:edu_app/components/button.dart';
 import 'package:edu_app/components/const.dart';
 import 'package:edu_app/components/profie_text_edit.dart';
 import 'package:edu_app/components/review_componemt.dart';
+import 'package:edu_app/students_screens/auth/login.dart';
+import 'package:edu_app/students_screens/firebase_services/database.dart';
 import 'package:edu_app/students_screens/screens/navbar.dart';
 import 'package:edu_app/students_screens/screens/privacypolicy.dart';
+import 'package:edu_app/students_screens/firebase_services/shared_preferences.dart'; // Import the helper class
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Prflpage extends StatefulWidget {
   @override
@@ -14,132 +18,189 @@ class Prflpage extends StatefulWidget {
 }
 
 class _PrflpageState extends State<Prflpage> {
+  TextEditingController userfirstnamecontroller = TextEditingController();
+  TextEditingController userlastnamecontroller = TextEditingController();
+  TextEditingController useremailcontroller = TextEditingController();
+  TextEditingController userphncontroller = TextEditingController();
+
+  bool isEditingFirstName = false;
+  bool isEditingLastName = false;
+  bool isEditingEmail = false;
+  bool isEditingPhn = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // loadUserProfile();
+  }
+
+  Future<void> uploadData(String userId) async {
+    Map<String, dynamic> uploaddata = {
+      'First Name': userfirstnamecontroller.text,
+      'Last Name': userlastnamecontroller.text,
+      'email': useremailcontroller.text,
+      'phn': userphncontroller.text,
+    };
+
+    // Save data to Firestore with the user ID as the document ID
+    await DatabaseMethods().updateUserDetails(uploaddata, userId);
+
+    // Save data locally
+    await SharedPreferencesHelper.saveUserProfile(uploaddata);
+
+    Fluttertoast.showToast(
+      msg: "Data Saved Successfully",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.white,
+      textColor: txtColor,
+      fontSize: 16.0,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    // final screenWidth = MediaQuery.of(context).size.width;
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
+          padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(100.0, 10, 0, 20),
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 35,
-                        ),
-                        Image.asset(
-                          'assets/profile.png',
-                          scale: 4.5,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Text(
-                          'ishii',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 17, 1, 1),
-                            letterSpacing: 1.0,
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'poppins',
+              SizedBox(
+                width: screenWidth,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 45),
+                    Image.asset('assets/profile.png', scale: 4.5),
+                    SizedBox(height: screenHeight * 0.01),
+                    Text(
+                      '${userfirstnamecontroller.text} ${userlastnamecontroller.text}',
+                      style: const TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.05),
+                    buildEditableField(
+                      context,
+                      "Your First Name",
+                      userfirstnamecontroller,
+                      isEditingFirstName,
+                      () {
+                        setState(() {
+                          isEditingFirstName = !isEditingFirstName;
+                          if (!isEditingFirstName)
+                            uploadData(FirebaseAuth.instance.currentUser!.uid);
+                        });
+                      },
+                      icon: Icons.person,
+                    ),
+                    const SizedBox(height: 20),
+                    buildEditableField(
+                      context,
+                      "Your Last Name",
+                      userlastnamecontroller,
+                      isEditingLastName,
+                      () {
+                        setState(() {
+                          isEditingLastName = !isEditingLastName;
+                          if (!isEditingLastName)
+                            uploadData(FirebaseAuth.instance.currentUser!.uid);
+                        });
+                      },
+                      icon: Icons.person_outline,
+                    ),
+                    const SizedBox(height: 20),
+                    buildEditableField(
+                      context,
+                      "Email",
+                      useremailcontroller,
+                      isEditingEmail,
+                      () {
+                        setState(() {
+                          isEditingEmail = !isEditingEmail;
+                          if (!isEditingEmail)
+                            uploadData(FirebaseAuth.instance.currentUser!.uid);
+                        });
+                      },
+                      icon: Icons.email,
+                    ),
+                    const SizedBox(height: 20),
+                    buildEditableField(
+                      context,
+                      "Phone Number",
+                      userphncontroller,
+                      isEditingPhn,
+                      () {
+                        setState(() {
+                          isEditingPhn = !isEditingPhn;
+                          if (!isEditingPhn)
+                            uploadData(FirebaseAuth.instance.currentUser!.uid);
+                        });
+                      },
+                      icon: Icons.phone,
+                    ),
+                    const SizedBox(height: 20),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 10, 30, 0),
+                child: Row(
+                  children: [
+                    Icon(Icons.security_rounded, color: txtColor, size: 38),
+                    const SizedBox(width: 24),
+                    Text(
+                      'Privacy Policy',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    Spacer(),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PrivacyPage(),
                           ),
-                        ),
-                        const Text(
-                          '@ishi2048',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 17, 1, 1),
-                            letterSpacing: 1.0,
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                            fontFamily: 'poppins',
-                          ),
-                        ),
-                      ],
+                        );
+                      },
+                      child: Icon(Icons.arrow_forward_ios_rounded,
+                          color: txtColor, size: 35),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    child: Column(
-                      children: [
-                        prflTxtEdit(
-                            Icons.near_me_rounded, 'Name', 'ishiiii', context),
-                        const SizedBox(
-                          height: 0,
-                        ),
-                        prflTxtEdit(
-                            Icons.email, 'Email', 'ishu30@gmail', context),
-                        prflTxtEdit(Icons.lock_open_outlined, 'Password',
-                            '52535454436', context),
-                        const SizedBox(
-                          height: 0,
-                        ),
-                        prflTxtEdit(Icons.phone_android, 'Phone Number',
-                            'Tap to change ', context),
-                        const SizedBox(
-                          height: 0,
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Icon(
-                    Icons.security_rounded,
-                    color: txtColor,
-                    size: 38,
-                  ),
-                  const SizedBox(
-                    width: 24,
-                  ),
-                  txt2('Privacy Policy', context),
-                  const SizedBox(
-                    width: 70,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PrivacyPage(),
-                        ),
-                      );
-                    },
-                    child: Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      color: txtColor,
-                      size: 38,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: screenHeight * 0.03),
-              GestureDetector(
-                child: CustomButton(
-                  text: 'Log Out',
-                  color: txtColor,
-                  textColor: Colors.white,
-                  function: () {
-                    Navigator.pushReplacementNamed(context, 'login');
+              SizedBox(height: screenHeight * 0.04),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Perform logout logic here
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                      (route) => false,
+                    );
                   },
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: txtColor,
+                      maximumSize: const Size(200, 1500),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      minimumSize: const Size(150, 50)),
+                  child: const Text(
+                    'Logout',
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -147,6 +208,58 @@ class _PrflpageState extends State<Prflpage> {
         ),
       ),
       bottomNavigationBar: Nav(initialIndex: 2),
+    );
+  }
+
+  Widget buildEditableField(
+    BuildContext context,
+    String hintText,
+    TextEditingController controller,
+    bool isEditing,
+    VoidCallback onPressed, {
+    required IconData icon,
+    double iconSize = 32, // Default size is 28.0
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Row(
+        children: [
+          Icon(icon,
+              color: txtColor, size: iconSize), // Added iconSize parameter
+          const SizedBox(width: 20),
+          Expanded(
+            child: Container(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 22.0, horizontal: 15.0),
+              margin: const EdgeInsets.only(right: 10.0),
+              decoration: BoxDecoration(
+                color: txtColor,
+                borderRadius: BorderRadius.circular(22),
+              ),
+              child: isEditing
+                  ? TextField(
+                      controller: controller,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: hintText,
+                        hintStyle: const TextStyle(color: Colors.white),
+                      ),
+                      style: const TextStyle(color: Colors.white),
+                    )
+                  : Text(
+                      controller.text,
+                      style: const TextStyle(color: Colors.white),
+                    ),
+            ),
+          ),
+          // SizedBox(width: 0),
+          IconButton(
+            icon: Icon(isEditing ? Icons.save : Icons.edit),
+            color: txtColor,
+            onPressed: onPressed,
+          ),
+        ],
+      ),
     );
   }
 }

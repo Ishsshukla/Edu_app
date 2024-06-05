@@ -59,7 +59,7 @@ class _NavState extends State<Nav> {
           NavBarItem(
             icon: Icon(
               Icons.home,
-              size: 45,
+              size: 40,
               color: _selectedIndex == 0 ? txtColor : Colors.grey.shade500,
             ),
             label: 'Home',
@@ -70,7 +70,7 @@ class _NavState extends State<Nav> {
           NavBarItem(
             icon: Icon(
               Icons.book,
-              size: 45,
+              size: 40,
               color: _selectedIndex == 1 ? txtColor : Colors.grey.shade500,
             ),
             label: 'Courses',
@@ -81,7 +81,7 @@ class _NavState extends State<Nav> {
           NavBarItem(
             icon: Icon(
               Icons.person,
-              size: 45,
+              size: 40,
               color: _selectedIndex == 2 ? txtColor : Colors.grey.shade500,
             ),
             label: 'Profile',
@@ -120,7 +120,7 @@ class NavBarItem extends StatelessWidget {
             Text(
               label,
               style: TextStyle(
-                  fontSize: 18, color: txtColor), // Ensure the text is blue
+                  fontSize: 15, color: txtColor), // Ensure the text is blue
             ),
         ],
       ),

@@ -164,20 +164,15 @@ class _HomeState extends State<PhnHome> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          TextFormField(
-                            decoration: const InputDecoration(
-                              labelText: "Enter your Phone Number",
-                              labelStyle: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey,
-                              ),
+                          Text(
+                            "Enter your Phone Number",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey,
                             ),
-                            onChanged: (value) {
-                              phoneNumber = value;
-                            },
                           ),
-                          const SizedBox(
+                          SizedBox(
                             height: 8,
                           ),
                           Text(
@@ -203,11 +198,11 @@ class _HomeState extends State<PhnHome> {
                         child: Container(
                           decoration: BoxDecoration(
                             color: txtColor,
-                            borderRadius:const  BorderRadius.all(
+                            borderRadius: BorderRadius.all(
                               Radius.circular(15),
                             ),
                           ),
-                          child:const  Center(
+                          child: Center(
                             child: Text(
                               "Continue",
                               style: TextStyle(

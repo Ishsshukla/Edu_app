@@ -65,7 +65,7 @@ class _enrolledcrsState extends State<enrolledcrspage> {
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(70),
                       topRight: Radius.circular(70),
                     ),
@@ -91,7 +91,7 @@ class _enrolledcrsState extends State<enrolledcrspage> {
                             'Course Information',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 22,
+                              fontSize: 20,
                             ),
                           ),
                         ),
@@ -100,7 +100,7 @@ class _enrolledcrsState extends State<enrolledcrspage> {
                           child: Text(
                             'Sainik School',
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 16,
                             ),
                           ),
                         ),
@@ -113,7 +113,7 @@ class _enrolledcrsState extends State<enrolledcrspage> {
                             'Description',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 22,
+                              fontSize: 20,
                             ),
                           ),
                         ),
@@ -122,7 +122,7 @@ class _enrolledcrsState extends State<enrolledcrspage> {
                           child: Text(
                             'this is a description of the course',
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 16,
                             ),
                           ),
                         ),
@@ -131,7 +131,7 @@ class _enrolledcrsState extends State<enrolledcrspage> {
                           child: Text(
                             'this is a description of the course',
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 16,
                             ),
                           ),
                         ),
@@ -144,7 +144,7 @@ class _enrolledcrsState extends State<enrolledcrspage> {
                             'Information',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 22,
+                              fontSize: 20,
                             ),
                           ),
                         ),
@@ -219,7 +219,7 @@ class _enrolledcrsState extends State<enrolledcrspage> {
                         SizedBox(
                           height: screenHeight * 0.055,
                         ),
-                        Divider(
+                        const Divider(
                           color: Colors.grey,
                         ),
                         SizedBox(
@@ -253,7 +253,7 @@ class _enrolledcrsState extends State<enrolledcrspage> {
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10),
                                     ),
-                                    minimumSize: Size(280,
+                                    minimumSize:const  Size(280,
                                         50), // Increase the width of the button
                                   ),
                                 ),

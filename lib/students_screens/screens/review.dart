@@ -174,13 +174,13 @@ class _ReviewState extends State<Reviewpage> {
                           Row(
                             children: [
                               Icon(Icons.menu_book_outlined,
-                                  size: 40, color: txtColor),
+                                  size: 37, color: txtColor),
                               txt2('  Notes', context),
                               SizedBox(
                                 width: screenWidth * 0.18,
                               ),
                               Icon(Icons.movie_creation_rounded,
-                                  size: 40, color: txtColor),
+                                  size: 37, color: txtColor),
                               txt2(' HD Videos', context),
                             ],
                           ),
@@ -190,13 +190,13 @@ class _ReviewState extends State<Reviewpage> {
                           Row(
                             children: [
                               Icon(Icons.celebration,
-                                  size: 40, color: txtColor),
+                                  size: 37, color: txtColor),
                               txt2('  Certificate', context),
                               SizedBox(
                                 width: screenWidth * 0.09,
                               ),
                               Icon(Icons.bookmark_added,
-                                  size: 40, color: txtColor),
+                                  size: 37, color: txtColor),
                               txt2(' Exam', context),
                             ],
                           ),
@@ -251,6 +251,7 @@ class _ReviewState extends State<Reviewpage> {
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(0, 6, 0, 22),
                               child: Container(
+                                height: 80,
                                 width: 200, // Set the desired width here
                                 child: TextFormField(
                                   decoration: InputDecoration(
@@ -266,7 +267,7 @@ class _ReviewState extends State<Reviewpage> {
                                     ),
                                   ),
                                   style: TextStyle(
-                                    color: Colors.grey.shade800,
+                                    color: Colors.grey.shade300,
                                   ),
                                   onChanged: (value) {
                                     // Handle coupon input
@@ -283,7 +284,7 @@ class _ReviewState extends State<Reviewpage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 19,
                             ),
                             ElevatedButton(

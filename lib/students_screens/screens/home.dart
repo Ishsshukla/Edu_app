@@ -1,10 +1,12 @@
 import 'package:edu_app/components/learningbox.dart';
 import 'package:edu_app/components/review_componemt.dart';
+import 'package:edu_app/students_screens/firebase_services/database.dart';
 import 'package:edu_app/students_screens/screens/navbar.dart';
 import 'package:edu_app/students_screens/screens/news.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Homepage extends StatefulWidget {
   @override
@@ -14,6 +16,28 @@ class Homepage extends StatefulWidget {
 TextEditingController _controller = TextEditingController();
 
 class _HomepageState extends State<Homepage> {
+  // uploadData() async {
+  //   Map<String, dynamic> uploaddata = {
+  //     'First Name': userfirstnamecontroller.text,
+  //     'Last Name': userlastnamecontroller.text,
+  //     'Age': useragecontroller.text,
+  //   };
+  //   await DatabaseMethods().addUserDetails(uploaddata);
+  //   Fluttertoast.showToast(
+  //       msg: "Data Uploaded Sucessfully",
+  //       toastLength: Toast.LENGTH_SHORT,
+  //       gravity: ToastGravity.CENTER,
+  //       timeInSecForIosWeb: 1,
+  //       backgroundColor: Colors.red,
+  //       textColor: Colors.white,
+  //       fontSize: 16.0
+  //   );
+  // }
+
+  // TextEditingController userfirstnamecontroller = new TextEditingController();
+  // TextEditingController userlastnamecontroller = new TextEditingController();
+  // TextEditingController useragecontroller = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,12 +71,7 @@ class _HomepageState extends State<Homepage> {
         ),
         backgroundColor: Colors.white,
         elevation: 0.0,
-      
-
-
-
       ),
-
       bottomNavigationBar: Nav(initialIndex: 0),
       body: SingleChildScrollView(
         child: Padding(
