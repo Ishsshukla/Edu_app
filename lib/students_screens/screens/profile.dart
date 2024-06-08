@@ -6,7 +6,7 @@ import 'package:edu_app/students_screens/auth/login.dart';
 import 'package:edu_app/students_screens/firebase_services/database.dart';
 import 'package:edu_app/students_screens/screens/navbar.dart';
 import 'package:edu_app/students_screens/screens/privacypolicy.dart';
-import 'package:edu_app/students_screens/firebase_services/shared_preferences.dart'; // Import the helper class
+import 'package:edu_app/students_screens/firebase_services/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -28,35 +28,54 @@ class _PrflpageState extends State<Prflpage> {
   bool isEditingEmail = false;
   bool isEditingPhn = false;
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   void initState() {
     super.initState();
-    // loadUserProfile();
+    loadUserProfile();
+  }
+
+  Future<void> loadUserProfile() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      var userData = await DatabaseMethods().getthisUserInfo(user.uid);
+      if (userData != null) {
+        setState(() {
+          userfirstnamecontroller.text = userData['First Name'] ?? '';
+          userlastnamecontroller.text = userData['Last Name'] ?? '';
+          useremailcontroller.text = userData['email'] ?? '';
+          userphncontroller.text = userData['phn'] ?? '';
+        });
+      }
+    }
   }
 
   Future<void> uploadData(String userId) async {
-    Map<String, dynamic> uploaddata = {
-      'First Name': userfirstnamecontroller.text,
-      'Last Name': userlastnamecontroller.text,
-      'email': useremailcontroller.text,
-      'phn': userphncontroller.text,
-    };
+    if (_formKey.currentState!.validate()) {
+      Map<String, dynamic> uploaddata = {
+        'First Name': userfirstnamecontroller.text,
+        'Last Name': userlastnamecontroller.text,
+        'email': useremailcontroller.text,
+        'phn': userphncontroller.text,
+      };
 
-    // Save data to Firestore with the user ID as the document ID
-    await DatabaseMethods().updateUserDetails(uploaddata, userId);
+      // Save data to Firestore with the user ID as the document ID
+      await DatabaseMethods().updateUserDetails(uploaddata, userId);
 
-    // Save data locally
-    await SharedPreferencesHelper.saveUserProfile(uploaddata);
+      // Save data locally
+      await SharedPreferencesHelper.saveUserProfile(uploaddata);
 
-    Fluttertoast.showToast(
-      msg: "Data Saved Successfully",
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Colors.white,
-      textColor: txtColor,
-      fontSize: 16.0,
-    );
+      Fluttertoast.showToast(
+        msg: "Data Saved Successfully",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.white,
+        textColor: txtColor,
+        fontSize: 16.0,
+      );
+    }
   }
 
   @override
@@ -67,143 +86,199 @@ class _PrflpageState extends State<Prflpage> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(
-                width: screenWidth,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 45),
-                    Image.asset('assets/profile.png', scale: 4.5),
-                    SizedBox(height: screenHeight * 0.01),
-                    Text(
-                      '${userfirstnamecontroller.text} ${userlastnamecontroller.text}',
-                      style: const TextStyle(
-                        fontSize: 20,
+        child: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(
+                  width: screenWidth,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 45),
+                      Image.asset('assets/profile.png', scale: 4.5),
+                      SizedBox(height: screenHeight * 0.01),
+                      Text(
+                        '${userfirstnamecontroller.text} ${userlastnamecontroller.text}',
+                        style: const TextStyle(
+                          fontSize: 20,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: screenHeight * 0.05),
-                    buildEditableField(
-                      context,
-                      "Your First Name",
-                      userfirstnamecontroller,
-                      isEditingFirstName,
-                      () {
-                        setState(() {
-                          isEditingFirstName = !isEditingFirstName;
-                          if (!isEditingFirstName)
-                            uploadData(FirebaseAuth.instance.currentUser!.uid);
-                        });
-                      },
-                      icon: Icons.person,
-                    ),
-                    const SizedBox(height: 20),
-                    buildEditableField(
-                      context,
-                      "Your Last Name",
-                      userlastnamecontroller,
-                      isEditingLastName,
-                      () {
-                        setState(() {
-                          isEditingLastName = !isEditingLastName;
-                          if (!isEditingLastName)
-                            uploadData(FirebaseAuth.instance.currentUser!.uid);
-                        });
-                      },
-                      icon: Icons.person_outline,
-                    ),
-                    const SizedBox(height: 20),
-                    buildEditableField(
-                      context,
-                      "Email",
-                      useremailcontroller,
-                      isEditingEmail,
-                      () {
-                        setState(() {
-                          isEditingEmail = !isEditingEmail;
-                          if (!isEditingEmail)
-                            uploadData(FirebaseAuth.instance.currentUser!.uid);
-                        });
-                      },
-                      icon: Icons.email,
-                    ),
-                    const SizedBox(height: 20),
-                    buildEditableField(
-                      context,
-                      "Phone Number",
-                      userphncontroller,
-                      isEditingPhn,
-                      () {
-                        setState(() {
-                          isEditingPhn = !isEditingPhn;
-                          if (!isEditingPhn)
-                            uploadData(FirebaseAuth.instance.currentUser!.uid);
-                        });
-                      },
-                      icon: Icons.phone,
-                    ),
-                    const SizedBox(height: 20),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 10, 30, 0),
-                child: Row(
-                  children: [
-                    Icon(Icons.security_rounded, color: txtColor, size: 38),
-                    const SizedBox(width: 24),
-                    Text(
-                      'Privacy Policy',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    Spacer(),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PrivacyPage(),
-                          ),
-                        );
-                      },
-                      child: Icon(Icons.arrow_forward_ios_rounded,
-                          color: txtColor, size: 35),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: screenHeight * 0.04),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Perform logout logic here
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
-                      (route) => false,
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: txtColor,
-                      maximumSize: const Size(200, 1500),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
+                      SizedBox(height: screenHeight * 0.05),
+                      buildEditableField(
+                        context,
+                        "Your First Name",
+                        userfirstnamecontroller,
+                        isEditingFirstName,
+                        () {
+                          setState(() {
+                            isEditingFirstName = !isEditingFirstName;
+                            if (!isEditingFirstName) {
+                              if (_formKey.currentState?.validate() ?? false) {
+                                uploadData(
+                                    FirebaseAuth.instance.currentUser!.uid);
+                              }
+                            }
+                          });
+                        },
+                        icon: Icons.person,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your first name';
+                          }
+                          if (!RegExp(r'^[a-zA-Z]+$').hasMatch(value)) {
+                            return 'First name can only contain letters';
+                          }
+                          return null;
+                        },
                       ),
-                      minimumSize: const Size(150, 50)),
-                  child: const Text(
-                    'Logout',
-                    style: TextStyle(
-                      fontSize: 24,
-                      color: Colors.white,
+                      const SizedBox(height: 20),
+                      buildEditableField(
+                        context,
+                        "Your Last Name",
+                        userlastnamecontroller,
+                        isEditingLastName,
+                        () {
+                          setState(() {
+                            isEditingLastName = !isEditingLastName;
+                            if (!isEditingLastName) {
+                              if (_formKey.currentState?.validate() ?? false) {
+                                uploadData(
+                                    FirebaseAuth.instance.currentUser!.uid);
+                              }
+                            }
+                          });
+                        },
+                        icon: Icons.person_outline,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your last name';
+                          }
+                          if (!RegExp(r'^[a-zA-Z]+$').hasMatch(value)) {
+                            return 'Last name can only contain letters';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                      buildEditableField(
+                        context,
+                        "Email",
+                        useremailcontroller,
+                        isEditingEmail,
+                        () {
+                          setState(() {
+                            isEditingEmail = !isEditingEmail;
+                            if (!isEditingEmail) {
+                              if (_formKey.currentState?.validate() ?? false) {
+                                uploadData(
+                                    FirebaseAuth.instance.currentUser!.uid);
+                              }
+                            }
+                          });
+                        },
+                        icon: Icons.email,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your email';
+                          }
+                          if (!RegExp(r'^[\w\.-]+@([\w-]+\.)+[\w-]{2,4}$')
+                              .hasMatch(value)) {
+                            return 'Please enter a valid email';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                      buildEditableField(
+                        context,
+                        "Phone Number",
+                        userphncontroller,
+                        isEditingPhn,
+                        () {
+                          setState(() {
+                            isEditingPhn = !isEditingPhn;
+                            if (!isEditingPhn) {
+                              if (_formKey.currentState?.validate() ?? false) {
+                                uploadData(
+                                    FirebaseAuth.instance.currentUser!.uid);
+                              }
+                            }
+                          });
+                        },
+                        icon: Icons.phone,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your phone number';
+                          }
+                          if (!RegExp(r'^\d{10}$').hasMatch(value)) {
+                            return 'Please enter a valid phone number';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 10, 30, 0),
+                  child: Row(
+                    children: [
+                      Icon(Icons.security_rounded, color: txtColor, size: 38),
+                      const SizedBox(width: 24),
+                      Text(
+                        'Privacy Policy',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      Spacer(),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PrivacyPage(),
+                            ),
+                          );
+                        },
+                        child: Icon(Icons.arrow_forward_ios_rounded,
+                            color: txtColor, size: 35),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: screenHeight * 0.04),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Perform logout logic here
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                        (route) => false,
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: txtColor,
+                        maximumSize: const Size(200, 1500),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        minimumSize: const Size(150, 50)),
+                    child: const Text(
+                      'Logout',
+                      style: TextStyle(
+                        fontSize: 24,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -218,14 +293,14 @@ class _PrflpageState extends State<Prflpage> {
     bool isEditing,
     VoidCallback onPressed, {
     required IconData icon,
-    double iconSize = 32, // Default size is 28.0
+    double iconSize = 32,
+    required String? Function(String?)? validator,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Row(
         children: [
-          Icon(icon,
-              color: txtColor, size: iconSize), // Added iconSize parameter
+          Icon(icon, color: txtColor, size: iconSize),
           const SizedBox(width: 20),
           Expanded(
             child: Container(
@@ -236,8 +311,9 @@ class _PrflpageState extends State<Prflpage> {
                 color: txtColor,
                 borderRadius: BorderRadius.circular(22),
               ),
+              height: 70, // Set a fixed height to maintain consistency
               child: isEditing
-                  ? TextField(
+                  ? TextFormField(
                       controller: controller,
                       decoration: InputDecoration(
                         border: InputBorder.none,
@@ -245,18 +321,27 @@ class _PrflpageState extends State<Prflpage> {
                         hintStyle: const TextStyle(color: Colors.white),
                       ),
                       style: const TextStyle(color: Colors.white),
+                      validator: validator,
                     )
                   : Text(
-                      controller.text,
+                      controller.text.isEmpty ? hintText : controller.text,
                       style: const TextStyle(color: Colors.white),
                     ),
             ),
           ),
-          // SizedBox(width: 0),
           IconButton(
             icon: Icon(isEditing ? Icons.save : Icons.edit),
             color: txtColor,
-            onPressed: onPressed,
+            onPressed: () {
+              if (isEditing) {
+                // Check if form is valid before uploading data
+                if (_formKey.currentState?.validate() ?? false) {
+                  onPressed();
+                }
+              } else {
+                onPressed();
+              }
+            },
           ),
         ],
       ),

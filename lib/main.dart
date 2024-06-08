@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
         'news': (context) => Newspage(),
         'courseoption': (context) => coursepage(),
         'enrolledcrspage': (context) => enrolledcrspage(),
-        'splash': (context) => SplashScreen(),
+        // 'splash': (context) => SplashScreen(),
         // 'nav': (context) => Nav(),
         'login': (context) => LoginScreen(),
         'signup': (context) => SignUpScreen(),

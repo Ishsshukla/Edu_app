@@ -1,85 +1,112 @@
-import 'package:edu_app/components/const.dart';
-import 'package:edu_app/students_screens/screens/splash.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// import 'done.dart';
-import 'numericpad.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class PhnHome extends StatefulWidget {
-  const PhnHome({super.key});
+  const PhnHome({Key? key}) : super(key: key);
 
   @override
   State<PhnHome> createState() => _HomeState();
 }
 
 class _HomeState extends State<PhnHome> {
-  TextEditingController _codecontroller = new TextEditingController();
-  String phoneNumber = "", data = "";
+  TextEditingController _phoneController = TextEditingController();
+  TextEditingController _codecontroller = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   String smscode = "";
 
+  bool _validatePhoneNumber(String value) {
+    // Add your phone number validation logic here
+    // For example, you can check if the phone number has 10 digits
+    return value.length == 10;
+  }
+
   _signInWithMobileNumber() async {
-    UserCredential _credential;
-    User user;
+    if (!_validatePhoneNumber(_phoneController.text.trim())) {
+      // If phone number is not valid, show error message
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Invalid Phone Number"),
+          content: Text("Please enter a valid 10-digit phone number."),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("OK"),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+
+    // Proceed with phone number verification
     try {
       await _auth.verifyPhoneNumber(
-          phoneNumber: '+91' + data.trim(),
-          verificationCompleted: (PhoneAuthCredential authCredential) async {
-            await _auth.signInWithCredential(authCredential).then((value) {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SplashScreen()));
-            });
-          },
-          verificationFailed: ((error) {
-            print(error);
-          }),
-          codeSent: (String verificationId, [int? forceResendingToken]) {
-            showDialog(
-                context: context,
-                barrierDismissible: false,
-                builder: (context) => AlertDialog(
-                      title: Text("Enter OTP"),
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          TextField(
-                            controller: _codecontroller,
-                          )
-                        ],
-                      ),
-                      actions: [
-                        ElevatedButton(
-                            onPressed: () {
-                              FirebaseAuth auth = FirebaseAuth.instance;
-                              smscode = _codecontroller.text;
-                              PhoneAuthCredential _credential =
-                                  PhoneAuthProvider.credential(
-                                      verificationId: verificationId,
-                                      smsCode: smscode);
-                              auth
-                                  .signInWithCredential(_credential)
-                                  .then((result) {
-                                if (result != null) {
-                                  Navigator.pop(context);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              SplashScreen()));
-                                }
-                              }).catchError((e) {
-                                print(e);
-                              });
-                            },
-                            child: Text("Done"))
-                      ],
-                    ));
-          },
-          codeAutoRetrievalTimeout: (String verificationId) {
-            verificationId = verificationId;
-          },
-          timeout: Duration(seconds: 45));
-    } catch (e) {}
+        phoneNumber: '+91' + _phoneController.text.trim(),
+        verificationCompleted: (PhoneAuthCredential authCredential) async {
+          await _auth.signInWithCredential(authCredential).then((value) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SplashScreen()),
+            );
+          });
+        },
+        verificationFailed: ((error) {
+          print(error);
+        }),
+        codeSent: (String verificationId, [int? forceResendingToken]) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => AlertDialog(
+              title: Text("Enter OTP"),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    controller: _codecontroller,
+                  )
+                ],
+              ),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    FirebaseAuth auth = FirebaseAuth.instance;
+                    smscode = _codecontroller.text;
+                    PhoneAuthCredential _credential =
+                        PhoneAuthProvider.credential(
+                      verificationId: verificationId,
+                      smsCode: smscode,
+                    );
+                    auth.signInWithCredential(_credential).then((result) {
+                      if (result != null) {
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SplashScreen()),
+                        );
+                      }
+                    }).catchError((e) {
+                      print(e);
+                    });
+                  },
+                  child: Text("Done"),
+                )
+              ],
+            ),
+          );
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {
+          verificationId = verificationId;
+        },
+        timeout: Duration(seconds: 45),
+      );
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -88,7 +115,7 @@ class _HomeState extends State<PhnHome> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
-          "Continue with phone No",
+          "Continue with Phone Number",
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -114,14 +141,14 @@ class _HomeState extends State<PhnHome> {
                     ],
                   ),
                 ),
-                child: const Column(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    SizedBox(
-                      height: 130,
+                    const SizedBox(
+                      height: 100,
                       child: Padding(
                         padding:
-                            EdgeInsets.symmetric(vertical: 14, horizontal: 64),
+                            EdgeInsets.symmetric(vertical: 104, horizontal: 64),
                         child: Text(
                           'Wait for Few seconds after entering your Phone Number',
                           style: TextStyle(
@@ -131,38 +158,21 @@ class _HomeState extends State<PhnHome> {
                         ),
                       ),
                     ),
-                    Padding(
+                    const Padding(
                       padding:
                           EdgeInsets.symmetric(vertical: 14, horizontal: 64),
                       child: Text(
-                        "You'll receive a 6 digit code to verify next.",
+                        "You'll receive a 6-digit code to verify next.",
                         style: TextStyle(
                           fontSize: 20,
                           color: Color(0xFF818181),
                         ),
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height * 0.13,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(25),
-                ),
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(16),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: 230,
+                    Padding(
+                      padding: EdgeInsets.all(16),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           Text(
                             "Enter your Phone Number",
@@ -175,64 +185,66 @@ class _HomeState extends State<PhnHome> {
                           SizedBox(
                             height: 8,
                           ),
-                          Text(
-                            phoneNumber,
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
+                          TextField(
+                            controller: _phoneController,
+                            keyboardType: TextInputType.phone,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Phone Number',
                             ),
+                            textAlign: TextAlign.center,
                           ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          data = phoneNumber;
-                          phoneNumber = "";
-
-                          setState(() {});
-
-                          _signInWithMobileNumber();
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: txtColor,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(15),
-                            ),
+                          SizedBox(
+                            height: 20,
                           ),
-                          child: Center(
-                            child: Text(
-                              "Continue",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
+                          GestureDetector(
+                            onTap: () {
+                              _signInWithMobileNumber();
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.symmetric(vertical: 12),
+                              decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(15),
+                                ),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "Continue",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
                     ),
                   ],
                 ),
               ),
             ),
-            NumericPad(
-              onNumberSelected: (value) {
-                setState(() {
-                  if (value != -1) {
-                    phoneNumber = phoneNumber + value.toString();
-                  } else {
-                    phoneNumber =
-                        phoneNumber.substring(0, phoneNumber.length - 1);
-                  }
-                });
-              },
-            ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class SplashScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Splash Screen'),
+      ),
+      body: Center(
+        child: Text('Splash Screen Content'),
       ),
     );
   }

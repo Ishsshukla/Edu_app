@@ -24,6 +24,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   String email = "", password = "";
   bool loading = false;
+  bool _obscureText = true;
   final _formKey = GlobalKey<FormState>();
   TextEditingController userfirstnamecontroller = TextEditingController();
   TextEditingController userlastnamecontroller = TextEditingController();
@@ -32,8 +33,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
-  final _formKEy = GlobalKey<FormState>();
 
   userLogin() async {
     try {
@@ -131,8 +130,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           prefixIcon: Icon(Icons.email),
                         ),
                         validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Enter Your email';
+                          if (value == null || value.isEmpty) {
+                            return 'Enter your email';
+                          }
+                          // Use a more accurate email regex pattern
+                          if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                              .hasMatch(value)) {
+                            return 'Enter a valid email';
                           }
                           return null;
                         },
@@ -143,14 +147,29 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextFormField(
                         keyboardType: TextInputType.text,
                         controller: passwordController,
-                        obscureText: true,
-                        decoration: const InputDecoration(
+                        obscureText: _obscureText,
+                        decoration: InputDecoration(
                           hintText: 'Password',
-                          prefixIcon: Icon(Icons.lock_open),
+                          prefixIcon: const Icon(Icons.lock_open),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscureText
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _obscureText = !_obscureText;
+                              });
+                            },
+                          ),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Enter password';
+                          }
+                          if (value.length < 6) {
+                            return 'Password must be at least 6 characters long';
                           }
                           return null;
                         },
@@ -208,18 +227,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           email = emailController.text;
                           password = passwordController.text;
                         });
+                        userLogin();
                       }
-                      userLogin().then((_) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Login successful'),
-                          ),
-                        );
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => OptionPage()),
-                        );
-                      });
                     },
                   ),
                 ),
