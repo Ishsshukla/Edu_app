@@ -3,6 +3,7 @@ import 'package:edu_app/components/const.dart';
 import 'package:edu_app/students_screens/pages/phnhomr.dart';
 import 'package:edu_app/students_screens/screens/class_options.dart';
 import 'package:edu_app/students_screens/screens/home.dart';
+import 'package:edu_app/students_screens/screens/splash.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,52 +27,99 @@ class _LoginScreenState extends State<LoginScreen> {
   bool loading = false;
   bool _obscureText = true;
   final _formKey = GlobalKey<FormState>();
-  TextEditingController userfirstnamecontroller = TextEditingController();
-  TextEditingController userlastnamecontroller = TextEditingController();
-  TextEditingController useremailcontroller = TextEditingController();
-  TextEditingController userphncontroller = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  userLogin() async {
+  Future<void> userLogin() async {
+    setState(() {
+      loading = true;
+    });
     try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password)
-          .then((value) async {
-        // Fetch user data from Firestore using the user's UID
-        var userData = await DatabaseMethods().getthisUserInfo(value.user!.uid);
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
-        // Update the profile data in your app state or wherever you're storing it
-        if (userData != null) {
-          setState(() {
-            // Update the user profile data in the UI or store it in your app state
-            userfirstnamecontroller.text = userData['First Name'] ?? '';
-            userlastnamecontroller.text = userData['Last Name'] ?? '';
-            useremailcontroller.text = userData['email'] ?? '';
-            userphncontroller.text = userData['phn'] ?? '';
-          });
-        }
+      // Fetch user data from Firestore using the user's UID
+      var userData =
+          await DatabaseMethods().getthisUserInfo(userCredential.user!.uid);
 
-        // Navigate to the homepage or any other screen after successful login
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Homepage()));
-      });
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('No user found for that email'),
-          ),
-        );
-      } else if (e.code == 'wrong-password') {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Wrong password provided for that user'),
-          ),
-        );
+      // Update the profile data in your app state or wherever you're storing it
+      if (userData != null) {
+        setState(() {
+          // Assuming you have some global state or profile data storage
+          // Update the user profile data in the UI or store it in your app state
+        });
       }
+
+      // Navigate to the homepage or any other screen after successful login
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => SplashScreen()),
+      );
+    } on FirebaseAuthException catch (e) {
+      String message;
+      if (e.code == 'user-not-found') {
+        message = 'No user found for that email';
+      } else if (e.code == 'wrong-password') {
+        message = 'Wrong password provided for that user';
+      } else {
+        message = 'No user found .';
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(message)),
+      );
+    } finally {
+      setState(() {
+        loading = false;
+      });
     }
+  }
+
+  void handleGoogleBtnClick() async {
+    try {
+      await GoogleSignIn().signOut();
+      UserCredential userCredential = await _signInWithGoogle();
+      log('\nUser : ${userCredential.user}');
+      log('\nuser: ${userCredential.additionalUserInfo}');
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const SplashScreen()),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to sign in with Google: $e')),
+      );
+    }
+  }
+
+  Future<UserCredential> _signInWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    if (googleUser == null) {
+      throw FirebaseAuthException(
+        code: 'ERROR_ABORTED_BY_USER',
+        message: 'Sign in aborted by user',
+      );
+    }
+
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+    final AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -133,7 +181,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (value == null || value.isEmpty) {
                             return 'Enter your email';
                           }
-                          // Use a more accurate email regex pattern
                           if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
                               .hasMatch(value)) {
                             return 'Enter a valid email';
@@ -141,9 +188,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           return null;
                         },
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      const SizedBox(height: 10),
                       TextFormField(
                         keyboardType: TextInputType.text,
                         controller: passwordController,
@@ -177,26 +222,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 50,
-                ),
+                const SizedBox(height: 50),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Login with Your Phone Number ?"),
+                    const Text("Login with Your Phone Number?"),
                     TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => PhnHome(),
-                            ),
-                          );
-                        },
-                        child: Text(
-                          'Login ',
-                          style: TextStyle(color: txtColor),
-                        )),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => PhnHome()),
+                        );
+                      },
+                      child: Text('Login', style: TextStyle(color: txtColor)),
+                    ),
                   ],
                 ),
                 Row(
@@ -204,18 +243,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     const Text("Forgot Password?"),
                     TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ForgotPassword(),
-                            ),
-                          );
-                        },
-                        child: Text(
-                          'Reset Password',
-                          style: TextStyle(color: txtColor),
-                        )),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ForgotPassword()),
+                        );
+                      },
+                      child: Text('Reset Password',
+                          style: TextStyle(color: txtColor)),
+                    ),
                   ],
                 ),
                 GestureDetector(
@@ -232,9 +269,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                 ),
-                const SizedBox(
-                  height: 5,
-                ),
+                const SizedBox(height: 5),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -244,29 +279,20 @@ class _LoginScreenState extends State<LoginScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => SignUpScreen(),
-                          ),
+                              builder: (context) => const SignUpScreen()),
                         );
                       },
-                      child: Text(
-                        'Sign up',
-                        style: TextStyle(color: txtColor),
-                      ),
+                      child: Text('Sign up', style: TextStyle(color: txtColor)),
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
+                const SizedBox(height: 30),
                 InkWell(
-                  onTap: () {
-                    handleGoogleBtnClick();
-                  },
+                  onTap: handleGoogleBtnClick,
                   child: Container(
                     height: 50,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
-                      // border: Border.all(color: Colors.black),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -290,44 +316,5 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
-  }
-
-  void handleGoogleBtnClick() async {
-    // Sign out any existing Google user to prompt account selection
-    await GoogleSignIn().signOut();
-  
-    // Sign in with Google
-    _signInWithGoogle().then((user) async {
-      log('\nUser : ${user.user}');
-      log('\nuser: ${user.additionalUserInfo}');
-
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => Homepage()),
-      );
-    });
-  }
-
-  Future<UserCredential> _signInWithGoogle() async {
-    // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    if (googleUser == null) {
-      // The user canceled the sign-in
-      throw FirebaseAuthException(
-          code: 'ERROR_ABORTED_BY_USER',
-          message: 'Sign in aborted by user');
-    }
-
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-
-    // Create a new credential
-    final AuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-
-    // Once signed in, return the UserCredential
-    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 }

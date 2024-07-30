@@ -1,7 +1,9 @@
 import 'package:edu_app/components/class_option.dart';
 import 'package:edu_app/firebase_options.dart';
+import 'package:edu_app/quiz/quiz_category.dart';
+import 'package:edu_app/students_screens/pages/user_notifier.dart';
 import 'package:edu_app/students_screens/screens/class_options.dart';
-import 'package:edu_app/students_screens/screens/congo.dart';
+import 'package:edu_app/quiz/congo.dart';
 import 'package:edu_app/students_screens/screens/crs.dart';
 import 'package:edu_app/students_screens/screens/crs_description.dart';
 import 'package:edu_app/students_screens/screens/course_fail.dart';
@@ -15,24 +17,21 @@ import 'package:edu_app/students_screens/screens/payment_method.dart';
 import 'package:edu_app/students_screens/screens/paysucess.dart';
 import 'package:edu_app/students_screens/screens/privacypolicy.dart';
 import 'package:edu_app/students_screens/screens/profile.dart';
-import 'package:edu_app/students_screens/screens/quiz1.dart';
+import 'package:edu_app/quiz/quiz1.dart';
 import 'package:edu_app/students_screens/screens/review.dart';
 import 'package:edu_app/students_screens/screens/splash.dart';
 import 'package:edu_app/students_screens/screens/transaction_sucess.dart';
+import 'package:edu_app/students_screens/upi/upi_screen.dart';
 import 'package:edu_app/teacher_side/home.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:edu_app/students_screens/screens/class_options.dart';
+import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
-import 'package:edu_app/teacher_side/class_options.dart';
-
+import 'quiz/quiz_welcm_screen.dart';
 import 'students_screens/auth/login.dart';
-// import 'students_screens/auth/phoneno.dart';
 import 'students_screens/auth/signup.dart';
 import 'students_screens/screens/splash2.dart';
-
-// import 'package:counsellor/components/home_card.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,39 +46,39 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: 'profile',
-      // initialRoute: 'subject_wise_attendance',
-      routes: {
-        'paysucess': (context) => Paysucesspage(),
-        'optionpage': (context) => OptionPage(),
-        'courseoptionpage': (context) => courseoptionPage(),
-        'homepage': (context) => Homepage(),
-        'profile': (context) => Prflpage(),
-        'congo': (context) => Congopage(),
-        'transaction_sucess': (context) => transactionpage(),
-        'review': (context) => Reviewpage(),
-        'paymethod': (context) => PayMethodPage(),
-        'finalpay': (context) => Finalpaypage(),
-        'coursedescr': (context) => CourseDescriptionpage(),
-        'quiz': (context) => QuizPage(),
-        'coursefail': (context) => const CourseFailPage(),
-        'privacy': (context) => const PrivacyPage(),
-        'news': (context) => Newspage(),
-        'courseoption': (context) => coursepage(),
-        'enrolledcrspage': (context) => enrolledcrspage(),
-        // 'splash': (context) => SplashScreen(),
-        // 'nav': (context) => Nav(),
-        'login': (context) => LoginScreen(),
-        'signup': (context) => SignUpScreen(),
-        'splash2': (context) => SplashScreen2(),
-        // 'phonenumber': (context) => LoginWithPhoneNumber(),
-        'phnhome': (context) => PhnHome(),
-
-        'clsoptions': (context) => teacherOptionPage(),
-        'Thome': (context) => teachHomepage()
-      },
+    return ChangeNotifierProvider(
+      create: (context) => UserNotifier(),
+      child: GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/upi_screen',
+        getPages: [
+          GetPage(name: '/upi_screen', page: () => UpiScreen()),
+          GetPage(name: '/category_quiz', page: () => QuizCategoryScreen()),
+          GetPage(name: '/welcm_quiz', page: () => WelcomeScreen()),
+          GetPage(name: '/paysucess', page: () => Paysucesspage()),
+          GetPage(name: '/optionpage', page: () => OptionPage()),
+          GetPage(name: '/courseoptionpage', page: () => courseoptionPage()),
+          GetPage(name: '/homepage', page: () => Homepage()),
+          GetPage(name: '/profile', page: () => Prflpage()),
+          GetPage(name: '/congo', page: () => Congopage()),
+          GetPage(name: '/transaction_sucess', page: () => transactionpage()),
+          GetPage(name: '/review', page: () => Reviewpage()),
+          GetPage(name: '/paymethod', page: () => PayMethodPage()),
+          GetPage(name: '/finalpay', page: () => Finalpaypage()),
+          GetPage(name: '/coursedescr', page: () => CourseDescriptionpage()),
+          GetPage(name: '/quiz', page: () => QuizPage()),
+          GetPage(name: '/coursefail', page: () => CourseFailPage()),
+          GetPage(name: '/privacy', page: () => PrivacyPage()),
+          GetPage(name: '/news', page: () => Newspage()),
+          GetPage(name: '/courseoption', page: () => coursepage()),
+          GetPage(name: '/enrolledcrspage', page: () => enrolledcrspage()),
+          GetPage(name: '/login', page: () => LoginScreen()),
+          GetPage(name: '/signup', page: () => SignUpScreen()),
+          GetPage(name: '/splash2', page: () => SplashScreen2()),
+          GetPage(name: '/phnhome', page: () => PhnHome()),
+          GetPage(name: '/Thome', page: () => teachHomepage()),
+        ],
+      ),
     );
   }
 }

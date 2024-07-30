@@ -1,5 +1,5 @@
 import 'package:edu_app/components/const.dart';
-import 'package:edu_app/students_screens/screens/congo.dart';
+import 'package:edu_app/quiz/congo.dart';
 import 'package:flutter/material.dart';
 
 class QuizPage2 extends StatefulWidget {

@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class Nav extends StatefulWidget {
   final int initialIndex;
 
-  Nav({required this.initialIndex});
+ const Nav({required this.initialIndex});
 
   @override
   _NavState createState() => _NavState();

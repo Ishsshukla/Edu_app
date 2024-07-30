@@ -1,3 +1,5 @@
+import 'package:edu_app/components/const.dart';
+import 'package:edu_app/students_screens/screens/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -15,14 +17,11 @@ class _HomeState extends State<PhnHome> {
   String smscode = "";
 
   bool _validatePhoneNumber(String value) {
-    // Add your phone number validation logic here
-    // For example, you can check if the phone number has 10 digits
     return value.length == 10;
   }
 
   _signInWithMobileNumber() async {
     if (!_validatePhoneNumber(_phoneController.text.trim())) {
-      // If phone number is not valid, show error message
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -41,7 +40,6 @@ class _HomeState extends State<PhnHome> {
       return;
     }
 
-    // Proceed with phone number verification
     try {
       await _auth.verifyPhoneNumber(
         phoneNumber: '+91' + _phoneController.text.trim(),
@@ -49,7 +47,7 @@ class _HomeState extends State<PhnHome> {
           await _auth.signInWithCredential(authCredential).then((value) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => SplashScreen()),
+              MaterialPageRoute(builder: (context) => const SplashScreen()),
             );
           });
         },
@@ -61,7 +59,7 @@ class _HomeState extends State<PhnHome> {
             context: context,
             barrierDismissible: false,
             builder: (context) => AlertDialog(
-              title: Text("Enter OTP"),
+              title: const Text("Enter OTP"),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -86,14 +84,14 @@ class _HomeState extends State<PhnHome> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => SplashScreen()),
+                              builder: (context) => const SplashScreen()),
                         );
                       }
                     }).catchError((e) {
                       print(e);
                     });
                   },
-                  child: Text("Done"),
+                  child: const Text("Done"),
                 )
               ],
             ),
@@ -102,7 +100,7 @@ class _HomeState extends State<PhnHome> {
         codeAutoRetrievalTimeout: (String verificationId) {
           verificationId = verificationId;
         },
-        timeout: Duration(seconds: 45),
+        timeout: const Duration(seconds: 45),
       );
     } catch (e) {
       print(e);
@@ -114,7 +112,7 @@ class _HomeState extends State<PhnHome> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Continue with Phone Number",
           style: TextStyle(
             fontSize: 18,
@@ -133,8 +131,6 @@ class _HomeState extends State<PhnHome> {
               child: Container(
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
                     colors: [
                       Color(0xFFFFFFFF),
                       Color(0xFFF7F7F7),
@@ -142,27 +138,12 @@ class _HomeState extends State<PhnHome> {
                   ),
                 ),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    const SizedBox(
-                      height: 100,
-                      child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 104, horizontal: 64),
-                        child: Text(
-                          'Wait for Few seconds after entering your Phone Number',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Color(0xFF818181),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 14, horizontal: 64),
+                   const  Padding(
+                      padding:  EdgeInsets.fromLTRB(30, 30, 15, 30),
                       child: Text(
-                        "You'll receive a 6-digit code to verify next.",
+                        'Wait for Few seconds after entering your Phone Number',
                         style: TextStyle(
                           fontSize: 20,
                           color: Color(0xFF818181),
@@ -170,11 +151,11 @@ class _HomeState extends State<PhnHome> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          Text(
+                          const Text(
                             "Enter your Phone Number",
                             style: TextStyle(
                               fontSize: 14,
@@ -182,19 +163,19 @@ class _HomeState extends State<PhnHome> {
                               color: Colors.grey,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 8,
                           ),
                           TextField(
                             controller: _phoneController,
                             keyboardType: TextInputType.phone,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               hintText: 'Phone Number',
                             ),
                             textAlign: TextAlign.center,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           GestureDetector(
@@ -202,23 +183,34 @@ class _HomeState extends State<PhnHome> {
                               _signInWithMobileNumber();
                             },
                             child: Container(
-                              width: double.infinity,
-                              padding: EdgeInsets.symmetric(vertical: 12),
+                              width: 220,
+                              padding: const EdgeInsets.symmetric(vertical: 12),
                               decoration: BoxDecoration(
-                                color: Colors.blue,
-                                borderRadius: BorderRadius.all(
+                                color: txtColor,
+                                borderRadius: const BorderRadius.all(
                                   Radius.circular(15),
                                 ),
                               ),
-                              child: Center(
+                              child:const Center(
                                 child: Text(
                                   "Continue",
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 18,
+                                    fontSize: 22,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          const Padding(
+                            padding: EdgeInsets.fromLTRB(15, 50, 15, 0),
+                            child: Text(
+                              "You'll receive a 6-digit code to verify next.",
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Color(0xFF818181),
                               ),
                             ),
                           ),
@@ -231,20 +223,6 @@ class _HomeState extends State<PhnHome> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class SplashScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Splash Screen'),
-      ),
-      body: Center(
-        child: Text('Splash Screen Content'),
       ),
     );
   }

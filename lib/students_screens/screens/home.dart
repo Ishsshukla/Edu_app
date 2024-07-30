@@ -1,78 +1,48 @@
-import 'package:edu_app/components/learningbox.dart';
-import 'package:edu_app/components/review_componemt.dart';
-import 'package:edu_app/students_screens/firebase_services/database.dart';
-import 'package:edu_app/students_screens/screens/navbar.dart';
-import 'package:edu_app/students_screens/screens/news.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:edu_app/models/headline.dart';
+import 'package:edu_app/models/new_page_model.dart';
+import 'package:edu_app/students_screens/screens/splash.dart';
+import 'package:edu_app/students_screens/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
+import '../../components/review_componemt.dart';
+import '../pages/user_notifier.dart';
+import 'navbar.dart';
+// import 'user_notifier.dart';
 
 class Homepage extends StatefulWidget {
   @override
-  State<Homepage> createState() => _HomepageState();
+  _HomepageState createState() => _HomepageState();
 }
 
 TextEditingController _controller = TextEditingController();
 
 class _HomepageState extends State<Homepage> {
-  // uploadData() async {
-  //   Map<String, dynamic> uploaddata = {
-  //     'First Name': userfirstnamecontroller.text,
-  //     'Last Name': userlastnamecontroller.text,
-  //     'Age': useragecontroller.text,
-  //   };
-  //   await DatabaseMethods().addUserDetails(uploaddata);
-  //   Fluttertoast.showToast(
-  //       msg: "Data Uploaded Sucessfully",
-  //       toastLength: Toast.LENGTH_SHORT,
-  //       gravity: ToastGravity.CENTER,
-  //       timeInSecForIosWeb: 1,
-  //       backgroundColor: Colors.red,
-  //       textColor: Colors.white,
-  //       fontSize: 16.0
-  //   );
-  // }
-
-  // TextEditingController userfirstnamecontroller = new TextEditingController();
-  // TextEditingController userlastnamecontroller = new TextEditingController();
-  // TextEditingController useragecontroller = new TextEditingController();
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Hi ishii',
-              style: TextStyle(
-                color: Color.fromARGB(255, 17, 1, 1),
-                letterSpacing: 1.0,
-                fontSize: 26,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'poppins',
-              ),
-            ),
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final userNotifier = Provider.of<UserNotifier>(context);
+    NewsViewModel newsViewModel = NewsViewModel();
 
-            // txt('what you want to learn today', context),
-            SizedBox(
-              width: 148,
-            ),
-            Icon(
-              Icons.notifications_rounded,
-              color: Colors.grey,
-              size: 35,
-            ),
-          ],
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title:
+            Text('Hiii  ${userNotifier.firstName}  ${userNotifier.lastName}'),
         backgroundColor: Colors.white,
-        elevation: 0.0,
+        // elevation: 0.0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 30, 0),
+            child: IconButton(
+              icon: Icon(Icons.notifications),
+              onPressed: () {
+                // Add your desired functionality here
+              },
+            ),
+          ),
+        ],
       ),
-      bottomNavigationBar: Nav(initialIndex: 0),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -192,21 +162,46 @@ class _HomepageState extends State<Homepage> {
                   txt('  Latest Current Affairs', context),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => (Newspage())),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => (())),
+                      // );
                     },
                     // Add your desired functionality here
 
-                    child: txt('  See all', context),
+                    child: txt('  ', context),
                   ),
                 ],
               ),
+              SizedBox(
+                  height: screenHeight * 0.4,
+                  width: screenWidth,
+                  child: FutureBuilder<NewsChannelsHeadlineModels>(
+                      future: newsViewModel.fetchNewsChannelHeadlineApi(),
+                      builder: (BuildContext context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(
+                            child: SpinKitCircle(
+                              color: Colors.blue,
+                              size: 50,
+                            ),
+                          );
+                        } else {
+                          return ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              itemCount: snapshot.data!.articles!.length,
+                              itemBuilder: (context, index) {
+                                return newsBox(snapshot, index, '', 0.28, 0.7,
+                                    0.18, context, null);
+                              });
+                        }
+                      })),
             ],
           ),
         ),
       ),
+      bottomNavigationBar: Nav(initialIndex: 0),
     );
   }
 }

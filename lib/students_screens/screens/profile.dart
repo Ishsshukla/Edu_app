@@ -11,6 +11,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
+
+import '../pages/user_notifier.dart';
 
 class Prflpage extends StatefulWidget {
   @override
@@ -47,6 +50,9 @@ class _PrflpageState extends State<Prflpage> {
           useremailcontroller.text = userData['email'] ?? '';
           userphncontroller.text = userData['phn'] ?? '';
         });
+
+        Provider.of<UserNotifier>(context, listen: false).updateName(
+            userData['First Name'] ?? '', userData['Last Name'] ?? '');
       }
     }
   }
@@ -60,11 +66,10 @@ class _PrflpageState extends State<Prflpage> {
         'phn': userphncontroller.text,
       };
 
-      // Save data to Firestore with the user ID as the document ID
       await DatabaseMethods().updateUserDetails(uploaddata, userId);
 
-      // Save data locally
-      await SharedPreferencesHelper.saveUserProfile(uploaddata);
+      Provider.of<UserNotifier>(context, listen: false).updateName(
+          userfirstnamecontroller.text, userlastnamecontroller.text);
 
       Fluttertoast.showToast(
         msg: "Data Saved Successfully",
@@ -334,7 +339,6 @@ class _PrflpageState extends State<Prflpage> {
             color: txtColor,
             onPressed: () {
               if (isEditing) {
-                // Check if form is valid before uploading data
                 if (_formKey.currentState?.validate() ?? false) {
                   onPressed();
                 }
