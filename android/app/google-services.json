@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "145407528154",
+    "project_id": "eduapp-fdac7",
+    "storage_bucket": "eduapp-fdac7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145407528154:android:d1dcf360259d190c2529e3",
+        "android_client_info": {
+          "package_name": "com.example.edu_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD36lZcJMu-7foE4H8ZRs-rp4Y5y6Dz4SY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
