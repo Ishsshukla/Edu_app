@@ -53,7 +53,7 @@ class _EditableButtonState extends State<EditableButton> {
         Icon(
           widget.iconData,
           size: 40,
-          color: Colors.blue.shade700,
+          color: txtColor,
         ),
         SizedBox(
           width: screenWidth * 0.06,
@@ -113,7 +113,7 @@ class _EditableButtonState extends State<EditableButton> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 4, horizontal: 10),
                             decoration: BoxDecoration(
-                              border: Border.all(color: Colors.blue),
+                              border: Border.all(color: txtColor),
                               borderRadius: BorderRadius.circular(5),
                             ),
                             child: Text(
@@ -135,7 +135,7 @@ class _EditableButtonState extends State<EditableButton> {
               child: Text(
                 _editing ? 'Save' : 'Edit',
                 style: TextStyle(
-                  color: Colors.blue,
+                  color: txtColor,
                 ),
               ),
             ),

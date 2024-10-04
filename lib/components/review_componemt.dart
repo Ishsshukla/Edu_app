@@ -13,11 +13,11 @@ Widget reivewtxt(
       padding: const EdgeInsets.only(left: 0, right: 0, top: 10, bottom: 0),
       child: Column(
         children: [
-          Image.asset(img, scale: 2),
+          Image.asset(img, scale: 2.5),
           Text(text,
               style: TextStyle(
                 fontSize: 16,
-                color: Colors.blue[700],
+                color: txtColor,
                 fontWeight: FontWeight.normal,
               )),
         ],
@@ -69,4 +69,3 @@ Widget txt2(
     ),
   );
 }
-

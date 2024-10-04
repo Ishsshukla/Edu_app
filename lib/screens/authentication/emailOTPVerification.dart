@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:edu_app/screens/authentication.dart/reset_password.dart';
+import 'package:edu_app/screens/authentication/reset_password.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';

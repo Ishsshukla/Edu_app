@@ -1,8 +1,8 @@
 import 'package:edu_app/components/button.dart';
 import 'package:edu_app/components/splash_slider.dart';
 import 'package:edu_app/constants/constants.dart';
-import 'package:edu_app/screens/authentication.dart/create_account.dart';
-import 'package:edu_app/screens/authentication.dart/login_screen.dart';
+import 'package:edu_app/screens/authentication/create_account.dart';
+import 'package:edu_app/screens/authentication/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

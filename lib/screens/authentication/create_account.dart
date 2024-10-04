@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:password_field_validator/password_field_validator.dart';
+// import 'package:password_field_validator/password_field_validator.dart';
 import 'package:edu_app/components/custom_button.dart';
 import 'package:edu_app/constants/constants.dart';
 import 'package:edu_app/controllers/auth_controllers.dart';
