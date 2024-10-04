@@ -3,7 +3,7 @@ import 'package:edu_app/quiz/congo.dart';
 import 'package:flutter/material.dart';
 
 class QuizPage2 extends StatefulWidget {
-  const QuizPage2({Key? key}) : super(key: key);
+  const QuizPage2({super.key});
 
   @override
   _QuizPageState createState() => _QuizPageState();
@@ -91,7 +91,7 @@ class _QuizPageState extends State<QuizPage2> {
               ),
             ),
             const SizedBox(height: 50),
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width * .9,
               height: 65,
               child: ElevatedButton(

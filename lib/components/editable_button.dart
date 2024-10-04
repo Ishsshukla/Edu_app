@@ -9,12 +9,12 @@ class EditableButton extends StatefulWidget {
   final IconData iconData;
 
   const EditableButton({
-    Key? key,
+    super.key,
     this.initialText = 'Click to edit',
     required this.onTextChanged,
     required this.text,
     required this.iconData,
-  }) : super(key: key);
+  });
 
   @override
   _EditableButtonState createState() => _EditableButtonState();
@@ -76,7 +76,7 @@ class _EditableButtonState extends State<EditableButton> {
                     fontFamily: 'poppins',
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 SizedBox(

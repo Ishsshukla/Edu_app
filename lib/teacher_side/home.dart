@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class teachHomepage extends StatefulWidget {
+  const teachHomepage({super.key});
+
   @override
   State<teachHomepage> createState() => _HomepageState();
 }
@@ -48,7 +50,7 @@ class _HomepageState extends State<teachHomepage> {
         backgroundColor: Colors.white,
         elevation: 0.0,
       ),
-      bottomNavigationBar: Nav(initialIndex: 0),
+      bottomNavigationBar: const Nav(initialIndex: 0),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -69,7 +71,7 @@ class _HomepageState extends State<teachHomepage> {
                       controller: _controller,
                       decoration: InputDecoration(
                         hintText: 'Search...',
-                        prefixIcon: Icon(Icons.search),
+                        prefixIcon: const Icon(Icons.search),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),

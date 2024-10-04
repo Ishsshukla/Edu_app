@@ -11,6 +11,8 @@ import 'navbar.dart';
 // import 'user_notifier.dart';
 
 class Homepage extends StatefulWidget {
+  const Homepage({super.key});
+
   @override
   _HomepageState createState() => _HomepageState();
 }
@@ -35,7 +37,7 @@ class _HomepageState extends State<Homepage> {
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 30, 0),
             child: IconButton(
-              icon: Icon(Icons.notifications),
+              icon: const Icon(Icons.notifications),
               onPressed: () {
                 // Add your desired functionality here
               },
@@ -63,7 +65,7 @@ class _HomepageState extends State<Homepage> {
                       controller: _controller,
                       decoration: InputDecoration(
                         hintText: 'Search...',
-                        prefixIcon: Icon(Icons.search),
+                        prefixIcon: const Icon(Icons.search),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -181,7 +183,7 @@ class _HomepageState extends State<Homepage> {
                       builder: (BuildContext context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return Center(
+                          return const Center(
                             child: SpinKitCircle(
                               color: Colors.blue,
                               size: 50,
@@ -201,7 +203,7 @@ class _HomepageState extends State<Homepage> {
           ),
         ),
       ),
-      bottomNavigationBar: Nav(initialIndex: 0),
+      bottomNavigationBar: const Nav(initialIndex: 0),
     );
   }
 }

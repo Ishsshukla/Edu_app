@@ -25,7 +25,7 @@ class Body extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              ProgressBar(),
+              const ProgressBar(),
               Obx(
                 () => Text.rich(
                   TextSpan(

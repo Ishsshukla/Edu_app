@@ -6,6 +6,8 @@ import 'package:edu_app/students_screens/screens/final_pay.dart';
 import 'package:flutter/material.dart';
 
 class PayMethodPage extends StatefulWidget {
+  const PayMethodPage({super.key});
+
   @override
   State<PayMethodPage> createState() => _PayMethodState();
 }
@@ -85,7 +87,7 @@ class _PayMethodState extends State<PayMethodPage> {
                 ),
 
                 // Divider and title
-                Divider(color: Colors.grey),
+                const Divider(color: Colors.grey),
                 const SizedBox(height: 20),
                 const Align(
                   alignment: Alignment.centerLeft,

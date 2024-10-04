@@ -6,6 +6,8 @@ import 'package:edu_app/students_screens/screens/navbar.dart';
 import 'package:flutter/material.dart';
 
 class coursepage extends StatefulWidget {
+  const coursepage({super.key});
+
   @override
   State<coursepage> createState() => _optionpageState();
 }
@@ -14,7 +16,7 @@ class _optionpageState extends State<coursepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Nav(initialIndex: 1),
+      bottomNavigationBar: const Nav(initialIndex: 1),
       body: SingleChildScrollView(
         child: Column(
           children: [

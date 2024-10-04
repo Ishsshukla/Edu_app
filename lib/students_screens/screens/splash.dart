@@ -4,7 +4,7 @@ import 'package:edu_app/students_screens/firebase_services/splash_services.dart'
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() => _SplashState();
@@ -18,16 +18,17 @@ class _SplashState extends State<SplashScreen> {
     splashScreen.isLogin(context);
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.fromLTRB(0, 0, 0, 48), // Add padding here
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 48), // Add padding here
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset('assets/Hero Image.png'),
             const SizedBox(height: 56),
-            Container(
+            SizedBox(
               width: 200, // Set the desired width
               child: const Text(
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras netus mauris pulvinar suspendisse. Et sit ac lacus in rhoncus.',

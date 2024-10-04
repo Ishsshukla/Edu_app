@@ -9,7 +9,7 @@ import '../widgets/round_button.dart';
 
 
 class AddPostScreen extends StatefulWidget {
-  const AddPostScreen({Key? key}) : super(key: key);
+  const AddPostScreen({super.key});
 
   @override
   State<AddPostScreen> createState() => _AddPostScreenState();
@@ -25,25 +25,25 @@ class _AddPostScreenState extends State<AddPostScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Post'),
+        title: const Text('Add Post'),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
 
             TextFormField(
               maxLines: 4,
               controller: postController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'What is in your mind?' ,
                 border: OutlineInputBorder()
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             RoundButton(

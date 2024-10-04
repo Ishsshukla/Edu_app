@@ -16,6 +16,8 @@ import 'package:provider/provider.dart';
 import '../pages/user_notifier.dart';
 
 class Prflpage extends StatefulWidget {
+  const Prflpage({super.key});
+
   @override
   State<Prflpage> createState() => _PrflpageState();
 }
@@ -43,18 +45,16 @@ class _PrflpageState extends State<Prflpage> {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       var userData = await DatabaseMethods().getthisUserInfo(user.uid);
-      if (userData != null) {
-        setState(() {
-          userfirstnamecontroller.text = userData['First Name'] ?? '';
-          userlastnamecontroller.text = userData['Last Name'] ?? '';
-          useremailcontroller.text = userData['email'] ?? '';
-          userphncontroller.text = userData['phn'] ?? '';
-        });
+      setState(() {
+        userfirstnamecontroller.text = userData['First Name'] ?? '';
+        userlastnamecontroller.text = userData['Last Name'] ?? '';
+        useremailcontroller.text = userData['email'] ?? '';
+        userphncontroller.text = userData['phn'] ?? '';
+      });
 
-        Provider.of<UserNotifier>(context, listen: false).updateName(
-            userData['First Name'] ?? '', userData['Last Name'] ?? '');
-      }
-    }
+      Provider.of<UserNotifier>(context, listen: false).updateName(
+          userData['First Name'] ?? '', userData['Last Name'] ?? '');
+        }
   }
 
   Future<void> uploadData(String userId) async {
@@ -235,17 +235,17 @@ class _PrflpageState extends State<Prflpage> {
                     children: [
                       Icon(Icons.security_rounded, color: txtColor, size: 38),
                       const SizedBox(width: 24),
-                      Text(
+                      const Text(
                         'Privacy Policy',
                         style: TextStyle(fontSize: 20),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => PrivacyPage(),
+                              builder: (context) => const PrivacyPage(),
                             ),
                           );
                         },
@@ -262,7 +262,7 @@ class _PrflpageState extends State<Prflpage> {
                       // Perform logout logic here
                       Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                        MaterialPageRoute(builder: (context) => const LoginScreen()),
                         (route) => false,
                       );
                     },
@@ -287,7 +287,7 @@ class _PrflpageState extends State<Prflpage> {
           ),
         ),
       ),
-      bottomNavigationBar: Nav(initialIndex: 2),
+      bottomNavigationBar: const Nav(initialIndex: 2),
     );
   }
 

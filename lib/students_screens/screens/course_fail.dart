@@ -2,7 +2,7 @@ import 'package:edu_app/components/const.dart';
 import 'package:flutter/material.dart';
 
 class CourseFailPage extends StatefulWidget {
-  const CourseFailPage({Key? key}) : super(key: key);
+  const CourseFailPage({super.key});
 
   @override
   _CourseFailPageState createState() => _CourseFailPageState();

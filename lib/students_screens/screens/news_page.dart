@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomDropDownWidget extends StatefulWidget {
-  const CustomDropDownWidget({Key? key}) : super(key: key);
+  const CustomDropDownWidget({super.key});
 
   @override
   State<CustomDropDownWidget> createState() => _CustomDropDownWidgetState();
@@ -93,14 +93,14 @@ class _CustomDropDownWidgetState extends State<CustomDropDownWidget> {
                                       child: Text(selectedValue,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline5!
+                                              .headlineSmall!
                                               .copyWith(fontSize: 16))),
                                   Icon(
                                     isExpanded
                                         ? Icons.keyboard_arrow_up
                                         : Icons.keyboard_arrow_down,
                                     color: isExpanded
-                                        ? Color.fromARGB(255, 54, 73, 244)
+                                        ? const Color.fromARGB(255, 54, 73, 244)
                                         : Colors.blue,
                                   )
                                 ],
@@ -111,7 +111,7 @@ class _CustomDropDownWidgetState extends State<CustomDropDownWidget> {
                     if (isExpanded)
                       ListView(
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         children: politicsList
                             .map((e) => InkWell(
                                   onTap: () {
@@ -124,7 +124,7 @@ class _CustomDropDownWidgetState extends State<CustomDropDownWidget> {
                                       width: double.infinity,
                                       decoration: BoxDecoration(
                                         color: selectedValue == e
-                                            ? Color.fromARGB(75, 114, 104, 108)
+                                            ? const Color.fromARGB(75, 114, 104, 108)
                                             : Colors.grey.shade300,
                                       ),
                                       child: Center(
@@ -132,12 +132,12 @@ class _CustomDropDownWidgetState extends State<CustomDropDownWidget> {
                                         e.toString(),
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline2!
+                                            .displayMedium!
                                             .copyWith(
                                                 fontSize: 14,
                                                 color: selectedValue == e
                                                     ? Colors.black
-                                                    : Color.fromARGB(
+                                                    : const Color.fromARGB(
                                                         110, 0, 0, 0)),
                                       ))),
                                 ))

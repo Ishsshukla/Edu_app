@@ -19,7 +19,7 @@ Widget lrngboxtxt(
         ),
         Text(
           text,
-          style: TextStyle(
+          style: const TextStyle(
             backgroundColor: Colors.white,
           ),
         )

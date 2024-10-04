@@ -16,7 +16,7 @@ import 'signup.dart';
 import 'package:edu_app/students_screens/screens/profile.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -47,17 +47,15 @@ class _LoginScreenState extends State<LoginScreen> {
           await DatabaseMethods().getthisUserInfo(userCredential.user!.uid);
 
       // Update the profile data in your app state or wherever you're storing it
-      if (userData != null) {
-        setState(() {
-          // Assuming you have some global state or profile data storage
-          // Update the user profile data in the UI or store it in your app state
-        });
-      }
-
+      setState(() {
+        // Assuming you have some global state or profile data storage
+        // Update the user profile data in the UI or store it in your app state
+      });
+    
       // Navigate to the homepage or any other screen after successful login
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => SplashScreen()),
+        MaterialPageRoute(builder: (context) => const SplashScreen()),
       );
     } on FirebaseAuthException catch (e) {
       String message;
@@ -231,7 +229,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => PhnHome()),
+                          MaterialPageRoute(builder: (context) => const PhnHome()),
                         );
                       },
                       child: Text('Login', style: TextStyle(color: txtColor)),
@@ -247,7 +245,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ForgotPassword()),
+                              builder: (context) => const ForgotPassword()),
                         );
                       },
                       child: Text('Reset Password',

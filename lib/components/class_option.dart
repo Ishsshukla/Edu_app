@@ -6,14 +6,14 @@ Widget clstxt(
   BuildContext context,
 ) {
   return Padding(
-    padding: EdgeInsets.only(left: 0, right: 0, top: 10, bottom: 10),
+    padding: const EdgeInsets.only(left: 0, right: 0, top: 10, bottom: 10),
     child: Container(
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Container(
-        padding: EdgeInsets.fromLTRB(60, 10, 60, 10),
+        padding: const EdgeInsets.fromLTRB(60, 10, 60, 10),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
@@ -24,7 +24,7 @@ Widget clstxt(
         ),
         child: Text(
           text,
-          style: TextStyle(fontSize: 20, color: Colors.black),
+          style: const TextStyle(fontSize: 20, color: Colors.black),
         ),
       ),
     ),

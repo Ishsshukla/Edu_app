@@ -15,7 +15,7 @@ import '../students_screens/utils/utils.dart';
 
 
 class InsertFireStoreScreen extends StatefulWidget {
-  const InsertFireStoreScreen({Key? key}) : super(key: key);
+  const InsertFireStoreScreen({super.key});
 
   @override
   State<InsertFireStoreScreen> createState() => _InsertFireStoreScreenState();
@@ -41,20 +41,20 @@ class _InsertFireStoreScreenState extends State<InsertFireStoreScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Post'),
+        title: const Text('Post'),
         actions: [
           IconButton(onPressed: (){
             auth.signOut().then((value){
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()));
+                  MaterialPageRoute(builder: (context) => const LoginScreen()));
             }).onError((error, stackTrace){
               Utils().toastMessage(error.toString());
             });
-          }, icon: Icon(Icons.logout_outlined),),
-          SizedBox(width: 10,)
+          }, icon: const Icon(Icons.logout_outlined),),
+          const SizedBox(width: 10,)
         ],
       ),
-      body: Column(
+      body: const Column(
         children: [
         ],
       ),
@@ -70,7 +70,7 @@ class _InsertFireStoreScreenState extends State<InsertFireStoreScreen> {
           });
 
         } ,
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

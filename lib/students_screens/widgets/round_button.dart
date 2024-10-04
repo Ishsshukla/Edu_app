@@ -5,10 +5,10 @@ class RoundButton extends StatelessWidget {
   final String title;
   final VoidCallback ontap;
   const RoundButton({
-    Key? key,
+    super.key,
     required this.title,
     required this.ontap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

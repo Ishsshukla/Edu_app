@@ -18,8 +18,8 @@ class QuestionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     QuestionController questionController = Get.put(QuestionController());
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-      padding: EdgeInsets.all(kDefaultPadding),
+      margin: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+      padding: const EdgeInsets.all(kDefaultPadding),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(25),

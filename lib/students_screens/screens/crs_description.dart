@@ -58,7 +58,7 @@ class _CourseDescriptionState extends State<CourseDescriptionpage> {
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(70),
                       topRight: Radius.circular(70),
                     ),
@@ -67,7 +67,7 @@ class _CourseDescriptionState extends State<CourseDescriptionpage> {
                         color: Colors.grey.withOpacity(0.5),
                         spreadRadius: 2,
                         blurRadius: 5,
-                        offset: Offset(0, 3),
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
@@ -82,7 +82,7 @@ class _CourseDescriptionState extends State<CourseDescriptionpage> {
                           alignment: Alignment.centerLeft,
                           child: txt('Course Info', context),
                         ),
-                        Align(
+                        const Align(
                           alignment: Alignment.centerLeft,
                           child: Text('Sainik School'),
                         ),
@@ -183,7 +183,7 @@ class _CourseDescriptionState extends State<CourseDescriptionpage> {
                         SizedBox(
                           height: screenHeight * 0.04,
                         ),
-                        Divider(
+                        const Divider(
                           color: Colors.grey,
                         ),
                         SizedBox(

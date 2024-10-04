@@ -250,7 +250,7 @@ class _ReviewState extends State<Reviewpage> {
                             padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(0, 6, 0, 22),
-                              child: Container(
+                              child: SizedBox(
                                 height: 80,
                                 width: 200, // Set the desired width here
                                 child: TextFormField(
@@ -278,7 +278,7 @@ class _ReviewState extends State<Reviewpage> {
                           )
                         ],
                       ),
-                      SizedBox(width: 25),
+                      const SizedBox(width: 25),
                       Expanded(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,

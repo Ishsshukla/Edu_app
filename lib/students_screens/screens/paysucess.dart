@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class Paysucesspage extends StatefulWidget {
+  const Paysucesspage({super.key});
+
   @override
   State<Paysucesspage> createState() => _PaysucessState();
 }
@@ -60,7 +62,7 @@ class _PaysucessState extends State<Paysucesspage> {
                       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras netus mauris pulvinar suspendisse. Et sit ac lacus in rhoncus.'),
                 ),
                 const SizedBox(height: 50),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width * 1,
                   child: CustomButton(
                     text: 'Back to Home',

@@ -4,7 +4,7 @@ import 'package:edu_app/quiz/quiz2.dart';
 import 'package:flutter/material.dart';
 
 class QuizPage extends StatefulWidget {
-  const QuizPage({Key? key}) : super(key: key);
+  const QuizPage({super.key});
 
   @override
   _QuizPageState createState() => _QuizPageState();
@@ -92,7 +92,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
             ),
             const SizedBox(height: 50),
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width * .9,
               height: 65,
               child: ElevatedButton(
@@ -100,7 +100,7 @@ class _QuizPageState extends State<QuizPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => QuizPage2(),
+                      builder: (context) => const QuizPage2(),
                     ),
                   );
                 },

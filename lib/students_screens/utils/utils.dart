@@ -33,7 +33,7 @@ Widget newsBox(snapshot, index, text1, height, width, h2, context, page) {
           padding: const EdgeInsets.all(7.0),
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 height: screenHeight * h2,
                 child: CachedNetworkImage(
                     imageUrl:
@@ -57,7 +57,7 @@ Widget newsBox(snapshot, index, text1, height, width, h2, context, page) {
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.left,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Color(0xFF00184A),
                   fontSize: 14,
                   fontFamily: 'Poppins',

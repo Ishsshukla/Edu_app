@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class PhnHome extends StatefulWidget {
-  const PhnHome({Key? key}) : super(key: key);
+  const PhnHome({super.key});
 
   @override
   State<PhnHome> createState() => _HomeState();
 }
 
 class _HomeState extends State<PhnHome> {
-  TextEditingController _phoneController = TextEditingController();
-  TextEditingController _codecontroller = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _codecontroller = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   String smscode = "";
 
@@ -25,14 +25,14 @@ class _HomeState extends State<PhnHome> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text("Invalid Phone Number"),
-          content: Text("Please enter a valid 10-digit phone number."),
+          title: const Text("Invalid Phone Number"),
+          content: const Text("Please enter a valid 10-digit phone number."),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text("OK"),
+              child: const Text("OK"),
             ),
           ],
         ),
@@ -42,7 +42,7 @@ class _HomeState extends State<PhnHome> {
 
     try {
       await _auth.verifyPhoneNumber(
-        phoneNumber: '+91' + _phoneController.text.trim(),
+        phoneNumber: '+91${_phoneController.text.trim()}',
         verificationCompleted: (PhoneAuthCredential authCredential) async {
           await _auth.signInWithCredential(authCredential).then((value) {
             Navigator.push(
@@ -73,21 +73,19 @@ class _HomeState extends State<PhnHome> {
                   onPressed: () {
                     FirebaseAuth auth = FirebaseAuth.instance;
                     smscode = _codecontroller.text;
-                    PhoneAuthCredential _credential =
+                    PhoneAuthCredential credential =
                         PhoneAuthProvider.credential(
                       verificationId: verificationId,
                       smsCode: smscode,
                     );
-                    auth.signInWithCredential(_credential).then((result) {
-                      if (result != null) {
-                        Navigator.pop(context);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SplashScreen()),
-                        );
-                      }
-                    }).catchError((e) {
+                    auth.signInWithCredential(credential).then((result) {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SplashScreen()),
+                      );
+                                        }).catchError((e) {
                       print(e);
                     });
                   },

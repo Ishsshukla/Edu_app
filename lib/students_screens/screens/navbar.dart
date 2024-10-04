@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class Nav extends StatefulWidget {
   final int initialIndex;
 
- const Nav({required this.initialIndex});
+ const Nav({super.key, required this.initialIndex});
 
   @override
   _NavState createState() => _NavState();
@@ -100,7 +100,7 @@ class NavBarItem extends StatelessWidget {
   final bool isSelected;
   final VoidCallback onTap;
 
-  NavBarItem({
+  const NavBarItem({super.key, 
     required this.icon,
     required this.label,
     required this.isSelected,

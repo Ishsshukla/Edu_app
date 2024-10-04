@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class transactionpage extends StatefulWidget {
+  const transactionpage({super.key});
+
   @override
   State<transactionpage> createState() => _transactionpageState();
 }
@@ -46,7 +48,7 @@ class _transactionpageState extends State<transactionpage> {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 80),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: CustomButton(
                     text: 'Go to My Lesson',
