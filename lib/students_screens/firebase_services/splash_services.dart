@@ -9,7 +9,7 @@ class SplashServices {
     // Timer.run(() {});
     Timer(const Duration(seconds: 5), () {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => OptionPage()));
+          context, MaterialPageRoute(builder: (context) => const OptionPage()));
     });
   }
 }

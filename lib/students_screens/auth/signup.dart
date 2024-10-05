@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:edu_app/students_screens/auth/login.dart';
 import 'package:edu_app/students_screens/screens/splash.dart';
 import 'package:edu_app/students_screens/widgets/round_button.dart';
+import 'package:edu_app/teacher_side/screens/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -31,8 +32,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       FirebaseFirestore.instance; // Initialize Firestore instance
 
   void registration() async {
-    if (emailController.text != null &&
-        selectedRole != null) {
+    if (selectedRole != null) {
       try {
         UserCredential userCredential =
             await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -58,8 +58,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
           );
         }
-        Navigator.push(
+        if (selectedRole == 'Student') {
+           Navigator.push(
             context, MaterialPageRoute(builder: (context) => const SplashScreen()));
+        }
+        else{
+           Navigator.push(
+            context, MaterialPageRoute(builder: (context) => TeacherHomepage()));
+        }
+
+       
+       
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           if (mounted) {

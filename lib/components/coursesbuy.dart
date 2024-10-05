@@ -1,6 +1,4 @@
-import 'package:edu_app/components/button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 Widget coursetxt(
   String img,

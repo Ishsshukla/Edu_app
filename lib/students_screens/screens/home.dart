@@ -1,9 +1,5 @@
-import 'package:edu_app/models/headline.dart';
 import 'package:edu_app/models/new_page_model.dart';
-import 'package:edu_app/students_screens/screens/splash.dart';
-import 'package:edu_app/students_screens/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import '../../components/review_componemt.dart';
 import '../pages/user_notifier.dart';
@@ -175,30 +171,30 @@ class _HomepageState extends State<Homepage> {
                   ),
                 ],
               ),
-              SizedBox(
-                  height: screenHeight * 0.4,
-                  width: screenWidth,
-                  child: FutureBuilder<NewsChannelsHeadlineModels>(
-                      future: newsViewModel.fetchNewsChannelHeadlineApi(),
-                      builder: (BuildContext context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                            child: SpinKitCircle(
-                              color: Colors.blue,
-                              size: 50,
-                            ),
-                          );
-                        } else {
-                          return ListView.builder(
-                              scrollDirection: Axis.vertical,
-                              itemCount: snapshot.data!.articles!.length,
-                              itemBuilder: (context, index) {
-                                return newsBox(snapshot, index, '', 0.28, 0.7,
-                                    0.18, context, null);
-                              });
-                        }
-                      })),
+              // SizedBox(
+              //     height: screenHeight * 0.4,
+              //     width: screenWidth,
+              //     child: FutureBuilder<NewsChannelsHeadlineModels>(
+              //         future: newsViewModel.fetchNewsChannelHeadlineApi(),
+              //         builder: (BuildContext context, snapshot) {
+              //           if (snapshot.connectionState ==
+              //               ConnectionState.waiting) {
+              //             return Center(
+              //               child: SpinKitCircle(
+              //                 color: Colors.blue,
+              //                 size: 50,
+              //               ),
+              //             );
+              //           } else {
+              //             return ListView.builder(
+              //                 scrollDirection: Axis.vertical,
+              //                 itemCount: snapshot.data!.articles!.length,
+              //                 itemBuilder: (context, index) {
+              //                   return newsBox(snapshot, index, '', 0.28, 0.7,
+              //                       0.18, context, null);
+              //                 });
+              //           }
+              //         })),
             ],
           ),
         ),

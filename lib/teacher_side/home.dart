@@ -172,7 +172,7 @@ class _HomepageState extends State<teachHomepage> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => (Newspage())),
+                        MaterialPageRoute(builder: (context) => (const Newspage())),
                       );
                     },
                     // Add your desired functionality here

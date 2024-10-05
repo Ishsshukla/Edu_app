@@ -1,6 +1,5 @@
 import 'package:edu_app/components/const.dart';
 import 'package:flutter/material.dart';
-import 'package:edu_app/components/const.dart';
 
 class EditableButton extends StatefulWidget {
   final String initialText;

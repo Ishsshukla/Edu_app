@@ -1,7 +1,4 @@
-import 'package:edu_app/components/button.dart';
-import 'package:edu_app/components/class_option.dart';
 import 'package:edu_app/components/coursesbuy.dart';
-import 'package:edu_app/components/ellipse.dart';
 import 'package:edu_app/students_screens/screens/navbar.dart';
 import 'package:flutter/material.dart';
 

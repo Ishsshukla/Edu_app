@@ -1,15 +1,10 @@
-import 'package:edu_app/components/button.dart';
 import 'package:edu_app/components/const.dart';
-import 'package:edu_app/components/profie_text_edit.dart';
-import 'package:edu_app/components/review_componemt.dart';
 import 'package:edu_app/students_screens/auth/login.dart';
 import 'package:edu_app/students_screens/firebase_services/database.dart';
 import 'package:edu_app/students_screens/screens/navbar.dart';
 import 'package:edu_app/students_screens/screens/privacypolicy.dart';
-import 'package:edu_app/students_screens/firebase_services/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 

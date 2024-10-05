@@ -1,5 +1,4 @@
 import 'package:edu_app/components/button.dart';
-import 'package:edu_app/components/class_option.dart';
 import 'package:edu_app/components/const.dart';
 import 'package:edu_app/components/ellipse.dart';
 import 'package:flutter/material.dart';

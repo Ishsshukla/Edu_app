@@ -27,10 +27,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-
 import 'quiz/quiz_welcm_screen.dart';
 import 'students_screens/auth/login.dart';
-import 'students_screens/auth/signup.dart';
+import 'students_screens/auth/signup.dart'; 
 import 'students_screens/screens/splash2.dart';
 
 Future<void> main() async {
@@ -42,6 +41,7 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
+  
   const MyApp({super.key});
 
   @override
@@ -50,33 +50,33 @@ class MyApp extends StatelessWidget {
       create: (context) => UserNotifier(),
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/upi_screen',
+        initialRoute: '/login',
         getPages: [
           GetPage(name: '/upi_screen', page: () => const UpiScreen()),
           GetPage(name: '/category_quiz', page: () => QuizCategoryScreen()),
           GetPage(name: '/welcm_quiz', page: () => WelcomeScreen()),
-          GetPage(name: '/paysucess', page: () => Paysucesspage()),
-          GetPage(name: '/optionpage', page: () => OptionPage()),
-          GetPage(name: '/courseoptionpage', page: () => courseoptionPage()),
-          GetPage(name: '/homepage', page: () => Homepage()),
-          GetPage(name: '/profile', page: () => Prflpage()),
-          GetPage(name: '/congo', page: () => Congopage()),
-          GetPage(name: '/transaction_sucess', page: () => transactionpage()),
+          GetPage(name: '/paysucess', page: () => const Paysucesspage()),
+          GetPage(name: '/optionpage', page: () => const OptionPage()),
+          GetPage(name: '/courseoptionpage', page: () => const courseoptionPage()),
+          GetPage(name: '/homepage', page: () => const Homepage()),
+          GetPage(name: '/profile', page: () => const Prflpage()),
+          GetPage(name: '/congo', page: () => const Congopage()),
+          GetPage(name: '/transaction_sucess', page: () => const transactionpage()),
           GetPage(name: '/review', page: () => Reviewpage()),
-          GetPage(name: '/paymethod', page: () => PayMethodPage()),
+          GetPage(name: '/paymethod', page: () => const PayMethodPage()),
           GetPage(name: '/finalpay', page: () => Finalpaypage()),
           GetPage(name: '/coursedescr', page: () => CourseDescriptionpage()),
           GetPage(name: '/quiz', page: () => const QuizPage()),
           GetPage(name: '/coursefail', page: () => const CourseFailPage()),
           GetPage(name: '/privacy', page: () => const PrivacyPage()),
-          GetPage(name: '/news', page: () => Newspage()),
-          GetPage(name: '/courseoption', page: () => coursepage()),
+          GetPage(name: '/news', page: () => const Newspage()),
+          GetPage(name: '/courseoption', page: () => const coursepage()),
           GetPage(name: '/enrolledcrspage', page: () => enrolledcrspage()),
           GetPage(name: '/login', page: () => const LoginScreen()),
           GetPage(name: '/signup', page: () => const SignUpScreen()),
           GetPage(name: '/splash2', page: () => const SplashScreen2()),
           GetPage(name: '/phnhome', page: () => const PhnHome()),
-          GetPage(name: '/Thome', page: () => teachHomepage()),
+          GetPage(name: '/Thome', page: () => const teachHomepage()),
         ],
       ),
     );

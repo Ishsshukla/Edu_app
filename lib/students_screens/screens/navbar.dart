@@ -30,19 +30,19 @@ class _NavState extends State<Nav> {
       case 0:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => Homepage()),
+          MaterialPageRoute(builder: (context) => const Homepage()),
         );
         break;
       case 1:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => coursepage()),
+          MaterialPageRoute(builder: (context) => const coursepage()),
         );
         break;
       case 2:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => Prflpage()),
+          MaterialPageRoute(builder: (context) => const Prflpage()),
         );
         break;
     }

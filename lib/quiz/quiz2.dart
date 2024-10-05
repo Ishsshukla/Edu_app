@@ -99,7 +99,7 @@ class _QuizPageState extends State<QuizPage2> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Congopage(),
+                      builder: (context) => const Congopage(),
                     ),
                   );
                 },
