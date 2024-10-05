@@ -2,9 +2,11 @@ import 'package:edu_app/components/learningbox.dart';
 import 'package:edu_app/components/review_componemt.dart';
 import 'package:edu_app/students_screens/screens/navbar.dart';
 import 'package:edu_app/students_screens/screens/news.dart';
+import 'package:edu_app/teacher_side/navbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'navbar.dart';
 
 class teachHomepage extends StatefulWidget {
   const teachHomepage({super.key});
@@ -50,7 +52,7 @@ class _HomepageState extends State<teachHomepage> {
         backgroundColor: Colors.white,
         elevation: 0.0,
       ),
-      bottomNavigationBar: const Nav(initialIndex: 0),
+      
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -185,6 +187,8 @@ class _HomepageState extends State<teachHomepage> {
           ),
         ),
       ),
+      bottomNavigationBar: NavTeacher(initialIndex: 0),
+      // bottomNavigationBar: NavTeacher(initialIndex: 0),
     );
   }
 }

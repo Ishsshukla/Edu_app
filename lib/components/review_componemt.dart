@@ -69,3 +69,41 @@ Widget txt2(
     ),
   );
 }
+
+Widget editabletxtforteacher(
+  String text,
+  // Container1,
+  BuildContext context,
+) {
+  TextEditingController _controller = TextEditingController(text: text);
+
+  return SingleChildScrollView(
+    child: Padding(
+      padding: const EdgeInsets.only(left: 0, right: 18, top: 10, bottom: 0),
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: TextField(
+              controller: _controller,
+              maxLines: null,
+              keyboardType: TextInputType.multiline,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+                fontWeight: FontWeight.normal,
+              ),
+              decoration: const InputDecoration(
+                contentPadding: EdgeInsets.all(10),
+                border: InputBorder.none,
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
