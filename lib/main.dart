@@ -23,6 +23,9 @@ import 'package:edu_app/students_screens/screens/splash.dart';
 import 'package:edu_app/students_screens/screens/transaction_sucess.dart';
 import 'package:edu_app/students_screens/upi/upi_screen.dart';
 import 'package:edu_app/teacher_side/home.dart';
+import 'package:edu_app/teacher_side/screens/Edit_course.dart';
+import 'package:edu_app/teacher_side/screens/contenteditcourse.dart';
+import 'package:edu_app/teacher_side/screens/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -31,6 +34,7 @@ import 'quiz/quiz_welcm_screen.dart';
 import 'students_screens/auth/login.dart';
 import 'students_screens/auth/signup.dart';
 import 'students_screens/screens/splash2.dart';
+import 'teacher_side/screens/course_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,7 +45,6 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  
   const MyApp({super.key});
 
   @override
@@ -50,7 +53,7 @@ class MyApp extends StatelessWidget {
       create: (context) => UserNotifier(),
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/login',
+        initialRoute: '/courseteacher',
         getPages: [
           GetPage(name: '/upi_screen', page: () => UpiScreen()),
           GetPage(name: '/category_quiz', page: () => QuizCategoryScreen()),
@@ -77,6 +80,12 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/splash2', page: () => SplashScreen2()),
           GetPage(name: '/phnhome', page: () => PhnHome()),
           GetPage(name: '/Thome', page: () => teachHomepage()),
+
+          // teacherside
+          GetPage(name: '/courseteacher', page: () => coursepageTeacher()),
+         
+          GetPage(name: '/editcoursecontent', page: () =>  editcourseTeacher()),
+          GetPage(name: '/editcourse', page: () => EditCourseDescriptionpage()),
         ],
       ),
     );
