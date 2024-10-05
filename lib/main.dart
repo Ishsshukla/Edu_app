@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
       create: (context) => UserNotifier(),
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/courseteacher',
+        initialRoute: '/editcoursecontent',
         getPages: [
           GetPage(name: '/upi_screen', page: () => UpiScreen()),
           GetPage(name: '/category_quiz', page: () => QuizCategoryScreen()),
@@ -83,8 +83,10 @@ class MyApp extends StatelessWidget {
 
           // teacherside
           GetPage(name: '/courseteacher', page: () => coursepageTeacher()),
-         
-          GetPage(name: '/editcoursecontent', page: () =>  editcourseTeacher()),
+
+          GetPage(
+              name: '/editcoursecontent',
+              page: () => EditCourseContentTeacher()),
           GetPage(name: '/editcourse', page: () => EditCourseDescriptionpage()),
         ],
       ),
