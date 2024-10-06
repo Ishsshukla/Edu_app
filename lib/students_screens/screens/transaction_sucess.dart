@@ -51,7 +51,7 @@ class _transactionpageState extends State<transactionpage> {
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: CustomButton(
                     text: 'Go to My Lesson',
-                    color: Color(0xFF4A90E2),
+                    color: const Color(0xFF4A90E2),
                     textColor: Colors.white,
                     function: () {
                       Navigator.push(

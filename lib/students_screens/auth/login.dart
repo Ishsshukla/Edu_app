@@ -1,6 +1,6 @@
+
 import 'dart:developer';
 import 'package:edu_app/components/const.dart';
-import 'package:edu_app/students_screens/pages/phnhomr.dart';
 import 'package:edu_app/students_screens/screens/splash.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

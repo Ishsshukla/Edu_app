@@ -4,6 +4,8 @@ import 'package:edu_app/teacher_side/screens/contenteditcourse.dart';
 import 'package:flutter/material.dart';
 
 class EditCourseDescriptionpage extends StatefulWidget {
+  const EditCourseDescriptionpage({super.key});
+
   @override
   State<EditCourseDescriptionpage> createState() =>
       _EditCourseDescriptionpageState();
@@ -63,9 +65,9 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
                 Transform.translate(
                   offset: Offset(0, -screenHeight * 0.04), // Keeps the original transform
                   child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors.white,
-                      borderRadius: const BorderRadius.only(
+                      borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(40),
                         topRight: Radius.circular(40),
                       ),
@@ -125,26 +127,26 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
                           const SizedBox(height: 12),
 
                           // Row for time and rating
-                          Row(
+                          const Row(
                             children: [
                               Icon(
                                 Icons.timelapse,
                                 size: 30,
-                                color: const Color(0xFF4A90E2),
+                                color: Color(0xFF4A90E2),
                               ),
-                              const SizedBox(width: 8),
-                              const Text('1h 35m',
+                              SizedBox(width: 8),
+                              Text('1h 35m',
                                   style: TextStyle(fontSize: 16)),
-                              const Spacer(),
+                              Spacer(),
                               Icon(
                                 Icons.star,
                                 size: 30,
-                                color: const Color(0xFF4A90E2),
+                                color: Color(0xFF4A90E2),
                               ),
-                              const SizedBox(width: 8),
+                              SizedBox(width: 8),
                               Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 0, 42, 0),
-                                child: const Text(
+                                padding: EdgeInsets.fromLTRB(0, 0, 42, 0),
+                                child: Text(
                                   '4.5 Star',
                                   style: TextStyle(fontSize: 16),
                                 ),
@@ -154,26 +156,26 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
                           const SizedBox(height: 16),
 
                           // Row for notes and reviews
-                          Row(
+                          const Row(
                             children: [
                               Icon(
                                 Icons.book,
                                 size: 30,
-                                color: const Color(0xFF4A90E2),
+                                color: Color(0xFF4A90E2),
                               ),
-                              const SizedBox(width: 8),
-                              const Text(
+                              SizedBox(width: 8),
+                              Text(
                                 'Notes',
                                 style: TextStyle(fontSize: 16),
                               ),
-                              const Spacer(),
+                              Spacer(),
                               Icon(
                                 Icons.message,
                                 size: 30,
-                                color: const Color(0xFF4A90E2),
+                                color: Color(0xFF4A90E2),
                               ),
-                              const SizedBox(width: 8),
-                              const Text(
+                              SizedBox(width: 8),
+                              Text(
                                 '350 Reviews',
                                 style: TextStyle(fontSize: 16),
                               ),

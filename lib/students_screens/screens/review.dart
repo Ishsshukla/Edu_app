@@ -173,13 +173,13 @@ class _ReviewState extends State<Reviewpage> {
                         children: [
                           Row(
                             children: [
-                              Icon(Icons.menu_book_outlined,
+                              const Icon(Icons.menu_book_outlined,
                                   size: 37, color: Color(0xFF4A90E2)),
                               txt2('  Notes', context),
                               SizedBox(
                                 width: screenWidth * 0.18,
                               ),
-                              Icon(Icons.movie_creation_rounded,
+                              const Icon(Icons.movie_creation_rounded,
                                   size: 37, color: Color(0xFF4A90E2)),
                               txt2(' HD Videos', context),
                             ],
@@ -189,13 +189,13 @@ class _ReviewState extends State<Reviewpage> {
                           ),
                           Row(
                             children: [
-                              Icon(Icons.celebration,
+                              const Icon(Icons.celebration,
                                   size: 37, color: Color(0xFF4A90E2)),
                               txt2('  Certificate', context),
                               SizedBox(
                                 width: screenWidth * 0.09,
                               ),
-                              Icon(Icons.bookmark_added,
+                              const Icon(Icons.bookmark_added,
                                   size: 37, color: Color(0xFF4A90E2)),
                               txt2(' Exam', context),
                             ],
@@ -295,7 +295,7 @@ class _ReviewState extends State<Reviewpage> {
                                     color: Colors.white, fontSize: 20),
                               ),
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xFF4A90E2),
+                                backgroundColor: const Color(0xFF4A90E2),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
@@ -335,7 +335,7 @@ class _ReviewState extends State<Reviewpage> {
                           style: TextStyle(color: Colors.white, fontSize: 23),
                         ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF4A90E2),
+                          backgroundColor: const Color(0xFF4A90E2),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),

@@ -75,7 +75,7 @@ Widget editabletxtforteacher(
   // Container1,
   BuildContext context,
 ) {
-  TextEditingController _controller = TextEditingController(text: text);
+  TextEditingController controller = TextEditingController(text: text);
 
   return SingleChildScrollView(
     child: Padding(
@@ -88,7 +88,7 @@ Widget editabletxtforteacher(
               borderRadius: BorderRadius.circular(5),
             ),
             child: TextField(
-              controller: _controller,
+              controller: controller,
               maxLines: null,
               keyboardType: TextInputType.multiline,
               style: const TextStyle(

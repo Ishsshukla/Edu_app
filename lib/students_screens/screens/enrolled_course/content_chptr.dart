@@ -4,7 +4,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ViewChapterStudent extends StatefulWidget {
-  const ViewChapterStudent({Key? key}) : super(key: key);
+  const ViewChapterStudent({super.key});
 
   @override
   State<ViewChapterStudent> createState() => _ViewChapterStudentState();

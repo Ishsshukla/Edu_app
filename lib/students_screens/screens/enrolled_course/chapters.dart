@@ -3,6 +3,8 @@ import 'package:edu_app/teacher_side/navbar.dart';
 import 'package:flutter/material.dart';
 
 class ChapterPageStudent extends StatefulWidget {
+  const ChapterPageStudent({super.key});
+
   @override
   State<ChapterPageStudent> createState() => _ChapterPageStudentState();
 }

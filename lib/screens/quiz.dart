@@ -1,5 +1,4 @@
 import 'package:edu_app/components/const.dart';
-import 'package:edu_app/quiz/congo.dart';
 import 'package:edu_app/quiz/quiz2.dart';
 import 'package:flutter/material.dart';
 

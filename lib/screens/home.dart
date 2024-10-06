@@ -50,7 +50,7 @@ class _HomepageState extends State<Homepage> {
         backgroundColor: Colors.white,
         elevation: 0.0,
       ),
-      bottomNavigationBar: Nav(),
+      bottomNavigationBar: const Nav(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -172,7 +172,7 @@ class _HomepageState extends State<Homepage> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => (Newspage())),
+                        MaterialPageRoute(builder: (context) => (const Newspage())),
                       );
                     },
                     // Add your desired functionality here

@@ -187,7 +187,7 @@ class _HomepageState extends State<teachHomepage> {
           ),
         ),
       ),
-      bottomNavigationBar: NavTeacher(initialIndex: 0),
+      bottomNavigationBar: const NavTeacher(initialIndex: 0),
       // bottomNavigationBar: NavTeacher(initialIndex: 0),
     );
   }
