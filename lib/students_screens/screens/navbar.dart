@@ -1,5 +1,5 @@
 import 'package:edu_app/components/const.dart';
-import 'package:edu_app/students_screens/screens/crs.dart';
+import 'package:edu_app/students_screens/screens/allcrs.dart';
 import 'package:edu_app/students_screens/screens/crs_options.dart';
 import 'package:edu_app/students_screens/screens/home.dart';
 import 'package:edu_app/students_screens/screens/profile.dart';
@@ -36,7 +36,7 @@ class _NavState extends State<Nav> {
       case 1:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) =>  CrsPagestudent()),
+          MaterialPageRoute(builder: (context) =>  CoursePageStudent()),
         );
         break;
       case 2:
