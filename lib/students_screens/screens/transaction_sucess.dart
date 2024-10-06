@@ -2,7 +2,7 @@
 
 import 'package:edu_app/components/button.dart';
 import 'package:edu_app/components/const.dart';
-import 'package:edu_app/students_screens/screens/enrollled_crs.dart';
+import 'package:edu_app/students_screens/screens/enrolled_course/enrollled_crs.dart';
 import 'package:flutter/material.dart';
 
 class transactionpage extends StatefulWidget {

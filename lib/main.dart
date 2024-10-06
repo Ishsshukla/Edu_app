@@ -8,7 +8,9 @@ import 'package:edu_app/students_screens/screens/crs.dart';
 import 'package:edu_app/students_screens/screens/crs_description.dart';
 import 'package:edu_app/students_screens/screens/course_fail.dart';
 import 'package:edu_app/students_screens/screens/crs_options.dart';
-import 'package:edu_app/students_screens/screens/enrollled_crs.dart';
+import 'package:edu_app/students_screens/screens/enrolled_course/chapters.dart';
+import 'package:edu_app/students_screens/screens/enrolled_course/content_chptr.dart';
+import 'package:edu_app/students_screens/screens/enrolled_course/enrollled_crs.dart';
 import 'package:edu_app/students_screens/screens/final_pay.dart';
 import 'package:edu_app/students_screens/screens/home.dart';
 import 'package:edu_app/students_screens/screens/news.dart';
@@ -73,6 +75,9 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/paymethod', page: () => const PayMethodPage()),
           GetPage(name: '/finalpay', page: () => Finalpaypage()),
           GetPage(name: '/coursedescr', page: () => CourseDescriptionpage()),
+          GetPage(name: '/chapterstudent', page: () => ChapterPageStudent()),
+           GetPage(name: '/viewchapterstudent', page: () => ViewChapterStudent()),
+
           GetPage(name: '/quiz', page: () => const QuizPage()),
           GetPage(name: '/coursefail', page: () => const CourseFailPage()),
           GetPage(name: '/privacy', page: () => const PrivacyPage()),
