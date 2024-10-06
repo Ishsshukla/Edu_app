@@ -1,15 +1,8 @@
-// ignore_for_file: use_key_in_widget_constructors, unused_local_variable, sort_child_properties_last
-
-import 'package:edu_app/components/button.dart';
-import 'package:edu_app/components/const.dart';
-import 'package:edu_app/components/profie_text_edit.dart';
-import 'package:edu_app/components/review_componemt.dart';
-import 'package:edu_app/students_screens/screens/navbar.dart';
-import 'package:edu_app/students_screens/screens/payment_method.dart';
-import 'package:edu_app/students_screens/screens/review.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:edu_app/teacher_side/screens/contenteditcourse.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
+// Assume that you have an EditCourseDetailsPage defined
+// import 'edit_course_details_page.dart';
 
 class EditCourseDescriptionpage extends StatefulWidget {
   @override
@@ -17,6 +10,17 @@ class EditCourseDescriptionpage extends StatefulWidget {
 }
 
 class _CourseDescriptionState extends State<EditCourseDescriptionpage> {
+  void _editCourse() {
+    // Navigate to the next page for editing
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            EditCourseContentTeacher(), // Ensure this page is defined
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -41,7 +45,7 @@ class _CourseDescriptionState extends State<EditCourseDescriptionpage> {
                 offset: Offset(
                     0,
                     -screenHeight *
-                        0.07), // Moves it up by 5% of the screen height
+                        0.07), // Moves it up by 7% of the screen height
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -67,31 +71,38 @@ class _CourseDescriptionState extends State<EditCourseDescriptionpage> {
                         ),
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: txt('Course Info', context),
+                          child: Text('Course Info'),
                         ),
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: editabletxtforteacher('write here', context),
+                          child: TextField(
+                            decoration: InputDecoration(
+                              hintText: 'write here',
+                            ),
+                          ),
                         ),
                         SizedBox(
                           height: screenHeight * 0.014,
                         ),
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: txt('Description', context),
+                          child: Text('Description'),
                         ),
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: editabletxtforteacher(
-                              'write here the description of the course',
-                              context),
+                          child: TextField(
+                            decoration: InputDecoration(
+                              hintText:
+                                  'write here the description of the course',
+                            ),
+                          ),
                         ),
                         SizedBox(
                           height: screenHeight * 0.014,
                         ),
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: txt('Information', context),
+                          child: Text('Information'),
                         ),
                         SizedBox(
                           height: screenHeight * 0.014,
@@ -101,7 +112,7 @@ class _CourseDescriptionState extends State<EditCourseDescriptionpage> {
                             Icon(
                               Icons.timelapse,
                               size: 40,
-                              color: txtColor,
+                              color: Colors.blue,
                             ),
                             SizedBox(
                               width: screenWidth * .018,
@@ -111,7 +122,8 @@ class _CourseDescriptionState extends State<EditCourseDescriptionpage> {
                               child: TextField(
                                 controller:
                                     TextEditingController(text: '1h 35m'),
-                                style: TextStyle(color: txtColor, fontSize: 15),
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 15),
                                 decoration: const InputDecoration(
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 10),
@@ -129,15 +141,16 @@ class _CourseDescriptionState extends State<EditCourseDescriptionpage> {
                             Icon(
                               Icons.star,
                               size: 40,
-                              color: txtColor,
+                              color: Colors.blue.shade600,
                             ),
                             SizedBox(
                               width: screenWidth * .018,
                             ),
                             Text(
-                              '4.5  Star',
-                              style: TextStyle(color: txtColor, fontSize: 17),
-                            )
+                              '4.5 Star',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 17),
+                            ),
                           ],
                         ),
                         SizedBox(
@@ -148,14 +161,15 @@ class _CourseDescriptionState extends State<EditCourseDescriptionpage> {
                             Icon(
                               Icons.book,
                               size: 40,
-                              color: txtColor,
+                              color: Colors.blue.shade600,
                             ),
                             SizedBox(
                               width: screenWidth * .018,
                             ),
                             Text(
                               'Notes',
-                              style: TextStyle(color: txtColor, fontSize: 17),
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 17),
                             ),
                             SizedBox(
                               width: screenWidth * .239,
@@ -163,12 +177,13 @@ class _CourseDescriptionState extends State<EditCourseDescriptionpage> {
                             Icon(
                               Icons.message,
                               size: 40,
-                              color: txtColor,
+                              color: Colors.blue.shade600,
                             ),
                             Text(
                               '350 Reviews',
-                              style: TextStyle(color: txtColor, fontSize: 17),
-                            )
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 17),
+                            ),
                           ],
                         ),
                         SizedBox(
@@ -184,32 +199,29 @@ class _CourseDescriptionState extends State<EditCourseDescriptionpage> {
                             ),
                           ],
                         ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Reviewpage(),
-                              ),
-                            );
-                          },
-                          child: const Text(
-                            ' Save & Continue',
-                            style: TextStyle(color: Colors.white, fontSize: 23),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: txtColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   ),
                 ),
               ),
             ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 60),
+        child: ElevatedButton(
+          onPressed: _editCourse, // Call edit function
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(vertical: 15),
+            backgroundColor: Color(0xFF4A90E2), // Use the color from your image
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          child: const Text(
+            'Edit Course',
+            style: TextStyle(fontSize: 18, color: Colors.white),
           ),
         ),
       ),

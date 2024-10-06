@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class NavTeacher extends StatefulWidget {
   final int initialIndex;
 
- const NavTeacher({required this.initialIndex});
+  const NavTeacher({required this.initialIndex});
 
   @override
   _NavTeacherState createState() => _NavTeacherState();
@@ -37,7 +37,7 @@ class _NavTeacherState extends State<NavTeacher> {
       case 1:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => coursepageTeacher()),
+          MaterialPageRoute(builder: (context) => CoursePageTeacher()),
         );
         break;
       case 2:
