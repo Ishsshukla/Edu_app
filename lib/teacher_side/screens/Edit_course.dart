@@ -1,4 +1,5 @@
 import 'package:edu_app/components/const.dart';
+import 'package:edu_app/teacher_side/screens/chapter_screen.dart';
 import 'package:edu_app/teacher_side/screens/contenteditcourse.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,7 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => EditCourseContentTeacher(),
+        builder: (context) =>  ChapterPageTeacher(),
       ),
     );
   }
@@ -129,7 +130,7 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
                               Icon(
                                 Icons.timelapse,
                                 size: 30,
-                                color: txtColor,
+                                color: const Color(0xFF4A90E2),
                               ),
                               const SizedBox(width: 8),
                               const Text('1h 35m',
@@ -138,7 +139,7 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
                               Icon(
                                 Icons.star,
                                 size: 30,
-                                color: txtColor,
+                                color: const Color(0xFF4A90E2),
                               ),
                               const SizedBox(width: 8),
                               Padding(
@@ -158,7 +159,7 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
                               Icon(
                                 Icons.book,
                                 size: 30,
-                                color: txtColor,
+                                color: const Color(0xFF4A90E2),
                               ),
                               const SizedBox(width: 8),
                               const Text(
@@ -169,7 +170,7 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
                               Icon(
                                 Icons.message,
                                 size: 30,
-                                color: txtColor,
+                                color: const Color(0xFF4A90E2),
                               ),
                               const SizedBox(width: 8),
                               const Text(
@@ -196,7 +197,7 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
           child: ElevatedButton(
             onPressed: _editCourse,
             style: ElevatedButton.styleFrom(
-              backgroundColor: txtColor,
+              backgroundColor: const Color(0xFF4A90E2),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),

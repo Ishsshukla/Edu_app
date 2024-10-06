@@ -25,8 +25,10 @@ class _HomepageState extends State<Homepage> {
 
     return Scaffold(
       appBar: AppBar(
-        title:
-            Text('Hiii  ${userNotifier.firstName}  ${userNotifier.lastName}'),
+        title: Text(
+          'Hiii  ${userNotifier.firstName}  ${userNotifier.lastName}',
+          style: TextStyle(color: Colors.black),
+        ),
         backgroundColor: Colors.white,
         // elevation: 0.0,
         actions: [
@@ -202,4 +204,18 @@ class _HomepageState extends State<Homepage> {
       bottomNavigationBar: const Nav(initialIndex: 0),
     );
   }
+}
+
+Widget txt2(String text, BuildContext context, {Color color = Colors.black}) {
+  return Text(
+    text,
+    style: TextStyle(color: color),
+  );
+}
+
+Widget txt(String text, BuildContext context, {Color color = Colors.black}) {
+  return Text(
+    text,
+    style: TextStyle(color: color),
+  );
 }

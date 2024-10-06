@@ -24,6 +24,7 @@ import 'package:edu_app/students_screens/screens/transaction_sucess.dart';
 import 'package:edu_app/students_screens/upi/upi_screen.dart';
 import 'package:edu_app/teacher_side/home.dart';
 import 'package:edu_app/teacher_side/screens/Edit_course.dart';
+import 'package:edu_app/teacher_side/screens/chapter_screen.dart';
 import 'package:edu_app/teacher_side/screens/contenteditcourse.dart';
 // import 'package:edu_app/teacher_side/screens/crs_options_teachers.dart';
 import 'package:edu_app/teacher_side/screens/home.dart';
@@ -54,8 +55,8 @@ class MyApp extends StatelessWidget {
       create: (context) => UserNotifier(),
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/courseteacher',
-        // initialRoute: '/login',
+        // initialRoute: '/courseoption',
+        initialRoute: '/homepage',
 
         getPages: [
           GetPage(name: '/upi_screen', page: () => const UpiScreen()),
@@ -76,7 +77,7 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/coursefail', page: () => const CourseFailPage()),
           GetPage(name: '/privacy', page: () => const PrivacyPage()),
           GetPage(name: '/news', page: () => const Newspage()),
-          GetPage(name: '/courseoption', page: () => const coursepage()),
+          GetPage(name: '/courseoption', page: () =>  CrsPagestudent()),
           GetPage(name: '/enrolledcrspage', page: () => enrolledcrspage()),
           GetPage(name: '/login', page: () => LoginScreen()),
           GetPage(name: '/signup', page: () => SignUpScreen()),
@@ -85,6 +86,7 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/Thome', page: () => teachHomepage()),
 
           // teacherside
+          GetPage(name: '/chapterteacher', page: () => ChapterPageTeacher()),
           GetPage(name: '/courseteacher', page: () => CoursePageTeacher()),
           GetPage(
               name: '/editcoursecontent',

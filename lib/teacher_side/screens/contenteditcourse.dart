@@ -154,7 +154,7 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Edit Course",
+          "Edit Chapter",
           style: TextStyle(color: Colors.black), // Change color if needed
         ),
         leading: IconButton(
@@ -173,7 +173,7 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Course Name Input
-              const Text('Class/Course Name',
+              const Text('Chapter Name',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
               TextField(
@@ -186,7 +186,7 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
               const SizedBox(height: 20),
 
               // Lesson Name Input
-              const Text('Lesson Name',
+              const Text('Topic Name',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
               TextField(
@@ -318,7 +318,7 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
             onPressed: _saveChanges, // Call save changes function
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 5), // Padding inside the button
-              backgroundColor: txtColor, // Blue color similar to the one in the image
+              backgroundColor: const Color(0xFF4A90E2), // Blue color similar to the one in the image
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10), // Rounded corners
               ),

@@ -1,8 +1,4 @@
-// import 'package:cyber_secure/modules/categories_new_model.dart';
-// import 'package:cyber_secure/screens/utilities.dart';
-// import 'package:cyber_secure/view/view_model/news_view_model.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomDropDownWidget extends StatefulWidget {
@@ -26,33 +22,16 @@ class _CustomDropDownWidgetState extends State<CustomDropDownWidget> {
 
   bool isExpanded = false;
 
-  // NewsViewModel newsViewModel = NewsViewModel();
-
   String selectedValue = 'Select option';
   List<String> politicsList = [
-    // 'Account Takeover',
-    // 'Investment Scams',
-    // 'Loan Scams',
-    // 'Tax Scams',
-    // 'Malicious Phishing',
-    // 'Ransomeware',
-    // 'Dark Web Marketplaces',
-    // 'Data Leaks',
-    // 'Blackmail and Extortion',
-    // 'Fake Initial Coin Offerings (ICOs)',
-    // 'Catfishing',
-    // 'Deepfakes',
-    // 'Tech Support Scams',
     'Military School Exams',
     'Sainik Schools',
-    // 'Keywords',
     'Education',
   ];
 
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    // final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(),
       body: Column(
@@ -94,7 +73,9 @@ class _CustomDropDownWidgetState extends State<CustomDropDownWidget> {
                                           style: Theme.of(context)
                                               .textTheme
                                               .headlineSmall!
-                                              .copyWith(fontSize: 16))),
+                                              .copyWith(
+                                                  fontSize: 16,
+                                                  color: Color(0xFF4A90E2)))),
                                   Icon(
                                     isExpanded
                                         ? Icons.keyboard_arrow_up
@@ -135,10 +116,7 @@ class _CustomDropDownWidgetState extends State<CustomDropDownWidget> {
                                             .displayMedium!
                                             .copyWith(
                                                 fontSize: 14,
-                                                color: selectedValue == e
-                                                    ? Colors.black
-                                                    : const Color.fromARGB(
-                                                        110, 0, 0, 0)),
+                                                color: Color(0xFF4A90E2)),
                                       ))),
                                 ))
                             .toList(),
@@ -148,37 +126,6 @@ class _CustomDropDownWidgetState extends State<CustomDropDownWidget> {
               ),
             ),
           ),
-          //    uncomment this
-          // Expanded(
-          //   child: FutureBuilder<CategoriesNewsModel>(
-          //       future: newsViewModel.fetchCategoriesNewsApi(selectedValue),
-          //       builder: (BuildContext context, snapshot) {
-          //         if (snapshot.connectionState == ConnectionState.waiting) {
-          //           return Center(
-          //             child: SpinKitCircle(
-          //               size: 50,
-          //               color: Colors.blue,
-          //             ),
-          //           );
-          //         } else {
-          //           return ListView.builder(
-          //               itemCount: snapshot.data!.articles!.length,
-          //               itemBuilder: (context, index) {
-          //                 DateTime dateTime = DateTime.parse(snapshot
-          //                     .data!.articles![index].publishedAt
-          //                     .toString());
-          //                 return newsBox2(
-          //                   snapshot,
-          //                   index,
-          //                   '',
-          //                   0.329,
-          //                   0.9,
-          //                   context,
-          //                 );
-          //               });
-          //         }
-          //       }),
-          // )
         ],
       ),
     );

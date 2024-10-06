@@ -65,7 +65,7 @@ class _PaysucessState extends State<Paysucesspage> {
                   width: MediaQuery.of(context).size.width * 1,
                   child: CustomButton(
                     text: 'Back to Home',
-                    color: txtColor,
+                    color: Color(0xFF4A90E2),
                     textColor: Colors.white,
                     function: () {},
                   ),

@@ -36,7 +36,7 @@ class _NavState extends State<Nav> {
       case 1:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const coursepage()),
+          MaterialPageRoute(builder: (context) =>  CrsPagestudent()),
         );
         break;
       case 2:
@@ -60,7 +60,7 @@ class _NavState extends State<Nav> {
             icon: Icon(
               Icons.home,
               size: 40,
-              color: _selectedIndex == 0 ? txtColor : Colors.grey.shade500,
+              color: _selectedIndex == 0 ? Color(0xFF4A90E2) : Colors.grey.shade500,
             ),
             label: 'Home',
             isSelected: _selectedIndex == 0,
@@ -71,7 +71,7 @@ class _NavState extends State<Nav> {
             icon: Icon(
               Icons.book,
               size: 40,
-              color: _selectedIndex == 1 ? txtColor : Colors.grey.shade500,
+              color: _selectedIndex == 1 ? Color(0xFF4A90E2) : Colors.grey.shade500,
             ),
             label: 'Courses',
             isSelected: _selectedIndex == 1,
@@ -82,7 +82,7 @@ class _NavState extends State<Nav> {
             icon: Icon(
               Icons.person,
               size: 40,
-              color: _selectedIndex == 2 ? txtColor : Colors.grey.shade500,
+              color: _selectedIndex == 2 ? Color(0xFF4A90E2) : Colors.grey.shade500,
             ),
             label: 'Profile',
             isSelected: _selectedIndex == 2,
@@ -120,7 +120,7 @@ class NavBarItem extends StatelessWidget {
             Text(
               label,
               style: TextStyle(
-                  fontSize: 15, color: txtColor), // Ensure the text is blue
+                  fontSize: 15, color: Color(0xFF4A90E2)), // Ensure the text is blue
             ),
         ],
       ),

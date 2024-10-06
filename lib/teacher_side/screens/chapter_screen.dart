@@ -1,43 +1,43 @@
-import 'package:edu_app/components/coursesbuy.dart';
+import 'package:edu_app/components/coursesbuy.dart'; // Update import if needed for chapter
 import 'package:edu_app/teacher_side/navbar.dart';
 import 'package:flutter/material.dart';
 
-class CoursePageTeacher extends StatefulWidget {
+class ChapterPageTeacher extends StatefulWidget {
   @override
-  State<CoursePageTeacher> createState() => _CoursePageTeacherState();
+  State<ChapterPageTeacher> createState() => _ChapterPageTeacherState();
 }
 
-class _CoursePageTeacherState extends State<CoursePageTeacher> {
-  // Dynamic list to store the courses
-  List<Map<String, String>> courses = [
-    {'img': 'assets/CoursePreview.png', 'name': 'Sainik School'},
-    {'img': 'assets/CoursePreview.png', 'name': 'Military School'},
-    {'img': 'assets/CoursePreview.png', 'name': 'RMS School'},
+class _ChapterPageTeacherState extends State<ChapterPageTeacher> {
+  // Dynamic list to store the chapters
+  List<Map<String, String>> chapters = [
+    {'img': 'assets/CoursePreview.png', 'name': 'Introduction to Algebra'},
+    {'img': 'assets/CoursePreview.png', 'name': 'Geometry Basics'},
+    {'img': 'assets/CoursePreview.png', 'name': 'Trigonometry'},
   ];
 
-  // Function to add a new course
-  void _addCourse(String courseName) {
+  // Function to add a new chapter
+  void _addChapter(String chapterName) {
     setState(() {
-      courses.add({'img': 'assets/CoursePreview.png', 'name': courseName});
+      chapters.add({'img': 'assets/CoursePreview.png', 'name': chapterName});
     });
   }
 
-  // Function to show a dialog for entering course name
-  void _showAddCourseDialog() {
-    String newCourseName = '';
+  // Function to show a dialog for entering chapter name
+  void _showAddChapterDialog() {
+    String newChapterName = '';
 
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Add New Course'),
+          title: const Text('Add New Chapter'),
           content: TextField(
             onChanged: (value) {
-              newCourseName = value;
+              newChapterName = value;
             },
             decoration: const InputDecoration(
-              labelText: 'Course Name',
-              hintText: 'Enter the name of the course',
+              labelText: 'Chapter Name',
+              hintText: 'Enter the name of the chapter',
             ),
           ),
           actions: [
@@ -49,8 +49,8 @@ class _CoursePageTeacherState extends State<CoursePageTeacher> {
             ),
             ElevatedButton(
               onPressed: () {
-                if (newCourseName.isNotEmpty) {
-                  _addCourse(newCourseName);
+                if (newChapterName.isNotEmpty) {
+                  _addChapter(newChapterName);
                   Navigator.pop(context); // Close the dialog after saving
                 }
               },
@@ -67,7 +67,7 @@ class _CoursePageTeacherState extends State<CoursePageTeacher> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Courses",
+          "Chapters",
           style: TextStyle(color: Colors.black), // Change color if needed
         ),
         leading: IconButton(
@@ -80,17 +80,18 @@ class _CoursePageTeacherState extends State<CoursePageTeacher> {
         elevation: 0, // Remove shadow if not needed
       ),
       backgroundColor: const Color(0xFFF5F5F5), // Light background to make cards pop
-      bottomNavigationBar: NavTeacher(initialIndex: 1), // Bottom Navigation
+      // bottomNavigationBar: NavTeacher(initialIndex: 1), // Bottom Navigation
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20), // Padding at the top and bottom
           child: Column(
-            children: courses.map((course) {
-              return coursetxtforteacher(
-                course['img']!,
-                course['name']!,
-                'editcourse', // Replace this with your actual edit route if needed
+            children: chapters.map((chapter) {
+              return chaptertxtforteacher(
+                chapter['img']!,
+                chapter['name']!,
+                'editcoursecontent', // Replace this with your actual edit route if needed
                 context,
+                
               );
             }).toList(),
           ),
@@ -98,7 +99,7 @@ class _CoursePageTeacherState extends State<CoursePageTeacher> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _showAddCourseDialog(); // Show dialog to enter course name
+          _showAddChapterDialog(); // Show dialog to enter chapter name
         },
         backgroundColor: const Color(0xFF4A90E2), // Custom button color
         child: const Icon(Icons.add, color: Colors.white), // Plus icon with white color

@@ -49,7 +49,7 @@ class _PrflpageState extends State<Prflpage> {
 
       Provider.of<UserNotifier>(context, listen: false).updateName(
           userData['First Name'] ?? '', userData['Last Name'] ?? '');
-        }
+    }
   }
 
   Future<void> uploadData(String userId) async {
@@ -72,7 +72,7 @@ class _PrflpageState extends State<Prflpage> {
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.white,
-        textColor: txtColor,
+        textColor: Color(0xFF4A90E2),
         fontSize: 16.0,
       );
     }
@@ -89,168 +89,184 @@ class _PrflpageState extends State<Prflpage> {
         child: Form(
           key: _formKey,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+            padding: const EdgeInsets.fromLTRB(16, 40, 16, 0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                SizedBox(
-                  width: screenWidth,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const SizedBox(height: 45),
-                      Image.asset('assets/profile.png', scale: 4.5),
-                      SizedBox(height: screenHeight * 0.01),
-                      Text(
-                        '${userfirstnamecontroller.text} ${userlastnamecontroller.text}',
-                        style: const TextStyle(
-                          fontSize: 20,
+                const SizedBox(height: 45),
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Colors.grey[300],
+                      backgroundImage: const AssetImage('assets/profile.png'),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: GestureDetector(
+                        onTap: () {
+                          // Functionality to update profile image can be added here
+                        },
+                        child: CircleAvatar(
+                          radius: 18,
+                          backgroundColor: Color(0xFF4A90E2),
+                          child: const Icon(
+                            Icons.edit,
+                            color: Colors.white,
+                            size: 18,
+                          ),
                         ),
                       ),
-                      SizedBox(height: screenHeight * 0.05),
-                      buildEditableField(
-                        context,
-                        "Your First Name",
-                        userfirstnamecontroller,
-                        isEditingFirstName,
-                        () {
-                          setState(() {
-                            isEditingFirstName = !isEditingFirstName;
-                            if (!isEditingFirstName) {
-                              if (_formKey.currentState?.validate() ?? false) {
-                                uploadData(
-                                    FirebaseAuth.instance.currentUser!.uid);
-                              }
-                            }
-                          });
-                        },
-                        icon: Icons.person,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your first name';
-                          }
-                          if (!RegExp(r'^[a-zA-Z]+$').hasMatch(value)) {
-                            return 'First name can only contain letters';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      buildEditableField(
-                        context,
-                        "Your Last Name",
-                        userlastnamecontroller,
-                        isEditingLastName,
-                        () {
-                          setState(() {
-                            isEditingLastName = !isEditingLastName;
-                            if (!isEditingLastName) {
-                              if (_formKey.currentState?.validate() ?? false) {
-                                uploadData(
-                                    FirebaseAuth.instance.currentUser!.uid);
-                              }
-                            }
-                          });
-                        },
-                        icon: Icons.person_outline,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your last name';
-                          }
-                          if (!RegExp(r'^[a-zA-Z]+$').hasMatch(value)) {
-                            return 'Last name can only contain letters';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      buildEditableField(
-                        context,
-                        "Email",
-                        useremailcontroller,
-                        isEditingEmail,
-                        () {
-                          setState(() {
-                            isEditingEmail = !isEditingEmail;
-                            if (!isEditingEmail) {
-                              if (_formKey.currentState?.validate() ?? false) {
-                                uploadData(
-                                    FirebaseAuth.instance.currentUser!.uid);
-                              }
-                            }
-                          });
-                        },
-                        icon: Icons.email,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your email';
-                          }
-                          if (!RegExp(r'^[\w\.-]+@([\w-]+\.)+[\w-]{2,4}$')
-                              .hasMatch(value)) {
-                            return 'Please enter a valid email';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      buildEditableField(
-                        context,
-                        "Phone Number",
-                        userphncontroller,
-                        isEditingPhn,
-                        () {
-                          setState(() {
-                            isEditingPhn = !isEditingPhn;
-                            if (!isEditingPhn) {
-                              if (_formKey.currentState?.validate() ?? false) {
-                                uploadData(
-                                    FirebaseAuth.instance.currentUser!.uid);
-                              }
-                            }
-                          });
-                        },
-                        icon: Icons.phone,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your phone number';
-                          }
-                          if (!RegExp(r'^\d{10}$').hasMatch(value)) {
-                            return 'Please enter a valid phone number';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                    ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  '${userfirstnamecontroller.text} ${userlastnamecontroller.text}',
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF4A90E2),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 10, 30, 0),
-                  child: Row(
-                    children: [
-                      Icon(Icons.security_rounded, color: txtColor, size: 38),
-                      const SizedBox(width: 24),
-                      const Text(
+                const SizedBox(height: 24),
+                buildEditableField(
+                  context,
+                  "Your First Name",
+                  userfirstnamecontroller,
+                  isEditingFirstName,
+                  () {
+                    setState(() {
+                      isEditingFirstName = !isEditingFirstName;
+                      if (!isEditingFirstName) {
+                        if (_formKey.currentState?.validate() ?? false) {
+                          uploadData(FirebaseAuth.instance.currentUser!.uid);
+                        }
+                      }
+                    });
+                  },
+                  icon: Icons.person,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your first name';
+                    }
+                    if (!RegExp(r'^[a-zA-Z]+$').hasMatch(value)) {
+                      return 'First name can only contain letters';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+                buildEditableField(
+                  context,
+                  "Your Last Name",
+                  userlastnamecontroller,
+                  isEditingLastName,
+                  () {
+                    setState(() {
+                      isEditingLastName = !isEditingLastName;
+                      if (!isEditingLastName) {
+                        if (_formKey.currentState?.validate() ?? false) {
+                          uploadData(FirebaseAuth.instance.currentUser!.uid);
+                        }
+                      }
+                    });
+                  },
+                  icon: Icons.person_outline,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your last name';
+                    }
+                    if (!RegExp(r'^[a-zA-Z]+$').hasMatch(value)) {
+                      return 'Last name can only contain letters';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+                buildEditableField(
+                  context,
+                  "Email",
+                  useremailcontroller,
+                  isEditingEmail,
+                  () {
+                    setState(() {
+                      isEditingEmail = !isEditingEmail;
+                      if (!isEditingEmail) {
+                        if (_formKey.currentState?.validate() ?? false) {
+                          uploadData(FirebaseAuth.instance.currentUser!.uid);
+                        }
+                      }
+                    });
+                  },
+                  icon: Icons.email,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your email';
+                    }
+                    if (!RegExp(r'^[\w\.-]+@([\w-]+\.)+[\w-]{2,4}$')
+                        .hasMatch(value)) {
+                      return 'Please enter a valid email';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+                buildEditableField(
+                  context,
+                  "Phone Number",
+                  userphncontroller,
+                  isEditingPhn,
+                  () {
+                    setState(() {
+                      isEditingPhn = !isEditingPhn;
+                      if (!isEditingPhn) {
+                        if (_formKey.currentState?.validate() ?? false) {
+                          uploadData(FirebaseAuth.instance.currentUser!.uid);
+                        }
+                      }
+                    });
+                  },
+                  icon: Icons.phone,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your phone number';
+                    }
+                    if (!RegExp(r'^\d{10}$').hasMatch(value)) {
+                      return 'Please enter a valid phone number';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 40),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.security_rounded, color: Color(0xFF4A90E2), size: 32),
+                    const SizedBox(width: 16),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const PrivacyPage(),
+                          ),
+                        );
+                      },
+                      child: const Text(
                         'Privacy Policy',
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Color(0xFF4A90E2),
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                      const Spacer(),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const PrivacyPage(),
-                            ),
-                          );
-                        },
-                        child: Icon(Icons.arrow_forward_ios_rounded,
-                            color: txtColor, size: 35),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                SizedBox(height: screenHeight * 0.04),
+                const SizedBox(height: 40),
                 Center(
                   child: ElevatedButton(
                     onPressed: () {
@@ -262,16 +278,16 @@ class _PrflpageState extends State<Prflpage> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: txtColor,
-                        maximumSize: const Size(200, 1500),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        minimumSize: const Size(150, 50)),
+                      backgroundColor: Color(0xFF4A90E2),
+                      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                    ),
                     child: const Text(
                       'Logout',
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 18,
                         color: Colors.white,
                       ),
                     ),
@@ -293,45 +309,50 @@ class _PrflpageState extends State<Prflpage> {
     bool isEditing,
     VoidCallback onPressed, {
     required IconData icon,
-    double iconSize = 32,
+    double iconSize = 28,
     required String? Function(String?)? validator,
   }) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Row(
         children: [
-          Icon(icon, color: txtColor, size: iconSize),
-          const SizedBox(width: 20),
+          Icon(icon, color: Color(0xFF4A90E2), size: iconSize),
+          const SizedBox(width: 16),
           Expanded(
             child: Container(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 22.0, horizontal: 15.0),
-              margin: const EdgeInsets.only(right: 10.0),
+              padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 12.0),
               decoration: BoxDecoration(
-                color: txtColor,
-                borderRadius: BorderRadius.circular(22),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 2,
+                    blurRadius: 4,
+                    offset: Offset(0, 2), // changes position of shadow
+                  ),
+                ],
               ),
-              height: 70, // Set a fixed height to maintain consistency
               child: isEditing
                   ? TextFormField(
                       controller: controller,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: hintText,
-                        hintStyle: const TextStyle(color: Colors.white),
+                        hintStyle: const TextStyle(color: Colors.grey),
                       ),
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.black),
                       validator: validator,
                     )
                   : Text(
                       controller.text.isEmpty ? hintText : controller.text,
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.black),
                     ),
             ),
           ),
           IconButton(
             icon: Icon(isEditing ? Icons.save : Icons.edit),
-            color: txtColor,
+            color: Color(0xFF4A90E2),
             onPressed: () {
               if (isEditing) {
                 if (_formKey.currentState?.validate() ?? false) {

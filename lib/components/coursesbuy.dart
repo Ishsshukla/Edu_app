@@ -65,66 +65,216 @@ Widget coursetxt(
   );
 }
 
+
 Widget coursetxtforteacher(
   String img,
   String text,
   String routeName, // Add a parameter for the route name
   BuildContext context,
 ) {
-  return SingleChildScrollView(
-    child: Padding(
-      padding: const EdgeInsets.only(left: 0, right: 0, top: 20, bottom: 0),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(19, 20, 19, 0),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 2,
-                blurRadius: 5,
-                offset: Offset(0, 3),
-              ),
-            ],
+  return Padding(
+    padding: const EdgeInsets.fromLTRB(20, 20, 20, 15), // Consistent padding
+    child: Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15), // Increased border radius for a smoother look
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.3), // Softer shadow for a modern look
+            spreadRadius: 2,
+            blurRadius: 8,
+            offset: const Offset(0, 4), // Adds more depth
           ),
-          child: Row(
-            children: [
-              Column(
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(10, 10, 10, 7), // Padding inside the container for a clean layout
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center, // Center the items vertically
+          children: [
+            // Image Section
+            Image.asset(img, scale: 12),
+            const SizedBox(width: 15), // Space between image and text
+
+            // Text and Button Section
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start, // Align text to the left
                 children: [
-                  Image.asset(img, scale: 12),
-                ],
-              ),
-              const SizedBox(width: 10),
-              Column(
-                children: [
-                  Column(
-                    children: [
-                      Text(
-                        text,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                          fontWeight: FontWeight.normal,
-                        ),
+                  Text(
+                    text,
+                    style: const TextStyle(
+                      fontSize: 18, // Larger font for course title
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500, // Medium weight for emphasis
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, routeName); // Navigate using routeName
+                    },
+                    style: ElevatedButton.styleFrom(
+                      elevation: 3,
+                      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                      backgroundColor: const Color(0xFF4A90E2), // Custom button color
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8), // Rounded corners for the button
                       ),
-                      const SizedBox(height: 10),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context,
-                              routeName); // Use the route name to navigate
-                        },
-                        child: const Text('Edit Course'),
-                        //  child: const Text('view'),
-                        style: ElevatedButton.styleFrom(),
-                      ),
-                    ],
+                    ),
+                    child: const Text(
+                      'Edit Course',
+                      style: TextStyle(fontSize: 16, color: Colors.white), // White text color
+                    ),
                   ),
                 ],
               ),
-            ],
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+Widget chaptertxtforteacher(
+  String img,
+  String text,
+  String routeName, // Add a parameter for the route name
+  BuildContext context,
+  // String text2,
+) {
+  return Padding(
+    padding: const EdgeInsets.fromLTRB(20, 20, 20, 15), // Consistent padding
+    child: Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15), // Increased border radius for a smoother look
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.3), // Softer shadow for a modern look
+            spreadRadius: 2,
+            blurRadius: 8,
+            offset: const Offset(0, 4), // Adds more depth
           ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(10, 10, 10, 7), // Padding inside the container for a clean layout
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center, // Center the items vertically
+          children: [
+            // Image Section
+            Image.asset(img, scale: 12),
+            const SizedBox(width: 15), // Space between image and text
+
+            // Text and Button Section
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start, // Align text to the left
+                children: [
+                  Text(
+                    text,
+                    style: const TextStyle(
+                      fontSize: 18, // Larger font for course title
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500, // Medium weight for emphasis
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, routeName); // Navigate using routeName
+                    },
+                    style: ElevatedButton.styleFrom(
+                      elevation: 3,
+                      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                      backgroundColor: const Color(0xFF4A90E2), // Custom button color
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8), // Rounded corners for the button
+                      ),
+                    ),
+                    child: const Text(
+                      'Edit Chapter',
+                      style: TextStyle(fontSize: 16, color: Colors.white), // White text color
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+Widget crstxtforstudent(
+  String img,
+  String text,
+  String routeName, // Add a parameter for the route name
+  BuildContext context,
+  // String text2,
+) {
+  return Padding(
+    padding: const EdgeInsets.fromLTRB(20, 20, 20, 15), // Consistent padding
+    child: Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15), // Increased border radius for a smoother look
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.3), // Softer shadow for a modern look
+            spreadRadius: 2,
+            blurRadius: 8,
+            offset: const Offset(0, 4), // Adds more depth
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(10, 10, 10, 7), // Padding inside the container for a clean layout
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center, // Center the items vertically
+          children: [
+            // Image Section
+            Image.asset(img, scale: 12),
+            const SizedBox(width: 15), // Space between image and text
+
+            // Text and Button Section
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start, // Align text to the left
+                children: [
+                  Text(
+                    text,
+                    style: const TextStyle(
+                      fontSize: 18, // Larger font for course title
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500, // Medium weight for emphasis
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, routeName); // Navigate using routeName
+                    },
+                    style: ElevatedButton.styleFrom(
+                      elevation: 3,
+                      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                      backgroundColor: const Color(0xFF4A90E2), // Custom button color
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8), // Rounded corners for the button
+                      ),
+                    ),
+                    child: const Text(
+                      'View Course',
+                      style: TextStyle(fontSize: 16, color: Colors.white), // White text color
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     ),
