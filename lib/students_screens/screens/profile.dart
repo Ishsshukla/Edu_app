@@ -13,7 +13,7 @@ import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
-import '../pages/user_notifier.dart';
+import 'user_notifier.dart';
 
 class Prflpage extends StatefulWidget {
   @override

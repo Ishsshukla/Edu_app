@@ -1,5 +1,5 @@
 import 'package:edu_app/components/quiz_const.dart';
-import 'package:edu_app/controller/que_controller.dart';
+import 'package:edu_app/controllers/que_controller.dart';
 import 'package:edu_app/quiz/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

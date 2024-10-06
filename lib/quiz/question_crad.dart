@@ -3,7 +3,7 @@ import 'package:edu_app/quiz/option.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../controller/que_controller.dart';
+import '../controllers/que_controller.dart';
 import '../models/question model.dart';
 // import 'package:quiz_application_tut_from_scracth/controllers/question_controller.dart';
 // import 'package:quiz_application_tut_from_scracth/models/questions_model.dart';

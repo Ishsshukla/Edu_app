@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import '../../components/review_componemt.dart';
-import '../pages/user_notifier.dart';
+import 'user_notifier.dart';
 import 'navbar.dart';
 // import 'user_notifier.dart';
 
