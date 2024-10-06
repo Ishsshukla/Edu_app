@@ -1,215 +1,211 @@
-// ignore_for_file: use_key_in_widget_constructors, unused_local_variable, sort_child_properties_last
-
-import 'package:edu_app/components/button.dart';
 import 'package:edu_app/components/const.dart';
-import 'package:edu_app/components/profie_text_edit.dart';
-import 'package:edu_app/components/review_componemt.dart';
-import 'package:edu_app/students_screens/screens/navbar.dart';
-import 'package:edu_app/students_screens/screens/payment_method.dart';
-import 'package:edu_app/students_screens/screens/review.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:edu_app/teacher_side/screens/contenteditcourse.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class EditCourseDescriptionpage extends StatefulWidget {
   @override
-  State<EditCourseDescriptionpage> createState() => _CourseDescriptionState();
+  State<EditCourseDescriptionpage> createState() =>
+      _EditCourseDescriptionpageState();
 }
 
-class _CourseDescriptionState extends State<EditCourseDescriptionpage> {
+class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
+  final FocusNode _courseInfoFocusNode = FocusNode();
+  final FocusNode _descriptionFocusNode = FocusNode();
+
+  void _editCourse() {
+    // Navigate to the next page for editing
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EditCourseContentTeacher(),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    // Dispose of the focus nodes to prevent memory leaks
+    _courseInfoFocusNode.dispose();
+    _descriptionFocusNode.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: true,  // This ensures the layout resizes when the keyboard shows up
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              // Image Section
-              Container(
-                width: screenWidth,
-                child: Image.asset(
-                  'assets/CoursePreview.png',
-                  fit: BoxFit.cover,
-                  height: screenHeight * 0.4, // Adjust height as needed
-                ),
-              ),
-              // Transform the next container to move it upwards, creating the overlap
-              Transform.translate(
-                offset: Offset(
-                    0,
-                    -screenHeight *
-                        0.07), // Moves it up by 5% of the screen height
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(40),
-                      topRight: Radius.circular(40),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.white,
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                        offset: Offset(0, 3),
-                      ),
-                    ],
+        child: GestureDetector(
+          onTap: () {
+            // Unfocus all FocusNodes when tapping outside of the text fields
+            _courseInfoFocusNode.unfocus();
+            _descriptionFocusNode.unfocus();
+          },
+          child: SingleChildScrollView(  // This allows the screen to scroll when the keyboard appears
+            child: Column(
+              children: [
+                // Image Section
+                SizedBox(
+                  width: screenWidth,
+                  child: Image.asset(
+                    'assets/CoursePreview.png',
+                    fit: BoxFit.cover,
+                    height: screenHeight * 0.4, // Adjusted height
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(28.0, 0, 0, 0),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: screenHeight * 0.05,
-                        ),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: txt('Course Info', context),
-                        ),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: editabletxtforteacher('write here', context),
-                        ),
-                        SizedBox(
-                          height: screenHeight * 0.014,
-                        ),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: txt('Description', context),
-                        ),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: editabletxtforteacher(
-                              'write here the description of the course',
-                              context),
-                        ),
-                        SizedBox(
-                          height: screenHeight * 0.014,
-                        ),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: txt('Information', context),
-                        ),
-                        SizedBox(
-                          height: screenHeight * 0.014,
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.timelapse,
-                              size: 40,
-                              color: txtColor,
+                ),
+
+                // Container for Course Info and Description with Transform
+                Transform.translate(
+                  offset: Offset(0, -screenHeight * 0.04), // Keeps the original transform
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(40),
+                        topRight: Radius.circular(40),
+                      ),
+                      
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(28.0, 40, 28, 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Course Info',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 8),
+                          TextField(
+                            focusNode: _courseInfoFocusNode,
+                            decoration: InputDecoration(
+                              hintText: 'Write here',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(color: Colors.grey),
+                              ),
+                              contentPadding: const EdgeInsets.all(10), // Adjusted content padding
                             ),
-                            SizedBox(
-                              width: screenWidth * .018,
+                          ),
+                          const SizedBox(height: 16),
+
+                          // Course Description
+                          const Text(
+                            'Description',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 8),
+                          TextField(
+                            focusNode: _descriptionFocusNode,
+                            maxLines: 2,
+                            decoration: InputDecoration(
+                              hintText: 'Write the course description here',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(color: Colors.grey),
+                              ),
+                              contentPadding: const EdgeInsets.all(10), // Adjusted content padding
                             ),
-                            Container(
-                              width: screenWidth * 0.2,
-                              child: TextField(
-                                controller:
-                                    TextEditingController(text: '1h 35m'),
-                                style: TextStyle(color: txtColor, fontSize: 15),
-                                decoration: const InputDecoration(
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 10, horizontal: 10),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(10),
-                                    ),
-                                  ),
+                          ),
+                          const SizedBox(height: 20),
+
+                          // Information Section
+                          const Text(
+                            'Information',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 12),
+
+                          // Row for time and rating
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.timelapse,
+                                size: 30,
+                                color: txtColor,
+                              ),
+                              const SizedBox(width: 8),
+                              const Text('1h 35m',
+                                  style: TextStyle(fontSize: 16)),
+                              const Spacer(),
+                              Icon(
+                                Icons.star,
+                                size: 30,
+                                color: txtColor,
+                              ),
+                              const SizedBox(width: 8),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 42, 0),
+                                child: const Text(
+                                  '4.5 Star',
+                                  style: TextStyle(fontSize: 16),
                                 ),
                               ),
-                            ),
-                            SizedBox(
-                              width: screenWidth * .16,
-                            ),
-                            Icon(
-                              Icons.star,
-                              size: 40,
-                              color: txtColor,
-                            ),
-                            SizedBox(
-                              width: screenWidth * .018,
-                            ),
-                            Text(
-                              '4.5  Star',
-                              style: TextStyle(color: txtColor, fontSize: 17),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: screenHeight * 0.008,
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.book,
-                              size: 40,
-                              color: txtColor,
-                            ),
-                            SizedBox(
-                              width: screenWidth * .018,
-                            ),
-                            Text(
-                              'Notes',
-                              style: TextStyle(color: txtColor, fontSize: 17),
-                            ),
-                            SizedBox(
-                              width: screenWidth * .239,
-                            ),
-                            Icon(
-                              Icons.message,
-                              size: 40,
-                              color: txtColor,
-                            ),
-                            Text(
-                              '350 Reviews',
-                              style: TextStyle(color: txtColor, fontSize: 17),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: screenHeight * 0.04,
-                        ),
-                        const Divider(
-                          color: Colors.grey,
-                        ),
-                        const Row(
-                          children: [
-                            SizedBox(
-                              width: 40,
-                            ),
-                          ],
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Reviewpage(),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+
+                          // Row for notes and reviews
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.book,
+                                size: 30,
+                                color: txtColor,
                               ),
-                            );
-                          },
-                          child: const Text(
-                            ' Save & Continue',
-                            style: TextStyle(color: Colors.white, fontSize: 23),
+                              const SizedBox(width: 8),
+                              const Text(
+                                'Notes',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              const Spacer(),
+                              Icon(
+                                Icons.message,
+                                size: 30,
+                                color: txtColor,
+                              ),
+                              const SizedBox(width: 8),
+                              const Text(
+                                '350 Reviews',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ],
                           ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: txtColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.white,
+      
+        child: Padding(
+          padding: const EdgeInsets.all(0),
+          child: ElevatedButton(
+            onPressed: _editCourse,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: txtColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
               ),
-            ],
+              padding: const EdgeInsets.symmetric(vertical: 0), // Increased vertical padding
+            ),
+            child: const Text(
+              'Edit Course',
+              style: TextStyle(fontSize: 22, color: Colors.white),
+            ),
           ),
         ),
       ),

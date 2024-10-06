@@ -25,6 +25,7 @@ import 'package:edu_app/students_screens/upi/upi_screen.dart';
 import 'package:edu_app/teacher_side/home.dart';
 import 'package:edu_app/teacher_side/screens/Edit_course.dart';
 import 'package:edu_app/teacher_side/screens/contenteditcourse.dart';
+// import 'package:edu_app/teacher_side/screens/crs_options_teachers.dart';
 import 'package:edu_app/teacher_side/screens/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -53,8 +54,9 @@ class MyApp extends StatelessWidget {
       create: (context) => UserNotifier(),
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
+        initialRoute: '/courseteacher',
         // initialRoute: '/login',
-        initialRoute: '/editcoursecontent',
+
         getPages: [
           GetPage(name: '/upi_screen', page: () => const UpiScreen()),
           GetPage(name: '/category_quiz', page: () => QuizCategoryScreen()),
@@ -83,10 +85,7 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/Thome', page: () => teachHomepage()),
 
           // teacherside
-          GetPage(name: '/courseteacher', page: () => coursepageTeacher()),
-         
-          // GetPage(name: '/editcoursecontent', page: () =>  editcourseTeacher()),
-
+          GetPage(name: '/courseteacher', page: () => CoursePageTeacher()),
           GetPage(
               name: '/editcoursecontent',
               page: () => EditCourseContentTeacher()),
