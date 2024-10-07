@@ -8,7 +8,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class EditCourseContentTeacher extends StatefulWidget {
-  const EditCourseContentTeacher({Key? key}) : super(key: key);
+  const EditCourseContentTeacher({super.key});
 
   @override
   State<EditCourseContentTeacher> createState() =>
@@ -22,8 +22,8 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
   final TextEditingController _youtubeLinkController = TextEditingController();
 
   // Variables to store picked file information
-  List<File> _pickedPdfFiles = []; // Updated to handle multiple PDFs
-  List<File> _pickedImageFiles = [];
+  final List<File> _pickedPdfFiles = []; // Updated to handle multiple PDFs
+  final List<File> _pickedImageFiles = [];
 
   // Function to open the YouTube link
   Future<void> _launchYoutubeLink() async {
@@ -55,13 +55,11 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
   // Function to pick images
   Future<void> _pickImageFiles() async {
     final pickedFiles = await ImagePicker().pickMultiImage();
-    if (pickedFiles != null) {
-      setState(() {
-        _pickedImageFiles
-            .addAll(pickedFiles.map((pickedFile) => File(pickedFile.path)));
-      });
+    setState(() {
+      _pickedImageFiles
+          .addAll(pickedFiles.map((pickedFile) => File(pickedFile.path)));
+    });
     }
-  }
 
   // Function to upload PDFs
   Future<void> _uploadPdfFiles(List<String> pdfUrls) async {

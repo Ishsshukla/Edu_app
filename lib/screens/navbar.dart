@@ -36,7 +36,7 @@ class _NavState extends State<Nav> {
             label: 'Home',
             isSelected: _selectedIndex == 0,
             onTap: () => _onNavItemTapped(0),
-            navi: Homepage(),
+            navi: const Homepage(),
           ),
           const SizedBox(
             width: 3,

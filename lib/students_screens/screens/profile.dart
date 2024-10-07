@@ -72,7 +72,7 @@ class _PrflpageState extends State<Prflpage> {
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.white,
-        textColor: Color(0xFF4A90E2),
+        textColor: const Color(0xFF4A90E2),
         fontSize: 16.0,
       );
     }
@@ -109,10 +109,10 @@ class _PrflpageState extends State<Prflpage> {
                         onTap: () {
                           // Functionality to update profile image can be added here
                         },
-                        child: CircleAvatar(
+                        child: const CircleAvatar(
                           radius: 18,
                           backgroundColor: Color(0xFF4A90E2),
-                          child: const Icon(
+                          child: Icon(
                             Icons.edit,
                             color: Colors.white,
                             size: 18,
@@ -244,7 +244,7 @@ class _PrflpageState extends State<Prflpage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.security_rounded, color: Color(0xFF4A90E2), size: 32),
+                    const Icon(Icons.security_rounded, color: Color(0xFF4A90E2), size: 32),
                     const SizedBox(width: 16),
                     GestureDetector(
                       onTap: () {
@@ -278,7 +278,7 @@ class _PrflpageState extends State<Prflpage> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF4A90E2),
+                      backgroundColor: const Color(0xFF4A90E2),
                       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25),
@@ -316,7 +316,7 @@ class _PrflpageState extends State<Prflpage> {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Row(
         children: [
-          Icon(icon, color: Color(0xFF4A90E2), size: iconSize),
+          Icon(icon, color: const Color(0xFF4A90E2), size: iconSize),
           const SizedBox(width: 16),
           Expanded(
             child: Container(
@@ -329,7 +329,7 @@ class _PrflpageState extends State<Prflpage> {
                     color: Colors.grey.withOpacity(0.2),
                     spreadRadius: 2,
                     blurRadius: 4,
-                    offset: Offset(0, 2), // changes position of shadow
+                    offset: const Offset(0, 2), // changes position of shadow
                   ),
                 ],
               ),
@@ -352,7 +352,7 @@ class _PrflpageState extends State<Prflpage> {
           ),
           IconButton(
             icon: Icon(isEditing ? Icons.save : Icons.edit),
-            color: Color(0xFF4A90E2),
+            color: const Color(0xFF4A90E2),
             onPressed: () {
               if (isEditing) {
                 if (_formKey.currentState?.validate() ?? false) {

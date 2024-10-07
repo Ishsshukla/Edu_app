@@ -27,7 +27,7 @@ class _HomepageState extends State<Homepage> {
       appBar: AppBar(
         title: Text(
           'Hiii  ${userNotifier.firstName}  ${userNotifier.lastName}',
-          style: TextStyle(color: Colors.black),
+          style: const TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.white,
         // elevation: 0.0,

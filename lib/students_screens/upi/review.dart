@@ -1,11 +1,8 @@
 // ignore_for_file: use_key_in_widget_constructors, unused_local_variable, sort_child_properties_last
 
 import 'package:edu_app/components/button.dart';
-import 'package:edu_app/components/profie_text_edit.dart';
 import 'package:edu_app/components/review_componemt.dart';
-import 'package:edu_app/screens/navbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class Reviewpage extends StatefulWidget {
   @override

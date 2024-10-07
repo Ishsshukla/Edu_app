@@ -65,7 +65,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         }
         else{
            Navigator.push(
-            context, MaterialPageRoute(builder: (context) => teachHomepage()));
+            context, MaterialPageRoute(builder: (context) => const teachHomepage()));
         }
 
        

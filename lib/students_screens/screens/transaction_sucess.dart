@@ -2,7 +2,7 @@
 
 import 'package:edu_app/components/button.dart';
 import 'package:edu_app/components/const.dart';
-import 'package:edu_app/students_screens/screens/enrollled_crs.dart';
+import 'package:edu_app/students_screens/screens/enrolled_course/enrollled_crs.dart';
 import 'package:flutter/material.dart';
 
 class transactionpage extends StatefulWidget {
@@ -51,7 +51,7 @@ class _transactionpageState extends State<transactionpage> {
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: CustomButton(
                     text: 'Go to My Lesson',
-                    color: Color(0xFF4A90E2),
+                    color: const Color(0xFF4A90E2),
                     textColor: Colors.white,
                     function: () {
                       Navigator.push(

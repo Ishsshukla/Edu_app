@@ -111,7 +111,7 @@ class _PrflpageState extends State<Prflpage> {
           ),
         ),
       ),
-      bottomNavigationBar: Nav(),
+      bottomNavigationBar: const Nav(),
     );
   }
 }

@@ -3,7 +3,6 @@
 import 'package:edu_app/components/button.dart';
 import 'package:edu_app/components/const.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class Paysucesspage extends StatefulWidget {
   const Paysucesspage({super.key});

@@ -111,7 +111,7 @@ class _CourseDescriptionState extends State<CourseDescriptionpage> {
                         ),
                         Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.timelapse,
                               size: 40,
                               color: Color(0xFF4A90E2),
@@ -119,14 +119,14 @@ class _CourseDescriptionState extends State<CourseDescriptionpage> {
                             SizedBox(
                               width: screenWidth * .018,
                             ),
-                            Text(
+                            const Text(
                               '1h 35m',
                               style: TextStyle(color: Color(0xFF4A90E2), fontSize: 17),
                             ),
                             SizedBox(
                               width: screenWidth * .2,
                             ),
-                            Icon(
+                            const Icon(
                               Icons.star,
                               size: 40,
                               color: Color(0xFF4A90E2),
@@ -134,7 +134,7 @@ class _CourseDescriptionState extends State<CourseDescriptionpage> {
                             SizedBox(
                               width: screenWidth * .018,
                             ),
-                            Text(
+                            const Text(
                               '4.5  Star',
                               style: TextStyle(color: Color(0xFF4A90E2), fontSize: 17),
                             )
@@ -145,7 +145,7 @@ class _CourseDescriptionState extends State<CourseDescriptionpage> {
                         ),
                         Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.book,
                               size: 40,
                               color: Color(0xFF4A90E2),
@@ -153,14 +153,14 @@ class _CourseDescriptionState extends State<CourseDescriptionpage> {
                             SizedBox(
                               width: screenWidth * .018,
                             ),
-                            Text(
+                            const Text(
                               'Notes',
                               style: TextStyle(color: Color(0xFF4A90E2), fontSize: 17),
                             ),
                             SizedBox(
                               width: screenWidth * .239,
                             ),
-                            Icon(
+                            const Icon(
                               Icons.message,
                               size: 40,
                               color: Color(0xFF4A90E2),
@@ -168,7 +168,7 @@ class _CourseDescriptionState extends State<CourseDescriptionpage> {
                             // SizedBox(
                             //   width: screenWidth * .007s,
                             // ),
-                            Text(
+                            const Text(
                               '350 Reviews',
                               style: TextStyle(color: Color(0xFF4A90E2), fontSize: 17),
                             )
@@ -223,7 +223,7 @@ class _CourseDescriptionState extends State<CourseDescriptionpage> {
                                     color: Colors.white, fontSize: 23),
                               ),
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xFF4A90E2),
+                                backgroundColor: const Color(0xFF4A90E2),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),

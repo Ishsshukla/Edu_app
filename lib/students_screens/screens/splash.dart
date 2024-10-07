@@ -41,7 +41,7 @@ class _SplashState extends State<SplashScreen> {
             const SizedBox(height: 86),
             CustomButton(
                 text: 'Next',
-                color: Color(0xFF4A90E2),
+                color: const Color(0xFF4A90E2),
                 textColor: Colors.white,
                 function: () {
                   Navigator.pushNamed(context, 'splash2');

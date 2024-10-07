@@ -8,7 +8,9 @@ import 'package:edu_app/students_screens/screens/crs.dart';
 import 'package:edu_app/students_screens/screens/crs_description.dart';
 import 'package:edu_app/students_screens/screens/course_fail.dart';
 import 'package:edu_app/students_screens/screens/crs_options.dart';
-import 'package:edu_app/students_screens/screens/enrollled_crs.dart';
+import 'package:edu_app/students_screens/screens/enrolled_course/chapters.dart';
+import 'package:edu_app/students_screens/screens/enrolled_course/content_chptr.dart';
+import 'package:edu_app/students_screens/screens/enrolled_course/enrollled_crs.dart';
 import 'package:edu_app/students_screens/screens/final_pay.dart';
 import 'package:edu_app/students_screens/screens/home.dart';
 import 'package:edu_app/students_screens/screens/news.dart';
@@ -73,24 +75,27 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/paymethod', page: () => const PayMethodPage()),
           GetPage(name: '/finalpay', page: () => Finalpaypage()),
           GetPage(name: '/coursedescr', page: () => CourseDescriptionpage()),
+          GetPage(name: '/chapterstudent', page: () => ChapterPageStudent()),
+           GetPage(name: '/viewchapterstudent', page: () => const ViewChapterStudent()),
+
           GetPage(name: '/quiz', page: () => const QuizPage()),
           GetPage(name: '/coursefail', page: () => const CourseFailPage()),
           GetPage(name: '/privacy', page: () => const PrivacyPage()),
           GetPage(name: '/news', page: () => const Newspage()),
           GetPage(name: '/courseoption', page: () =>  CrsPagestudent()),
           GetPage(name: '/enrolledcrspage', page: () => enrolledcrspage()),
-          GetPage(name: '/login', page: () => LoginScreen()),
-          GetPage(name: '/signup', page: () => SignUpScreen()),
-          GetPage(name: '/splash2', page: () => SplashScreen2()),
-          GetPage(name: '/phnhome', page: () => PhnHome()),
-          GetPage(name: '/Thome', page: () => teachHomepage()),
+          GetPage(name: '/login', page: () => const LoginScreen()),
+          GetPage(name: '/signup', page: () => const SignUpScreen()),
+          GetPage(name: '/splash2', page: () => const SplashScreen2()),
+          GetPage(name: '/phnhome', page: () => const PhnHome()),
+          GetPage(name: '/Thome', page: () => const teachHomepage()),
 
           // teacherside
           GetPage(name: '/chapterteacher', page: () => ChapterPageTeacher()),
           GetPage(name: '/courseteacher', page: () => CoursePageTeacher()),
           GetPage(
               name: '/editcoursecontent',
-              page: () => EditCourseContentTeacher()),
+              page: () => const EditCourseContentTeacher()),
           GetPage(name: '/editcourse', page: () => EditCourseDescriptionpage()),
         ],
       ),

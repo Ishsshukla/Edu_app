@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class NavTeacher extends StatefulWidget {
   final int initialIndex;
 
-  const NavTeacher({required this.initialIndex});
+  const NavTeacher({super.key, required this.initialIndex});
 
   @override
   _NavTeacherState createState() => _NavTeacherState();
@@ -31,7 +31,7 @@ class _NavTeacherState extends State<NavTeacher> {
       case 0:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => Homepage()),
+          MaterialPageRoute(builder: (context) => const Homepage()),
         );
         break;
       case 1:
@@ -43,7 +43,7 @@ class _NavTeacherState extends State<NavTeacher> {
       case 2:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => Prflpage()),
+          MaterialPageRoute(builder: (context) => const Prflpage()),
         );
         break;
     }
@@ -101,7 +101,7 @@ class NavBarItem extends StatelessWidget {
   final bool isSelected;
   final VoidCallback onTap;
 
-  NavBarItem({
+  const NavBarItem({super.key, 
     required this.icon,
     required this.label,
     required this.isSelected,

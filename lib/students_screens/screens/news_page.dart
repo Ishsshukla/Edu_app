@@ -75,7 +75,7 @@ class _CustomDropDownWidgetState extends State<CustomDropDownWidget> {
                                               .headlineSmall!
                                               .copyWith(
                                                   fontSize: 16,
-                                                  color: Color(0xFF4A90E2)))),
+                                                  color: const Color(0xFF4A90E2)))),
                                   Icon(
                                     isExpanded
                                         ? Icons.keyboard_arrow_up
@@ -116,7 +116,7 @@ class _CustomDropDownWidgetState extends State<CustomDropDownWidget> {
                                             .displayMedium!
                                             .copyWith(
                                                 fontSize: 14,
-                                                color: Color(0xFF4A90E2)),
+                                                color: const Color(0xFF4A90E2)),
                                       ))),
                                 ))
                             .toList(),

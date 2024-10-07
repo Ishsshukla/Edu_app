@@ -2,14 +2,14 @@ import 'package:edu_app/components/coursesbuy.dart'; // Update import if needed 
 import 'package:edu_app/teacher_side/navbar.dart';
 import 'package:flutter/material.dart';
 
-class ChapterPageTeacher extends StatefulWidget {
-  const ChapterPageTeacher({super.key});
+class ChapterPageStudent extends StatefulWidget {
+  const ChapterPageStudent({super.key});
 
   @override
-  State<ChapterPageTeacher> createState() => _ChapterPageTeacherState();
+  State<ChapterPageStudent> createState() => _ChapterPageStudentState();
 }
 
-class _ChapterPageTeacherState extends State<ChapterPageTeacher> {
+class _ChapterPageStudentState extends State<ChapterPageStudent> {
   // Dynamic list to store the chapters
   List<Map<String, String>> chapters = [
     {'img': 'assets/CoursePreview.png', 'name': 'Introduction to Algebra'},
@@ -88,7 +88,7 @@ class _ChapterPageTeacherState extends State<ChapterPageTeacher> {
           padding: const EdgeInsets.symmetric(vertical: 20), // Padding at the top and bottom
           child: Column(
             children: chapters.map((chapter) {
-              return chaptertxtforteacher(
+              return chaptertxtforstudent(
                 chapter['img']!,
                 chapter['name']!,
                 'editcoursecontent', // Replace this with your actual edit route if needed
@@ -99,14 +99,14 @@ class _ChapterPageTeacherState extends State<ChapterPageTeacher> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _showAddChapterDialog(); // Show dialog to enter chapter name
-        },
-        backgroundColor: const Color(0xFF4A90E2), // Custom button color
-        child: const Icon(Icons.add, color: Colors.white), // Plus icon with white color
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat, // Bottom right for FAB
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     _showAddChapterDialog(); // Show dialog to enter chapter name
+      //   },
+      //   backgroundColor: const Color(0xFF4A90E2), // Custom button color
+      //   child: const Icon(Icons.add, color: Colors.white), // Plus icon with white color
+      // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat, // Bottom right for FAB
     );
   }
 }

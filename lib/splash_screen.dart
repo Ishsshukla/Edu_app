@@ -28,9 +28,9 @@ class _SplashState extends State<SplashScreen> {
           children: [
             Image.asset('assets/Hero Image.png'),
             const SizedBox(height: 56),
-            SizedBox(
+            const SizedBox(
               width: 200, // Set the desired width
-              child: const Text(
+              child: Text(
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras netus mauris pulvinar suspendisse. Et sit ac lacus in rhoncus.',
                 style: TextStyle(fontSize: 20),
                 overflow:

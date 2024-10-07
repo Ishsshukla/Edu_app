@@ -3,6 +3,8 @@ import 'package:edu_app/teacher_side/navbar.dart';
 import 'package:flutter/material.dart';
 
 class CoursePageTeacher extends StatefulWidget {
+  const CoursePageTeacher({super.key});
+
   @override
   State<CoursePageTeacher> createState() => _CoursePageTeacherState();
 }
@@ -80,7 +82,7 @@ class _CoursePageTeacherState extends State<CoursePageTeacher> {
         elevation: 0, // Remove shadow if not needed
       ),
       backgroundColor: const Color(0xFFF5F5F5), // Light background to make cards pop
-      bottomNavigationBar: NavTeacher(initialIndex: 1), // Bottom Navigation
+      bottomNavigationBar: const NavTeacher(initialIndex: 1), // Bottom Navigation
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20), // Padding at the top and bottom

@@ -1,4 +1,4 @@
-import 'package:edu_app/quiz/quiz1.dart';
+import 'package:edu_app/students_screens/screens/enrolled_course/chapters.dart';
 import 'package:flutter/material.dart';
 
 // ignore_for_file: use_key_in_widget_constructors, unused_local_variable, sort_child_properties_last
@@ -226,7 +226,7 @@ class _enrolledcrsState extends State<enrolledcrspage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => const QuizPage(),
+                                        builder: (context) => ChapterPageStudent(),
                                       ),
                                     );
                                   },
