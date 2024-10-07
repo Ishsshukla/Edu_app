@@ -14,7 +14,7 @@ import 'add_post.dart';
 
 
 class PostScreen extends StatefulWidget {
-  const PostScreen({Key? key}) : super(key: key);
+  const PostScreen({super.key});
 
   @override
   State<PostScreen> createState() => _PostScreenState();
@@ -39,17 +39,17 @@ class _PostScreenState extends State<PostScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Post'),
+        title: const Text('Post'),
         actions: [
           IconButton(onPressed: (){
             auth.signOut().then((value){
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()));
+                  MaterialPageRoute(builder: (context) => const LoginScreen()));
             }).onError((error, stackTrace){
               Utils().toastMessage(error.toString());
             });
-          }, icon: Icon(Icons.logout_outlined),),
-          SizedBox(width: 10,)
+          }, icon: const Icon(Icons.logout_outlined),),
+          const SizedBox(width: 10,)
         ],
       ),
       body: Column(
@@ -57,7 +57,7 @@ class _PostScreenState extends State<PostScreen> {
           Expanded(
             child: FirebaseAnimatedList(
                 query: ref,
-                defaultChild: Text('Loading'),
+                defaultChild: const Text('Loading'),
                 itemBuilder: (context, snapshot, animation, index){
                   return   ListTile(
                     title: Text(snapshot.child('title').value.toString()),
@@ -68,7 +68,7 @@ class _PostScreenState extends State<PostScreen> {
                         padding: EdgeInsets.zero,
                         shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(Radius.circular(2))),
-                        icon: Icon(Icons.more_vert,),
+                        icon: const Icon(Icons.more_vert,),
                         itemBuilder: (context) => [
                           PopupMenuItem(
                             value: 1,
@@ -88,8 +88,8 @@ class _PostScreenState extends State<PostScreen> {
                                   });
 
                                 },
-                                leading: Icon(Icons.edit),
-                                title: Text('Edit'),
+                                leading: const Icon(Icons.edit),
+                                title: const Text('Edit'),
                               ),
                             ),
                           ),
@@ -113,8 +113,8 @@ class _PostScreenState extends State<PostScreen> {
                                   Utils().toastMessage(error.toString());
                                 });
                               },
-                              leading: Icon(Icons.delete_outline),
-                              title: Text('Delete'),
+                              leading: const Icon(Icons.delete_outline),
+                              title: const Text('Delete'),
                             ),
                           ),
                         ]),
@@ -126,9 +126,9 @@ class _PostScreenState extends State<PostScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => AddPostScreen()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const AddPostScreen()));
         } ,
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

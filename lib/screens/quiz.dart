@@ -1,17 +1,18 @@
 import 'package:edu_app/components/const.dart';
 import 'package:edu_app/quiz/congo.dart';
+import 'package:edu_app/quiz/quiz2.dart';
 import 'package:flutter/material.dart';
 
-class QuizPage2 extends StatefulWidget {
-  const QuizPage2({super.key});
+class QuizPage extends StatefulWidget {
+  const QuizPage({super.key});
 
   @override
   _QuizPageState createState() => _QuizPageState();
 }
 
-class _QuizPageState extends State<QuizPage2> {
+class _QuizPageState extends State<QuizPage> {
   late List<bool> selectedList; // Use a list to track selection for each answer
-  int currentQuestionNumber = 2;
+  int currentQuestionNumber = 1;
   int totalNumberOfQuestions = 15;
 
   @override
@@ -99,7 +100,7 @@ class _QuizPageState extends State<QuizPage2> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const Congopage(),
+                      builder: (context) => const QuizPage2(),
                     ),
                   );
                 },

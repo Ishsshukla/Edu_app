@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class Homepage extends StatefulWidget {
+  const Homepage({super.key});
+
   @override
   State<Homepage> createState() => _HomepageState();
 }
@@ -69,7 +71,7 @@ class _HomepageState extends State<Homepage> {
                       controller: _controller,
                       decoration: InputDecoration(
                         hintText: 'Search...',
-                        prefixIcon: Icon(Icons.search),
+                        prefixIcon: const Icon(Icons.search),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),

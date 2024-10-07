@@ -29,7 +29,7 @@ Widget prflTxtEdit(
                 print('Edited text: $text');
               },
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
           ],
         ),
       ],

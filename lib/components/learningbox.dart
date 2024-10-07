@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 Widget lrngboxtxt(
   imagecls,
@@ -19,7 +18,7 @@ Widget lrngboxtxt(
         ),
         Text(
           text,
-          style: TextStyle(
+          style: const TextStyle(
             backgroundColor: Colors.white,
           ),
         )

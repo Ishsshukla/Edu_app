@@ -92,8 +92,8 @@ class AdminScreen extends StatelessWidget {
 
     Get.snackbar("Added", "Question Added");
     questionController.questionContorllerText.clear();
-    questionController.optionControllers.forEach((element) {
+    for (var element in questionController.optionControllers) {
       element.clear();
-    });
+    }
   }
 }

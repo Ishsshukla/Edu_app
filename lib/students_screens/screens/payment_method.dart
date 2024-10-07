@@ -6,6 +6,8 @@ import 'package:edu_app/students_screens/screens/final_pay.dart';
 import 'package:flutter/material.dart';
 
 class PayMethodPage extends StatefulWidget {
+  const PayMethodPage({super.key});
+
   @override
   State<PayMethodPage> createState() => _PayMethodState();
 }
@@ -85,7 +87,7 @@ class _PayMethodState extends State<PayMethodPage> {
                 ),
 
                 // Divider and title
-                Divider(color: Colors.grey),
+                const Divider(color: Colors.grey),
                 const SizedBox(height: 20),
                 const Align(
                   alignment: Alignment.centerLeft,
@@ -112,10 +114,10 @@ class _PayMethodState extends State<PayMethodPage> {
                     width: double.infinity,
                     height: 60,
                     decoration: BoxDecoration(
-                      color: isSelected1 ? txtColor: Colors.white,
+                      color: isSelected1 ? Color(0xFF4A90E2) : Colors.white,
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
-                        color: isSelected1 ? txtColor: Colors.grey,
+                        color: isSelected1 ? Color(0xFF4A90E2) : Colors.grey,
                         width: 2,
                       ),
                     ),
@@ -125,7 +127,7 @@ class _PayMethodState extends State<PayMethodPage> {
                           padding: const EdgeInsets.all(10),
                           child: CircleAvatar(
                             backgroundColor:
-                                isSelected1 ? txtColor : Colors.grey,
+                                isSelected1 ? Color(0xFF4A90E2) : Colors.grey,
                             child: isSelected1
                                 ? const Icon(Icons.check, color: Colors.white)
                                 : null,
@@ -163,10 +165,10 @@ class _PayMethodState extends State<PayMethodPage> {
                     width: double.infinity,
                     height: 60,
                     decoration: BoxDecoration(
-                      color: isSelected2 ? txtColor : Colors.white,
+                      color: isSelected2 ? Color(0xFF4A90E2) : Colors.white,
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
-                        color: isSelected2 ? txtColor : Colors.grey,
+                        color: isSelected2 ? Color(0xFF4A90E2) : Colors.grey,
                         width: 2,
                       ),
                     ),
@@ -176,7 +178,7 @@ class _PayMethodState extends State<PayMethodPage> {
                           padding: const EdgeInsets.all(10),
                           child: CircleAvatar(
                             backgroundColor:
-                                isSelected2 ? txtColor : Colors.grey,
+                                isSelected2 ? Color(0xFF4A90E2) : Colors.grey,
                             child: isSelected2
                                 ? const Icon(Icons.check, color: Colors.white)
                                 : null,
@@ -264,7 +266,7 @@ class _PayMethodState extends State<PayMethodPage> {
                         style: TextStyle(color: Colors.white, fontSize: 23),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: txtColor,
+                        backgroundColor: Color(0xFF4A90E2),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),

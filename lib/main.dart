@@ -24,6 +24,7 @@ import 'package:edu_app/students_screens/screens/transaction_sucess.dart';
 import 'package:edu_app/students_screens/upi/upi_screen.dart';
 import 'package:edu_app/teacher_side/home.dart';
 import 'package:edu_app/teacher_side/screens/Edit_course.dart';
+import 'package:edu_app/teacher_side/screens/chapter_screen.dart';
 import 'package:edu_app/teacher_side/screens/contenteditcourse.dart';
 // import 'package:edu_app/teacher_side/screens/crs_options_teachers.dart';
 import 'package:edu_app/teacher_side/screens/home.dart';
@@ -33,7 +34,7 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'quiz/quiz_welcm_screen.dart';
 import 'students_screens/auth/login.dart';
-import 'students_screens/auth/signup.dart';
+import 'students_screens/auth/signup.dart'; 
 import 'students_screens/screens/splash2.dart';
 import 'teacher_side/screens/course_screen.dart';
 
@@ -58,25 +59,25 @@ class MyApp extends StatelessWidget {
         initialRoute: '/login',
 
         getPages: [
-          GetPage(name: '/upi_screen', page: () => UpiScreen()),
+          GetPage(name: '/upi_screen', page: () => const UpiScreen()),
           GetPage(name: '/category_quiz', page: () => QuizCategoryScreen()),
           GetPage(name: '/welcm_quiz', page: () => WelcomeScreen()),
-          GetPage(name: '/paysucess', page: () => Paysucesspage()),
-          GetPage(name: '/optionpage', page: () => OptionPage()),
-          GetPage(name: '/courseoptionpage', page: () => courseoptionPage()),
-          GetPage(name: '/homepage', page: () => Homepage()),
-          GetPage(name: '/profile', page: () => Prflpage()),
-          GetPage(name: '/congo', page: () => Congopage()),
-          GetPage(name: '/transaction_sucess', page: () => transactionpage()),
+          GetPage(name: '/paysucess', page: () => const Paysucesspage()),
+          GetPage(name: '/optionpage', page: () => const OptionPage()),
+          GetPage(name: '/courseoptionpage', page: () => const courseoptionPage()),
+          GetPage(name: '/homepage', page: () => const Homepage()),
+          GetPage(name: '/profile', page: () => const Prflpage()),
+          GetPage(name: '/congo', page: () => const Congopage()),
+          GetPage(name: '/transaction_sucess', page: () => const transactionpage()),
           GetPage(name: '/review', page: () => Reviewpage()),
-          GetPage(name: '/paymethod', page: () => PayMethodPage()),
+          GetPage(name: '/paymethod', page: () => const PayMethodPage()),
           GetPage(name: '/finalpay', page: () => Finalpaypage()),
           GetPage(name: '/coursedescr', page: () => CourseDescriptionpage()),
-          GetPage(name: '/quiz', page: () => QuizPage()),
-          GetPage(name: '/coursefail', page: () => CourseFailPage()),
-          GetPage(name: '/privacy', page: () => PrivacyPage()),
-          GetPage(name: '/news', page: () => Newspage()),
-          GetPage(name: '/courseoption', page: () => coursepage()),
+          GetPage(name: '/quiz', page: () => const QuizPage()),
+          GetPage(name: '/coursefail', page: () => const CourseFailPage()),
+          GetPage(name: '/privacy', page: () => const PrivacyPage()),
+          GetPage(name: '/news', page: () => const Newspage()),
+          GetPage(name: '/courseoption', page: () =>  CrsPagestudent()),
           GetPage(name: '/enrolledcrspage', page: () => enrolledcrspage()),
           GetPage(name: '/login', page: () => LoginScreen()),
           GetPage(name: '/signup', page: () => SignUpScreen()),
@@ -85,6 +86,7 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/Thome', page: () => teachHomepage()),
 
           // teacherside
+          GetPage(name: '/chapterteacher', page: () => ChapterPageTeacher()),
           GetPage(name: '/courseteacher', page: () => CoursePageTeacher()),
           GetPage(
               name: '/editcoursecontent',

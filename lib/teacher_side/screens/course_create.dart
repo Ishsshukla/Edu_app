@@ -5,6 +5,8 @@ import 'package:edu_app/components/ellipse.dart';
 import 'package:flutter/material.dart';
 
 class courseoptionPage extends StatefulWidget {
+  const courseoptionPage({super.key});
+
   @override
   State<courseoptionPage> createState() => _OptionPageState();
 }
@@ -20,7 +22,7 @@ class _OptionPageState extends State<courseoptionPage> {
         child: Column(
           children: [
             crcl('Choose the exam you want to prepare', context),
-            SizedBox(height: 40, width: double.infinity),
+            const SizedBox(height: 40, width: double.infinity),
             buildButton('Sainik School', context),
             const SizedBox(height: 25),
             buildButton('Military School', context),
@@ -64,14 +66,14 @@ class _OptionPageState extends State<courseoptionPage> {
           print('Selected: $text');
         },
         style: ButtonStyle(
-          foregroundColor: MaterialStateProperty.resolveWith<Color>(
-            (Set<MaterialState> states) {
-              if (states.contains(MaterialState.hovered)) {
-                return txtColor;
-              }
-              return Colors.black;
-            },
-          ),
+          // foregroundColor: WidgetStateProperty.resolveWith<Color>(
+          //   (Set<WidgetState> states) {
+          //     if (states.contains(WidgetState.hovered)) {
+          //       return txtColor;
+          //     }
+          //     return Colors.black;
+          //   },
+          // ),
         ),
         child: Text(
           text,

@@ -43,19 +43,19 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   'Terms and Conditions!',
                   style: headingH3,
                 ),
-                ListTile(
+                const ListTile(
                   leading: Icon(Icons.check_circle),
                   title: Text('Lorem ipsum dolor sit amet'),
                 ),
-                ListTile(
+                const ListTile(
                   leading: Icon(Icons.check_circle),
                   title: Text('Consectetur adipiscing elit'),
                 ),
-                ListTile(
+                const ListTile(
                   leading: Icon(Icons.check_circle),
                   title: Text('Sed do eiusmod tempor incididunt'),
                 ),
-                ListTile(
+                const ListTile(
                   leading: Icon(Icons.check_circle),
                   title: Text('Ut labore et dolore magna aliqua'),
                 ),
@@ -69,7 +69,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool _isChecked = true;
+    bool isChecked = true;
     return Scaffold(
       backgroundColor: backgroundColor,
       body: Padding(
@@ -157,7 +157,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 obscureText: obscureValue,
                 decoration: InputDecoration(
                   suffixIcon: IconButton(
-                    icon: Icon(Icons.remove_red_eye_outlined),
+                    icon: const Icon(Icons.remove_red_eye_outlined),
                     onPressed: () {
                       setState(() {
                         obscureValue = !obscureValue;
@@ -196,11 +196,11 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 children: [
                   Material(
                     child: Checkbox(
-                      value: _isChecked,
+                      value: isChecked,
                       onChanged: (value) {
                         _showBottomSheet(context);
                         setState(() {
-                          _isChecked = value ?? false;
+                          isChecked = value ?? false;
                         });
                       },
                     ),
@@ -239,7 +239,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Text("or login with",
                         style: GoogleFonts.dmSans(color: Colors.black)),
                   ),
@@ -319,7 +319,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
           borderRadius: BorderRadius.circular(12),
         ),
         child: Container(
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           // decoration: BoxDecoration(color: Colors.blue),
           child: Image.asset(
             path,

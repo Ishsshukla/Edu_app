@@ -39,7 +39,7 @@ class _OTPVerificationState extends State<OTPVerification> {
   }
 
   void startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         if (_timerCount > 0) {
           _timerCount--;
@@ -129,7 +129,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                       borderRadius: BorderRadius.circular(5),
                       fieldHeight: 50,
                       fieldWidth: 40,
-                      fieldOuterPadding: EdgeInsets.all(3),
+                      fieldOuterPadding: const EdgeInsets.all(3),
                       activeFillColor: Colors.white,
                     ),
                     cursorColor: backgroundColor,

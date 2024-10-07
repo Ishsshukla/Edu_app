@@ -1,15 +1,9 @@
 // ignore_for_file: use_key_in_widget_constructors, unused_local_variable, sort_child_properties_last
 
-import 'package:edu_app/components/button.dart';
 import 'package:edu_app/components/const.dart';
-import 'package:edu_app/components/profie_text_edit.dart';
 import 'package:edu_app/components/review_componemt.dart';
-import 'package:edu_app/students_screens/screens/navbar.dart';
-import 'package:edu_app/students_screens/screens/payment_method.dart';
 import 'package:edu_app/students_screens/screens/review.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class CourseDescriptionpage extends StatefulWidget {
   @override
@@ -58,7 +52,7 @@ class _CourseDescriptionState extends State<CourseDescriptionpage> {
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(70),
                       topRight: Radius.circular(70),
                     ),
@@ -67,7 +61,7 @@ class _CourseDescriptionState extends State<CourseDescriptionpage> {
                         color: Colors.grey.withOpacity(0.5),
                         spreadRadius: 2,
                         blurRadius: 5,
-                        offset: Offset(0, 3),
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
@@ -82,7 +76,7 @@ class _CourseDescriptionState extends State<CourseDescriptionpage> {
                           alignment: Alignment.centerLeft,
                           child: txt('Course Info', context),
                         ),
-                        Align(
+                        const Align(
                           alignment: Alignment.centerLeft,
                           child: Text('Sainik School'),
                         ),
@@ -120,14 +114,14 @@ class _CourseDescriptionState extends State<CourseDescriptionpage> {
                             Icon(
                               Icons.timelapse,
                               size: 40,
-                              color: txtColor,
+                              color: Color(0xFF4A90E2),
                             ),
                             SizedBox(
                               width: screenWidth * .018,
                             ),
                             Text(
                               '1h 35m',
-                              style: TextStyle(color: txtColor, fontSize: 17),
+                              style: TextStyle(color: Color(0xFF4A90E2), fontSize: 17),
                             ),
                             SizedBox(
                               width: screenWidth * .2,
@@ -135,14 +129,14 @@ class _CourseDescriptionState extends State<CourseDescriptionpage> {
                             Icon(
                               Icons.star,
                               size: 40,
-                              color: txtColor,
+                              color: Color(0xFF4A90E2),
                             ),
                             SizedBox(
                               width: screenWidth * .018,
                             ),
                             Text(
                               '4.5  Star',
-                              style: TextStyle(color: txtColor, fontSize: 17),
+                              style: TextStyle(color: Color(0xFF4A90E2), fontSize: 17),
                             )
                           ],
                         ),
@@ -154,14 +148,14 @@ class _CourseDescriptionState extends State<CourseDescriptionpage> {
                             Icon(
                               Icons.book,
                               size: 40,
-                              color: txtColor,
+                              color: Color(0xFF4A90E2),
                             ),
                             SizedBox(
                               width: screenWidth * .018,
                             ),
                             Text(
                               'Notes',
-                              style: TextStyle(color: txtColor, fontSize: 17),
+                              style: TextStyle(color: Color(0xFF4A90E2), fontSize: 17),
                             ),
                             SizedBox(
                               width: screenWidth * .239,
@@ -169,21 +163,21 @@ class _CourseDescriptionState extends State<CourseDescriptionpage> {
                             Icon(
                               Icons.message,
                               size: 40,
-                              color: txtColor,
+                              color: Color(0xFF4A90E2),
                             ),
                             // SizedBox(
                             //   width: screenWidth * .007s,
                             // ),
                             Text(
                               '350 Reviews',
-                              style: TextStyle(color: txtColor, fontSize: 17),
+                              style: TextStyle(color: Color(0xFF4A90E2), fontSize: 17),
                             )
                           ],
                         ),
                         SizedBox(
                           height: screenHeight * 0.04,
                         ),
-                        Divider(
+                        const Divider(
                           color: Colors.grey,
                         ),
                         SizedBox(
@@ -229,7 +223,7 @@ class _CourseDescriptionState extends State<CourseDescriptionpage> {
                                     color: Colors.white, fontSize: 23),
                               ),
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: txtColor,
+                                backgroundColor: Color(0xFF4A90E2),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),

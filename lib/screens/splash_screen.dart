@@ -57,10 +57,10 @@ class SplashScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width * 0.90,
                   height: MediaQuery.of(context).size.height * 0.65,
-                  child: IntroScreenDefaultState(),
+                  child: const IntroScreenDefaultState(),
                 ),
                 CustomButton(
                   text: "Register",

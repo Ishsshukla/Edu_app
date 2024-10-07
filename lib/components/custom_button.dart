@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:edu_app/constants/constants.dart';
 
 class CustomButton extends StatelessWidget {
   void Function()? function;

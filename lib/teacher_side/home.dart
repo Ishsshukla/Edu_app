@@ -9,6 +9,8 @@ import 'package:flutter/widgets.dart';
 import 'navbar.dart';
 
 class teachHomepage extends StatefulWidget {
+  const teachHomepage({super.key});
+
   @override
   State<teachHomepage> createState() => _HomepageState();
 }
@@ -71,7 +73,7 @@ class _HomepageState extends State<teachHomepage> {
                       controller: _controller,
                       decoration: InputDecoration(
                         hintText: 'Search...',
-                        prefixIcon: Icon(Icons.search),
+                        prefixIcon: const Icon(Icons.search),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -172,7 +174,7 @@ class _HomepageState extends State<teachHomepage> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => (Newspage())),
+                        MaterialPageRoute(builder: (context) => (const Newspage())),
                       );
                     },
                     // Add your desired functionality here

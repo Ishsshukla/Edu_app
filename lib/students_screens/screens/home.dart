@@ -1,9 +1,5 @@
-import 'package:edu_app/models/headline.dart';
 import 'package:edu_app/models/new_page_model.dart';
-import 'package:edu_app/students_screens/screens/splash.dart';
-import 'package:edu_app/students_screens/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import '../../components/review_componemt.dart';
 import 'user_notifier.dart';
@@ -11,6 +7,8 @@ import 'navbar.dart';
 // import 'user_notifier.dart';
 
 class Homepage extends StatefulWidget {
+  const Homepage({super.key});
+
   @override
   _HomepageState createState() => _HomepageState();
 }
@@ -27,15 +25,17 @@ class _HomepageState extends State<Homepage> {
 
     return Scaffold(
       appBar: AppBar(
-        title:
-            Text('Hiii  ${userNotifier.firstName}  ${userNotifier.lastName}'),
+        title: Text(
+          'Hiii  ${userNotifier.firstName}  ${userNotifier.lastName}',
+          style: TextStyle(color: Colors.black),
+        ),
         backgroundColor: Colors.white,
         // elevation: 0.0,
         actions: [
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 30, 0),
             child: IconButton(
-              icon: Icon(Icons.notifications),
+              icon: const Icon(Icons.notifications),
               onPressed: () {
                 // Add your desired functionality here
               },
@@ -63,7 +63,7 @@ class _HomepageState extends State<Homepage> {
                       controller: _controller,
                       decoration: InputDecoration(
                         hintText: 'Search...',
-                        prefixIcon: Icon(Icons.search),
+                        prefixIcon: const Icon(Icons.search),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -201,7 +201,21 @@ class _HomepageState extends State<Homepage> {
           ),
         ),
       ),
-      bottomNavigationBar: Nav(initialIndex: 0),
+      bottomNavigationBar: const Nav(initialIndex: 0),
     );
   }
+}
+
+Widget txt2(String text, BuildContext context, {Color color = Colors.black}) {
+  return Text(
+    text,
+    style: TextStyle(color: color),
+  );
+}
+
+Widget txt(String text, BuildContext context, {Color color = Colors.black}) {
+  return Text(
+    text,
+    style: TextStyle(color: color),
+  );
 }

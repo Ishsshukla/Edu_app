@@ -1,10 +1,11 @@
 import 'package:edu_app/components/button.dart';
-import 'package:edu_app/components/class_option.dart';
 import 'package:edu_app/components/const.dart';
 import 'package:edu_app/components/ellipse.dart';
 import 'package:flutter/material.dart';
 
 class teacherOptionPage extends StatefulWidget {
+  const teacherOptionPage({super.key});
+
   @override
   State<teacherOptionPage> createState() => _OptionPageState();
 }
@@ -51,7 +52,7 @@ class _OptionPageState extends State<teacherOptionPage> {
                       )
                     ],
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 40,
                   ),
                   Row(
@@ -120,14 +121,14 @@ class _OptionPageState extends State<teacherOptionPage> {
           print('Selected: $text');
         },
         style: ButtonStyle(
-          foregroundColor: MaterialStateProperty.resolveWith<Color>(
-            (Set<MaterialState> states) {
-              if (states.contains(MaterialState.hovered)) {
-                return txtColor;
-              }
-              return Colors.black;
-            },
-          ),
+          // foregroundColor: WidgetStateProperty.resolveWith<Color>(
+          //   (Set<WidgetState> states) {
+          //     if (states.contains(WidgetState.hovered)) {
+          //       return txtColor;
+          //     }
+          //     return Colors.black;
+          //   },
+          // ),
         ),
         child: Text(
           text,

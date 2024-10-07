@@ -13,7 +13,7 @@ import '../../components/const.dart';
 import '../screens/home.dart';
 
 class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+  const SignUpScreen({super.key});
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -33,9 +33,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       FirebaseFirestore.instance; // Initialize Firestore instance
 
   void registration() async {
-    if (password != null &&
-        emailController.text != null &&
-        selectedRole != null) {
+    if (selectedRole != null) {
       try {
         UserCredential userCredential =
             await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -63,7 +61,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         }
         if (selectedRole == 'Student') {
            Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SplashScreen()));
+            context, MaterialPageRoute(builder: (context) => const SplashScreen()));
         }
         else{
            Navigator.push(
@@ -305,7 +303,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                        MaterialPageRoute(builder: (context) => const LoginScreen()),
                       );
                     },
                     child: Text(

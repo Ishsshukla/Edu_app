@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class Congopage extends StatefulWidget {
+  const Congopage({super.key});
+
   @override
   State<Congopage> createState() => _CongopageState();
 }
@@ -40,7 +42,7 @@ class _CongopageState extends State<Congopage> {
                   ),
                 ),
                 const SizedBox(height: 80),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: CustomButton(
                     text: 'Back to Home',
@@ -50,7 +52,7 @@ class _CongopageState extends State<Congopage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Homepage(),
+                          builder: (context) => const Homepage(),
                         ),
                       );
                     },
@@ -77,7 +79,7 @@ class _CongopageState extends State<Congopage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
+                      SizedBox(
                         width: MediaQuery.of(context).size.width * 0.18,
                         height: MediaQuery.of(context).size.height * 0.08,
                         child: ElevatedButton(
@@ -87,7 +89,7 @@ class _CongopageState extends State<Congopage> {
                             scale: 8,
                           ),
                           style: ElevatedButton.styleFrom(
-                            fixedSize: Size(50, 50),
+                            fixedSize: const Size(50, 50),
                             backgroundColor: txtColor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15),
@@ -98,7 +100,7 @@ class _CongopageState extends State<Congopage> {
                       const SizedBox(
                         width: 8,
                       ),
-                      Container(
+                      SizedBox(
                         width: MediaQuery.of(context).size.width * 0.18,
                         height: MediaQuery.of(context).size.height * 0.08,
                         child: ElevatedButton(
@@ -108,7 +110,7 @@ class _CongopageState extends State<Congopage> {
                             scale: 4.5,
                           ),
                           style: ElevatedButton.styleFrom(
-                            fixedSize: Size(50, 50),
+                            fixedSize: const Size(50, 50),
                             backgroundColor: txtColor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15),
@@ -119,7 +121,7 @@ class _CongopageState extends State<Congopage> {
                       const SizedBox(
                         width: 8,
                       ),
-                      Container(
+                      SizedBox(
                         width: MediaQuery.of(context).size.width * 0.18,
                         height: MediaQuery.of(context).size.height * 0.08,
                         child: ElevatedButton(
@@ -129,7 +131,7 @@ class _CongopageState extends State<Congopage> {
                             scale: 8,
                           ),
                           style: ElevatedButton.styleFrom(
-                            fixedSize: Size(50, 50),
+                            fixedSize: const Size(50, 50),
                             backgroundColor: txtColor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15),
@@ -140,7 +142,7 @@ class _CongopageState extends State<Congopage> {
                       const SizedBox(
                         width: 8,
                       ),
-                      Container(
+                      SizedBox(
                         width: MediaQuery.of(context).size.width * .18,
                         height: MediaQuery.of(context).size.height * 0.08,
                         child: ElevatedButton(
@@ -150,7 +152,7 @@ class _CongopageState extends State<Congopage> {
                             scale: 8,
                           ),
                           style: ElevatedButton.styleFrom(
-                            fixedSize: Size(50, 50),
+                            fixedSize: const Size(50, 50),
                             backgroundColor: txtColor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15),

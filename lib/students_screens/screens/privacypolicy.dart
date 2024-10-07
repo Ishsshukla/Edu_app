@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PrivacyPage extends StatefulWidget {
-  const PrivacyPage({Key? key})
-      : super(key: key); // Add named 'key' parameter to the constructor
+  const PrivacyPage({super.key}); // Add named 'key' parameter to the constructor
 
   @override
   State<PrivacyPage> createState() => _PrivacyState();
@@ -16,7 +15,7 @@ class _PrivacyState extends State<PrivacyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('  Privacy Policy'),
+        title: const Text('  Privacy Policy'),
       ),
       backgroundColor: Colors.white,
       body: const SingleChildScrollView(

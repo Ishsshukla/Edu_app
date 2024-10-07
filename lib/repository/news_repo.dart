@@ -42,7 +42,7 @@ class NewsRepository {
 
   Future<CategoriesNewsModel> fetchCategoriesNewsApi(String category) async {
     String Url =
-        'https://newsapi.org/v2/everything?q=${category}&apiKey=65f8ae3b4a8b41bb813bd0b06074aa5f';
+        'https://newsapi.org/v2/everything?q=$category&apiKey=65f8ae3b4a8b41bb813bd0b06074aa5f';
     print(Url);
     final response = await http.get(Uri.parse(Url));
     if (kDebugMode) {

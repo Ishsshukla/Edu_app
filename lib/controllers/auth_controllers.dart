@@ -25,7 +25,7 @@ class AuthController extends GetxController {
 
   _setInitialView(User? user) {
     if (user == null) {
-      Get.offAll(() => SplashScreen());
+      Get.offAll(() => const SplashScreen());
     } else {
       Get.offAll(() => Homepage());
     }

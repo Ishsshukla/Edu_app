@@ -4,6 +4,8 @@ import 'package:edu_app/screens/profile.dart';
 import 'package:flutter/material.dart';
 
 class Nav extends StatefulWidget {
+  const Nav({super.key});
+
   @override
   _NavState createState() => _NavState();
 }
@@ -77,7 +79,7 @@ class NavBarItem extends StatelessWidget {
   final VoidCallback onTap;
   final navi;
 
-  NavBarItem({
+  const NavBarItem({super.key, 
     required this.icon,
     required this.label,
     required this.isSelected,
@@ -104,7 +106,7 @@ class NavBarItem extends StatelessWidget {
           if (isSelected)
             Text(
               label,
-              style: TextStyle(fontSize: 18), // Increase the font size here
+              style: const TextStyle(fontSize: 18), // Increase the font size here
             ),
         ],
       ),

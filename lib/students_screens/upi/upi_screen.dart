@@ -67,7 +67,7 @@ class _UpiScreenState extends State<UpiScreen> {
                   _transaction = initiateTransaction(app);
                   setState(() {});
                 },
-                child: Container(
+                child: SizedBox(
                   height: 100,
                   width: 100,
                   child: Column(
@@ -164,13 +164,13 @@ class _UpiScreenState extends State<UpiScreen> {
                     style: header,
                   ));
                 }
-                UpiResponse _upiResponse = snapshot.data!;
+                UpiResponse upiResponse = snapshot.data!;
 
-                String txnId = _upiResponse.transactionId ?? 'N/A';
-                String resCode = _upiResponse.responseCode ?? 'N/A';
-                String txnRef = _upiResponse.transactionRefId ?? 'N/A';
-                String approvalRef = _upiResponse.approvalRefNo ?? 'N/A';
-                String status = _upiResponse.status ?? 'N/A';
+                String txnId = upiResponse.transactionId ?? 'N/A';
+                String resCode = upiResponse.responseCode ?? 'N/A';
+                String txnRef = upiResponse.transactionRefId ?? 'N/A';
+                String approvalRef = upiResponse.approvalRefNo ?? 'N/A';
+                String status = upiResponse.status ?? 'N/A';
                 _checkTxnStatus(status);
 
                 return Padding(

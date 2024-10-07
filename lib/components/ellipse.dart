@@ -18,7 +18,7 @@ Widget crcl(
         ),
       ),
       child: Container(
-        padding: EdgeInsets.fromLTRB(60, 10, 60, 10),
+        padding: const EdgeInsets.fromLTRB(60, 10, 60, 10),
         decoration: BoxDecoration(
           color: txtColor,
           borderRadius: const BorderRadius.only(

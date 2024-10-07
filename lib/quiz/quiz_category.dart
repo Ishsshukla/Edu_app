@@ -77,13 +77,13 @@ class QuizCategoryScreen extends StatelessWidget {
             // Add error builder to catch asset loading issues
             semanticsLabel: 'Background',
             placeholderBuilder: (context) =>
-                Center(child: CircularProgressIndicator()),
+                const Center(child: CircularProgressIndicator()),
           ),
           Obx(() {
             // Ensure the lists are not empty or null
             if (_questionController.savedCategories.isEmpty ||
                 _questionController.savedSubtitle.isEmpty) {
-              return Center(child: Text('No categories available'));
+              return const Center(child: Text('No categories available'));
             }
             return GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

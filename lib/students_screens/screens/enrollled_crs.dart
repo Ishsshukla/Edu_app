@@ -1,22 +1,9 @@
-import 'package:edu_app/components/button.dart';
-import 'package:edu_app/components/class_option.dart';
-import 'package:edu_app/components/coursesbuy.dart';
-import 'package:edu_app/components/ellipse.dart';
 import 'package:edu_app/quiz/quiz1.dart';
 import 'package:flutter/material.dart';
 
 // ignore_for_file: use_key_in_widget_constructors, unused_local_variable, sort_child_properties_last
 
-import 'package:edu_app/components/button.dart';
 import 'package:edu_app/components/const.dart';
-import 'package:edu_app/components/profie_text_edit.dart';
-import 'package:edu_app/components/review_componemt.dart';
-import 'package:edu_app/students_screens/screens/navbar.dart';
-import 'package:edu_app/students_screens/screens/payment_method.dart';
-import 'package:edu_app/students_screens/screens/review.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class enrolledcrspage extends StatefulWidget {
   @override
@@ -74,7 +61,7 @@ class _enrolledcrsState extends State<enrolledcrspage> {
                         color: Colors.grey.withOpacity(0.5),
                         spreadRadius: 2,
                         blurRadius: 5,
-                        offset: Offset(0, 3),
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
@@ -239,7 +226,7 @@ class _enrolledcrsState extends State<enrolledcrspage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => QuizPage(),
+                                        builder: (context) => const QuizPage(),
                                       ),
                                     );
                                   },

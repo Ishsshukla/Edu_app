@@ -262,7 +262,7 @@ class _ReviewState extends State<Reviewpage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 19,
                             ),
                             ElevatedButton(

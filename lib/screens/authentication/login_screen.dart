@@ -152,7 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Text("or login with",
                         style: GoogleFonts.dmSans(color: Colors.black)),
                   ),
@@ -238,7 +238,7 @@ class _LoginScreenState extends State<LoginScreen> {
           borderRadius: BorderRadius.circular(12),
         ),
         child: Container(
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           // decoration: BoxDecoration(color: Colors.blue),
           child: Image.asset(
             path,

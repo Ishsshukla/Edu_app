@@ -4,9 +4,10 @@ import 'package:edu_app/components/button.dart';
 import 'package:edu_app/components/const.dart';
 import 'package:edu_app/students_screens/screens/enrollled_crs.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class transactionpage extends StatefulWidget {
+  const transactionpage({super.key});
+
   @override
   State<transactionpage> createState() => _transactionpageState();
 }
@@ -46,11 +47,11 @@ class _transactionpageState extends State<transactionpage> {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 80),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: CustomButton(
                     text: 'Go to My Lesson',
-                    color: txtColor,
+                    color: Color(0xFF4A90E2),
                     textColor: Colors.white,
                     function: () {
                       Navigator.push(

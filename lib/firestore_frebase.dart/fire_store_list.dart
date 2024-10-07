@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 // import 'package:untitled1/ui/auth/login_screen.dart';
 // import 'package:untitled1/ui/firebase_firestore/fire_store_list.dart';
@@ -15,7 +14,7 @@ import 'inser_fire_store.dart';
 
 
 class ShowFireStorePostScreen extends StatefulWidget {
-  const ShowFireStorePostScreen({Key? key}) : super(key: key);
+  const ShowFireStorePostScreen({super.key});
 
   @override
   State<ShowFireStorePostScreen> createState() => _ShowFireStorePostScreenState();
@@ -41,17 +40,17 @@ class _ShowFireStorePostScreenState extends State<ShowFireStorePostScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Post'),
+        title: const Text('Post'),
         actions: [
           IconButton(onPressed: (){
             auth.signOut().then((value){
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()));
+                  MaterialPageRoute(builder: (context) => const LoginScreen()));
             }).onError((error, stackTrace){
               Utils().toastMessage(error.toString());
             });
-          }, icon: Icon(Icons.logout_outlined),),
-          SizedBox(width: 10,)
+          }, icon: const Icon(Icons.logout_outlined),),
+          const SizedBox(width: 10,)
         ],
       ),
       body: Column(
@@ -60,11 +59,11 @@ class _ShowFireStorePostScreenState extends State<ShowFireStorePostScreen> {
             stream: fireStore,
             builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.hasError) {
-                return Text('Something went wrong');
+                return const Text('Something went wrong');
               }
 
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Text("Loading");
+                return const Text("Loading");
               }
 
               return Expanded(
@@ -100,9 +99,9 @@ class _ShowFireStorePostScreenState extends State<ShowFireStorePostScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => InsertFireStoreScreen()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const InsertFireStoreScreen()));
         } ,
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

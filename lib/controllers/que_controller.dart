@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:edu_app/quiz/quiz_screen.dart';
 import 'package:edu_app/quiz/score_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

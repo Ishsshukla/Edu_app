@@ -10,8 +10,7 @@ import '../widgets/round_button.dart';
 
 class VerifyCodeScreen extends StatefulWidget {
   final String verificationId;
-  const VerifyCodeScreen({Key? key, required this.verificationId})
-      : super(key: key);
+  const VerifyCodeScreen({super.key, required this.verificationId});
 
   @override
   State<VerifyCodeScreen> createState() => _VerifyCodeScreenState();
@@ -26,21 +25,21 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Verify'),
+        title: const Text('Verify'),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 80,
             ),
             TextFormField(
               controller: verificationCodeController,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(hintText: '6 digit code'),
+              decoration: const InputDecoration(hintText: '6 digit code'),
             ),
-            SizedBox(
+            const SizedBox(
               height: 80,
             ),
             RoundButton(
@@ -57,7 +56,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                     await auth.signInWithCredential(crendital);
 
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => PostScreen()));
+                        MaterialPageRoute(builder: (context) => const PostScreen()));
                   } catch (e) {
                     setState(() {
                       loading = false;
