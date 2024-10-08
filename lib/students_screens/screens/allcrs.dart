@@ -1,3 +1,4 @@
+import 'package:edu_app/students_screens/screens/enrolled_course/chapters.dart';
 import 'package:flutter/material.dart';
 import 'package:edu_app/components/coursesbuy.dart'; // Import your existing components
 
@@ -34,6 +35,16 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
   void dispose() {
     _tabController.dispose();
     super.dispose();
+  }
+
+  void _navigateToChapters(String courseName) {
+    // Navigate to the chapters page with courseName if necessary
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const ChapterPageStudent(), // Navigate to ChapterPageStudent
+      ),
+    );
   }
 
   @override
@@ -94,6 +105,9 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
                     course['name']!,
                     'coursedescr', // Your course description route
                     context,
+                    onTap: () {
+                      _navigateToChapters(course['chapterstudent']!); // Navigate to chapters on tap
+                    },
                   );
                 }).toList(),
               ),
