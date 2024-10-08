@@ -1,6 +1,8 @@
 import 'package:edu_app/students_screens/screens/enrolled_course/chapters.dart';
 import 'package:flutter/material.dart';
-import 'package:edu_app/components/coursesbuy.dart'; // Import your existing components
+import 'package:edu_app/components/coursesbuy.dart';
+
+import '../../screens/course_description.dart'; // Import your existing components
 
 class CoursePageStudent extends StatefulWidget {
   const CoursePageStudent({Key? key}) : super(key: key);
@@ -37,12 +39,22 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
     super.dispose();
   }
 
-  void _navigateToChapters(String courseName) {
-    // Navigate to the chapters page with courseName if necessary
+  // Navigation to Course Description for All Courses
+  void _navigateToCourseDescription(String courseName) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const ChapterPageStudent(), // Navigate to ChapterPageStudent
+        builder: (context) => CourseDescriptionpage(), // Ensure you have this page for course description
+      ),
+    );
+  }
+
+  // Navigation to Chapters for My Courses
+  void _navigateToChapters(String courseName) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ChapterPageStudent(), // Ensure you have this page for chapters
       ),
     );
   }
@@ -89,6 +101,9 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
                     course['name']!,
                     'coursedescr', // Your course description route
                     context,
+                    onTap: () {
+                      _navigateToCourseDescription(course['name']!); // Navigate to course description
+                    },
                   );
                 }).toList(),
               ),
@@ -103,10 +118,10 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
                   return crstxtforstudent(
                     course['img']!,
                     course['name']!,
-                    'coursedescr', // Your course description route
+                    'chapterstudent', // Your course description route
                     context,
                     onTap: () {
-                      _navigateToChapters(course['chapterstudent']!); // Navigate to chapters on tap
+                      _navigateToChapters(course['name']!); // Navigate to chapters on tap
                     },
                   );
                 }).toList(),

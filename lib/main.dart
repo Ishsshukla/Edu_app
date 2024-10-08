@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         // initialRoute: '/courseteacher',
-        initialRoute: '/login',
+        initialRoute: '/courseoption',
 
         getPages: [
           GetPage(name: '/upi_screen', page: () => const UpiScreen()),
