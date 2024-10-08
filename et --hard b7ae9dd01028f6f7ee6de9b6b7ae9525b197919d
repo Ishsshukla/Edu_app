@@ -1,0 +1,91 @@
+[33mcommit b7ae9dd01028f6f7ee6de9b6b7ae9525b197919d[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: rahul2210045 <rahul2210045@akgec.ac.in>
+Date:   Sun Oct 6 18:14:28 2024 +0530
+
+    login classified as student and teacher
+
+[33mcommit 594a75a3ba1898e5430e33b8d4e2639131e6c403[m
+Author: rahul2210045 <rahul2210045@akgec.ac.in>
+Date:   Sun Oct 6 10:42:17 2024 +0530
+
+    pdf uploaded in firestore
+
+[33mcommit 8696b38cedbec7c6112868e2cc66692c3b7e5f8f[m
+Author: rahul2210045 <rahul2210045@akgec.ac.in>
+Date:   Sat Oct 5 18:33:22 2024 +0530
+
+    Admin side update
+
+[33mcommit 9421db9224ccff3d35d1e823ed7629ece279fd31[m
+Author: rahul2210045 <rahul2210045@akgec.ac.in>
+Date:   Sat Oct 5 16:47:04 2024 +0530
+
+    Admin side update
+
+[33mcommit 6ea5f22648fdf1c3d9dfd15e87d51f30b5516d8a[m
+Merge: 21c0935 2d0ad96
+Author: rahul2210045 <rahul2210045@akgec.ac.in>
+Date:   Fri Oct 4 12:39:52 2024 +0530
+
+    Admin side updated
+
+[33mcommit 21c09356a866e3c4c7963bdd6ab3ef4f6ae3b77b[m
+Merge: 6937dd6 4a84858
+Author: rahul2210045 <rahul2210045@akgec.ac.in>
+Date:   Thu Sep 5 14:49:01 2024 +0530
+
+    deploy
+
+[33mcommit 2d0ad9672e82d5f3e851cb593a18afa01cbc88c2[m
+Author: ishika <shukla22164024@akgec.ac.in>
+Date:   Tue Jul 30 13:02:27 2024 +0530
+
+    UPI integrated
+
+[33mcommit 5cb37484b7e9688b466db7ac850ef341c2f94ac6[m
+Author: ishika <shukla22164024@akgec.ac.in>
+Date:   Sat Jun 8 11:13:12 2024 +0530
+
+    login with  phone no implemented
+
+[33mcommit fb43e9314f735de30775c9ff2c2c0c1c1cebe910[m
+Author: ishika <shukla22164024@akgec.ac.in>
+Date:   Wed Jun 5 19:12:16 2024 +0530
+
+    profile data connected to database
+
+[33mcommit 0af1b39cbbf3265d93b3253919bfd0c180a4ba74[m
+Author: ishika <shukla22164024@akgec.ac.in>
+Date:   Sat Jun 1 14:43:45 2024 +0530
+
+    Authentication via FIrebase: login , signup done
+
+[33mcommit 6937dd6b1f4193e0db9a8c5374604a8b5d6f8627[m
+Author: rahul2210045 <rahul2210045@akgec.ac.in>
+Date:   Wed May 22 16:35:32 2024 +0530
+
+    firebase setup
+
+[33mcommit 4a84858cd2e9ecf1ea6fc47f03020b323ddf9bd1[m
+Author: ishika <shukla22164024@akgec.ac.in>
+Date:   Sat May 18 10:44:01 2024 +0530
+
+    ui of app completed
+
+[33mcommit 76edfc0be52ed79ddfebdea7336cc7281040c1f4[m
+Author: ishika <shukla22164024@akgec.ac.in>
+Date:   Sun May 12 13:54:16 2024 +0530
+
+    dynamic clicks enabled
+
+[33mcommit e33fe1ae1d24019cf1ab96fc65d66bad49052027[m
+Author: ishika <shukla22164024@akgec.ac.in>
+Date:   Sun Apr 28 15:10:20 2024 +0530
+
+    edit profile enabled
+
+[33mcommit 180b59acdd8080f79bfd7a391a674b014a0aee4a[m
+Author: ishika <shukla22164024@akgec.ac.in>
+Date:   Fri Apr 26 16:34:21 2024 +0530
+
+    first commit

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../components/quiz_const.dart';
-import '../controller/que_controller.dart';
+import '../controllers/que_controller.dart';
 // import 'package:quiz_application_tut_from_scracth/controllers/question_controller.dart';
 // import 'package:quiz_application_tut_from_scracth/utils/constants.dart';
 

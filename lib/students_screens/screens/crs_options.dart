@@ -65,14 +65,14 @@ class _OptionPageState extends State<courseoptionPage> {
           print('Selected: $text');
         },
         style: ButtonStyle(
-          foregroundColor: WidgetStateProperty.resolveWith<Color>(
-            (Set<WidgetState> states) {
-              if (states.contains(WidgetState.hovered)) {
-                return txtColor;
-              }
-              return Colors.black;
-            },
-          ),
+          // foregroundColor: WidgetStateProperty.resolveWith<Color>(
+          //   (Set<WidgetState> states) {
+          //     if (states.contains(WidgetState.hovered)) {
+          //       return txtColor;
+          //     }
+          //     return Colors.black;
+          //   },
+          // ),
         ),
         child: Text(
           text,

@@ -1,7 +1,7 @@
 import 'package:edu_app/components/class_option.dart';
 import 'package:edu_app/firebase_options.dart';
 import 'package:edu_app/quiz/quiz_category.dart';
-import 'package:edu_app/students_screens/pages/user_notifier.dart';
+import 'package:edu_app/students_screens/screens/user_notifier.dart';
 import 'package:edu_app/students_screens/screens/class_options.dart';
 import 'package:edu_app/quiz/congo.dart';
 import 'package:edu_app/students_screens/screens/allcrs.dart';
@@ -14,7 +14,7 @@ import 'package:edu_app/students_screens/screens/enrolled_course/enrollled_crs.d
 import 'package:edu_app/students_screens/screens/final_pay.dart';
 import 'package:edu_app/students_screens/screens/home.dart';
 import 'package:edu_app/students_screens/screens/news.dart';
-import 'package:edu_app/students_screens/pages/phnhomr.dart';
+import 'package:edu_app/screens/authentication/phnhomr.dart';
 import 'package:edu_app/students_screens/screens/payment_method.dart';
 import 'package:edu_app/students_screens/screens/paysucess.dart';
 import 'package:edu_app/students_screens/screens/privacypolicy.dart';
@@ -57,8 +57,8 @@ class MyApp extends StatelessWidget {
       create: (context) => UserNotifier(),
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        // initialRoute: '/courseoption',
-        initialRoute: '/homepage',
+        // initialRoute: '/courseteacher',
+        initialRoute: '/login',
 
         getPages: [
           GetPage(name: '/upi_screen', page: () => const UpiScreen()),

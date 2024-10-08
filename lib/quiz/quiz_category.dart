@@ -57,7 +57,7 @@ import 'package:edu_app/quiz/quiz_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import '../controller/que_controller.dart';
+import '../controllers/que_controller.dart';
 
 class QuizCategoryScreen extends StatelessWidget {
   QuizCategoryScreen({super.key});
