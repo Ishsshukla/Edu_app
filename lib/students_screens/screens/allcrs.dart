@@ -1,4 +1,5 @@
 import 'package:edu_app/students_screens/screens/enrolled_course/chapters.dart';
+import 'package:edu_app/students_screens/screens/enrolled_course/description_enrooled.dart';
 import 'package:flutter/material.dart';
 import 'package:edu_app/components/coursesbuy.dart';
 
@@ -54,7 +55,7 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ChapterPageStudent(), // Ensure you have this page for chapters
+        builder: (context) => EnrolledCourseDescriptionPage(), // Ensure you have this page for chapters
       ),
     );
   }
@@ -118,7 +119,7 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
                   return crstxtforstudent(
                     course['img']!,
                     course['name']!,
-                    'chapterstudent', // Your course description route
+                    ' EnrolledCourseDescriptionPage', // Your course description route
                     context,
                     onTap: () {
                       _navigateToChapters(course['name']!); // Navigate to chapters on tap

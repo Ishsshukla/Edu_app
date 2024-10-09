@@ -1,6 +1,7 @@
 import 'package:edu_app/components/class_option.dart';
 import 'package:edu_app/firebase_options.dart';
 import 'package:edu_app/quiz/quiz_category.dart';
+import 'package:edu_app/students_screens/screens/enrolled_course/description_enrooled.dart';
 import 'package:edu_app/students_screens/screens/user_notifier.dart';
 import 'package:edu_app/students_screens/screens/class_options.dart';
 import 'package:edu_app/quiz/congo.dart';
@@ -77,7 +78,8 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/coursedescr', page: () => CourseDescriptionpage()),
           GetPage(name: '/chapterstudent', page: () => ChapterPageStudent()),
           GetPage(name: '/viewchapterstudent', page: () => const ViewChapterStudent()),
-
+          GetPage(name: '/ EnrolledCourseDescriptionPage', page: () =>  EnrolledCourseDescriptionPage()),
+         
           GetPage(name: '/quiz', page: () => const QuizPage()),
           GetPage(name: '/coursefail', page: () => const CourseFailPage()),
           GetPage(name: '/privacy', page: () => const PrivacyPage()),
