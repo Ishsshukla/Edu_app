@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:edu_app/components/const.dart';
 
 class enrolledcrspage extends StatefulWidget {
+   final Map<String, dynamic> courseData; // Data for the selected course
+
+  const enrolledcrspage({super.key, required this.courseData});
   @override
   State<enrolledcrspage> createState() => _enrolledcrsState();
 }
@@ -15,6 +18,11 @@ class _enrolledcrsState extends State<enrolledcrspage> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+    String courseName = widget.courseData['name'] ?? 'Course Name Not Available';
+    print("courseName = ${courseName}");
+    String courseDescription = widget.courseData['description'] ?? 'Description not available'; 
+    print("courseDescription = ${courseDescription}");
+    String courseImage = widget.courseData['img'] ?? 'assets/CoursePreview.png';
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -30,10 +38,7 @@ class _enrolledcrsState extends State<enrolledcrspage> {
                   width: screenWidth * 1,
                   decoration: const BoxDecoration(
                     color: Colors.white,
-                    // borderRadius: BorderRadius.only(
-                    //   bottomLeft: Radius.circular(30),
-                    //   bottomRight: Radius.circular(30),
-                    // ),
+                    
                   ),
                   child: Column(
                     children: [
@@ -82,10 +87,10 @@ class _enrolledcrsState extends State<enrolledcrspage> {
                             ),
                           ),
                         ),
-                        const Align(
+                        Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            'Sainik School',
+                            courseName,
                             style: TextStyle(
                               fontSize: 16,
                             ),
@@ -104,24 +109,16 @@ class _enrolledcrsState extends State<enrolledcrspage> {
                             ),
                           ),
                         ),
-                        const Align(
+                        Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            'this is a description of the course',
+                            courseDescription,
                             style: TextStyle(
                               fontSize: 16,
                             ),
                           ),
                         ),
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'this is a description of the course',
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
+                        
                         SizedBox(
                           height: screenHeight * 0.029,
                         ),
@@ -194,9 +191,7 @@ class _enrolledcrsState extends State<enrolledcrspage> {
                               size: 25,
                               color: txtColor,
                             ),
-                            // SizedBox(
-                            //   width: screenWidth * .007s,
-                            // ),
+                            
                             Text(
                               '  350 Reviews',
                               style: TextStyle(color: txtColor, fontSize: 17),
@@ -216,9 +211,7 @@ class _enrolledcrsState extends State<enrolledcrspage> {
                           padding: const EdgeInsets.fromLTRB(18.0, 0, 0, 0),
                           child: Row(
                             children: [
-                              // Total price text
-
-                              // Continue button
+                              
                               Align(
                                 alignment: Alignment.center,
                                 child: ElevatedButton(
@@ -226,7 +219,7 @@ class _enrolledcrsState extends State<enrolledcrspage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => ChapterPageStudent(),
+                                        builder: (context) => ChapterPageStudent(courseName: courseName),
                                       ),
                                     );
                                   },
@@ -241,7 +234,7 @@ class _enrolledcrsState extends State<enrolledcrspage> {
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     minimumSize:const  Size(280,
-                                        50), // Increase the width of the button
+                                        50), 
                                   ),
                                 ),
                               ),
@@ -266,3 +259,5 @@ class _enrolledcrsState extends State<enrolledcrspage> {
     );
   }
 }
+
+
