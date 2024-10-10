@@ -5,9 +5,9 @@ import 'package:edu_app/students_screens/screens/review.dart';
 import 'package:flutter/material.dart';
 
 class CourseDescriptionpage extends StatefulWidget {
-  final Map<String, dynamic> courseData; // Data for the selected course
+  // final Map<String, dynamic> courseData; // Data for the selected course
 
-  const CourseDescriptionpage({super.key, required this.courseData});
+  // const CourseDescriptionpage({super.key, required this.courseData});
   @override
   State<CourseDescriptionpage> createState() => _CourseDescriptionState();
 }
@@ -18,9 +18,9 @@ class _CourseDescriptionState extends State<CourseDescriptionpage> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-     String courseName = widget.courseData['name'] ?? 'Course Name Not Available';
-    String courseDescription = widget.courseData['description'] ?? 'Description not available'; // Modify as per your data structure
-    String courseImage = widget.courseData['img'] ?? 'assets/CoursePreview.png';
+    //  String courseName = widget.courseData['name'] ?? 'Course Name Not Available';
+    // String courseDescription = widget.courseData['description'] ?? 'Description not available'; // Modify as per your data structure
+    // String courseImage = widget.courseData['img'] ?? 'assets/CoursePreview.png';
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -84,7 +84,7 @@ class _CourseDescriptionState extends State<CourseDescriptionpage> {
                         ),
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: Text(courseName),
+                          child: Text("courseName"),
                         ),
                         SizedBox(
                           height: screenHeight * 0.014,
@@ -96,7 +96,7 @@ class _CourseDescriptionState extends State<CourseDescriptionpage> {
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            courseDescription,
+                            "courseDescription",
                           ),
                         ),
                         // const Align(

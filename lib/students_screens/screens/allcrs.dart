@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edu_app/students_screens/screens/crs_description.dart';
-import 'package:edu_app/students_screens/screens/enrolled_course/chapters.dart';
+// import 'package:edu_app/students_screens/screens/enrolled_course/chapters.dart';
 import 'package:edu_app/students_screens/screens/enrolled_course/description_enrooled.dart';
 import 'package:edu_app/students_screens/screens/enrolled_course/enrollled_crs.dart';
 import 'package:flutter/material.dart';
@@ -17,12 +17,12 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
   late TabController _tabController;
 
   // Sample data for All Courses and My Courses
-  List<Map<String, String?>> allCourses = [
-    {'img': 'assets/CoursePreview.png', 'name': 'Introduction to Algebra'},
-    {'img': 'assets/CoursePreview.png', 'name': 'Geometry Basics'},
-    {'img': 'assets/CoursePreview.png', 'name': 'Trigonometry'},
-    {'img': 'assets/CoursePreview.png', 'name': 'Calculus'},
-  ];
+  // List<Map<String, String?>> allCourses = [
+  //   {'img': 'assets/CoursePreview.png', 'name': 'Introduction to Algebra'},
+  //   {'img': 'assets/CoursePreview.png', 'name': 'Geometry Basics'},
+  //   {'img': 'assets/CoursePreview.png', 'name': 'Trigonometry'},
+  //   {'img': 'assets/CoursePreview.png', 'name': 'Calculus'},
+  // ];
 
   // List<Map<String, String>> chapters = [
   //   {'img': 'assets/CoursePreview.png', 'name': 'Introduction to Algebra'},
@@ -44,12 +44,13 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
 
   // Navigation to Course Description for All Courses
   void _navigateToCourseDescription(String courseName) {
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => CourseDescriptionpage(courseData: ,), // Ensure you have this page for course description
-    //   ),
-    // );
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        // builder: (context) =>  CourseDescriptionpage(courseData: {'description': 'coursedescr'}), // Ensure you have this page for course description
+        builder: (context) =>  CourseDescriptionpage(), 
+      ),
+    );
   }
 
   // Navigation to Chapters for My Courses
@@ -70,7 +71,7 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
       QuerySnapshot snapshot = await _firestore.collection('course_content').get();
          List<Map<String, dynamic>> fetchedCourses = snapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        print(data);
+        // print(data);
         return {
           'img': 'assets/CoursePreview.png',
           'name': data.containsKey('courseName') ? data['courseName'] : 'Unknown Course',
@@ -80,12 +81,12 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
 
       setState(() {
         chapters = fetchedCourses;
-        print("Courses fetched successfully=${chapters}");
+        // print("Courses fetched successfully=${chapters}");
       });
       // print("Courses fetched successfully=${chapters}");
     } 
     catch (e) {
-      print("Error fetching courses: $e");
+      // print("Error fetching courses: $e");
     }
   }
 
@@ -131,15 +132,15 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),
               child: Column(
-                children: allCourses.map((course) {
+                children: chapters.map((course) {
                   return crstxtforstudent(
                     course['img'] ?? 'assets/default.png', // Provide a default value if null
                     course['name'] ?? 'No Name', // Handle null course name
                     'coursedescr', // Your course description route
                     context,
-                    onTap: () {
-                      _navigateToCourseDescription(course['coursedescr']); // Navigate to course description
-                    },
+                    // onTap: () {
+                    //   _navigateToCourseDescription(course['coursedescr'] ?? 'No Name'); // Navigate to course description
+                    // },
                   );
                 }).toList(),
               ),
