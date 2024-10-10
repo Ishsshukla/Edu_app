@@ -133,6 +133,7 @@
 //   }
 // }
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:edu_app/students_screens/screens/enrolled_course/content_chptr.dart';
 import 'package:flutter/material.dart';
 import 'package:edu_app/components/coursesbuy.dart'; // Update import if needed for chapter
 
@@ -203,6 +204,9 @@ class _ChapterPageStudentState extends State<ChapterPageStudent> {
         print(data);
 
         return {
+          'courseName': data.containsKey('courseName')
+              ? data['courseName']
+              : 'Unknown Course',
           'img': 'assets/CoursePreview.png',
           'lessonName': data.containsKey('lessonName')
               ? data['lessonName']
@@ -312,11 +316,12 @@ class _ChapterPageStudentState extends State<ChapterPageStudent> {
           child: Column(
             children: chapters.isNotEmpty
                 ? chapters.map<Widget>((chapter) {
-                    return chaptertxtforstudent(
+                    return crstxtforstudentDataChapter(
                       chapter['img'] ?? 'assets/CoursePreview.png',
                       chapter['lessonName'] ?? 'Unnamed Chapter',
-                      'editcoursecontent', // Replace this with your actual edit route if needed
+                       // Replace this with your actual edit route if needed
                       context,
+                      chapter,
                     );
                   }).toList()
                 : [
@@ -335,7 +340,7 @@ class _ChapterPageStudentState extends State<ChapterPageStudent> {
 
 
 
-Widget crstxtforstudentData(
+Widget crstxtforstudentDataChapter(
   String img,
   String text,
   BuildContext context,
@@ -381,12 +386,12 @@ Widget crstxtforstudentData(
                   const SizedBox(height: 10),
                    ElevatedButton(
                     onPressed: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => enrolledcrspage( courseData: courseData), // Passing courseData
-                      //   ),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ViewChapterStudent( courseData: courseData), // Passing courseData
+                        ),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       elevation: 3,

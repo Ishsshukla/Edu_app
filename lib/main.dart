@@ -1,10 +1,11 @@
 import 'package:edu_app/components/class_option.dart';
 import 'package:edu_app/firebase_options.dart';
 import 'package:edu_app/quiz/quiz_category.dart';
+import 'package:edu_app/students_screens/screens/enrolled_course/description_enrooled.dart';
 import 'package:edu_app/students_screens/screens/user_notifier.dart';
 import 'package:edu_app/students_screens/screens/class_options.dart';
 import 'package:edu_app/quiz/congo.dart';
-import 'package:edu_app/students_screens/screens/crs.dart';
+import 'package:edu_app/students_screens/screens/allcrs.dart';
 import 'package:edu_app/students_screens/screens/crs_description.dart';
 import 'package:edu_app/students_screens/screens/course_fail.dart';
 import 'package:edu_app/students_screens/screens/crs_options.dart';
@@ -76,13 +77,13 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/finalpay', page: () => Finalpaypage()),
           // GetPage(name: '/coursedescr', page: () => CourseDescriptionpage(courseData: courseData)),
           // GetPage(name: '/chapterstudent', page: () => ChapterPageStudent()),
-           GetPage(name: '/viewchapterstudent', page: () => const ViewChapterStudent()),
+          //  GetPage(name: '/viewchapterstudent', page: () => const ViewChapterStudent()),
 
           GetPage(name: '/quiz', page: () => const QuizPage()),
           GetPage(name: '/coursefail', page: () => const CourseFailPage()),
           GetPage(name: '/privacy', page: () => const PrivacyPage()),
           GetPage(name: '/news', page: () => const Newspage()),
-          GetPage(name: '/courseoption', page: () =>  CrsPagestudent()),
+          // GetPage(name: '/courseoption', page: () =>  CrsPagestudent()),
           // GetPage(name: '/enrolledcrspage', page: () => enrolledcrspage()),
           GetPage(name: '/login', page: () => const LoginScreen()),
           GetPage(name: '/signup', page: () => const SignUpScreen()),

@@ -1,5 +1,5 @@
 import 'package:edu_app/components/const.dart';
-import 'package:edu_app/students_screens/screens/crs.dart';
+import 'package:edu_app/students_screens/screens/allcrs.dart';
 import 'package:edu_app/students_screens/screens/crs_options.dart';
 import 'package:edu_app/students_screens/screens/home.dart';
 import 'package:edu_app/students_screens/screens/profile.dart';
