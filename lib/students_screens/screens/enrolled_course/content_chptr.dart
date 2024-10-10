@@ -3,7 +3,10 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ViewChapterStudent extends StatefulWidget {
-  const ViewChapterStudent({super.key});
+  final Map<String, dynamic> courseData; // Data for the selected course
+
+  const ViewChapterStudent({super.key, required this.courseData});
+  // const ViewChapterStudent({super.key});
 
   @override
   State<ViewChapterStudent> createState() => _ViewChapterStudentState();
@@ -18,35 +21,85 @@ class _ViewChapterStudentState extends State<ViewChapterStudent> {
   List<String> pdfUrls = [];
   List<String> imageUrls = [];
 
-  @override
+   @override
   void initState() {
     super.initState();
-    _fetchCourseData();
+    fetchCourses();
   }
 
-  // Function to fetch course data from Firestore
-  Future<void> _fetchCourseData() async {
-    try {
-      // Fetch data from Firestore (replace 'course_id' with the actual document ID)
-      DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
-          .collection('course_content')
-          .doc('course_id') // Replace with the actual document ID
-          .get();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  List<Map<String, dynamic>> chapters = [];
 
-      if (documentSnapshot.exists) {
-        setState(() {
-          courseName = documentSnapshot['courseName'] ?? '';
-          lessonName = documentSnapshot['lessonName'] ?? '';
-          youtubeLink = documentSnapshot['youtubeLink'] ?? '';
-          notes = documentSnapshot['notes'] ?? ''; // Fetch notes from Firestore
-          pdfUrls = List<String>.from(documentSnapshot['pdfUrls'] ?? []);
-          imageUrls = List<String>.from(documentSnapshot['imageUrls'] ?? []);
-        });
-      }
-    } catch (e) {
-      print('Error fetching course data: $e');
+  // Future<void> fetchCourses() async {
+  //   try {
+  //     String selectedCourseName = widget.courseData['courseName'];
+  //     String selectedLessonName = widget.courseData['lessonName'];
+
+  //     QuerySnapshot snapshot = await _firestore
+  //         .collection('course_content')
+  //         .where('courseName', isEqualTo: selectedCourseName)
+  //         .get();
+
+  //     List<Map<String, dynamic>> fetchedCourses = snapshot.docs.map((doc) {
+  //       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+  //       print(data);
+
+  //       return {
+  //         'courseName': data.containsKey('courseName')
+  //             ? data['courseName']
+  //             : 'Unknown Course',
+  //         'img': 'assets/CoursePreview.png',
+  //         'lessonName': data.containsKey('lessonName')
+  //             ? data['lessonName']
+  //             : 'Unknown Lesson',
+  //         // Other fields if needed
+  //       };
+  //     }).toList();
+
+  //     setState(() {
+  //       chapters = fetchedCourses;
+  //       print("Courses fetched successfully = $chapters");
+  //     });
+  //   } catch (e) {
+  //     print("Error fetching courses: $e");
+  //   }
+  // }
+  Future<void> fetchCourses() async {
+  try {
+    String selectedCourseName = widget.courseData['courseName'];
+    String selectedLessonName = widget.courseData['lessonName'];
+
+    // Perform a query with both courseName and lessonName
+    QuerySnapshot snapshot = await _firestore
+        .collection('course_content')
+        .where('courseName', isEqualTo: selectedCourseName)
+        .where('lessonName', isEqualTo: selectedLessonName)
+        .get();
+
+    if (snapshot.docs.isNotEmpty) {
+      // Assuming you only expect one result
+      var data = snapshot.docs.first.data() as Map<String, dynamic>;
+      print(data);
+
+      // Extracting the relevant data
+      setState(() {
+        courseName = data.containsKey('courseName') ? data['courseName'] : 'Unknown Course';
+        lessonName = data.containsKey('lessonName') ? data['lessonName'] : 'Unknown Lesson';
+        youtubeLink = data.containsKey('youtubeLink') ? data['youtubeLink'] : 'No YouTube Link';
+        pdfUrls = data.containsKey('pdfUrls') ? List<String>.from(data['pdfUrls']) : [];
+        imageUrls = data.containsKey('imageUrls') ? List<String>.from(data['imageUrls']) : [];
+        notes = data.containsKey('notes') ? data['notes'] : 'No Notes';  // Assuming 'notes' is present
+      });
+
+      print("Fetched Course Data: $courseName, $lessonName, $youtubeLink, $pdfUrls, $imageUrls, $notes");
+    } else {
+      print("No matching course content found for $selectedCourseName and $selectedLessonName");
     }
+  } catch (e) {
+    print("Error fetching courses: $e");
   }
+}
+
 
   // Function to open the YouTube link
   Future<void> _launchYoutubeLink() async {

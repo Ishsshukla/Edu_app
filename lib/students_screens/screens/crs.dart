@@ -1,67 +1,20 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:edu_app/components/coursesbuy.dart'; // Update import if needed for chapter
 import 'package:edu_app/students_screens/screens/crs_description.dart';
-import 'package:edu_app/students_screens/screens/enrolled_course/chapters.dart';
-import 'package:edu_app/students_screens/screens/enrolled_course/description_enrooled.dart';
 import 'package:edu_app/students_screens/screens/enrolled_course/enrollled_crs.dart';
+import 'package:edu_app/teacher_side/navbar.dart';
 import 'package:flutter/material.dart';
-import 'package:edu_app/components/coursesbuy.dart'; // Import your existing components
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class CoursePageStudent extends StatefulWidget {
-  const CoursePageStudent({super.key});
+class CrsPagestudent extends StatefulWidget {
+  const CrsPagestudent({super.key});
 
   @override
-  State<CoursePageStudent> createState() => _CoursePageStudentState();
+  State<CrsPagestudent> createState() => _ChapterPageTeacherState();
 }
 
-class _CoursePageStudentState extends State<CoursePageStudent> with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-
-  // Sample data for All Courses and My Courses
-  List<Map<String, String?>> allCourses = [
-    {'img': 'assets/CoursePreview.png', 'name': 'Introduction to Algebra'},
-    {'img': 'assets/CoursePreview.png', 'name': 'Geometry Basics'},
-    {'img': 'assets/CoursePreview.png', 'name': 'Trigonometry'},
-    {'img': 'assets/CoursePreview.png', 'name': 'Calculus'},
-  ];
-
-  // List<Map<String, String>> chapters = [
-  //   {'img': 'assets/CoursePreview.png', 'name': 'Introduction to Algebra'},
-  //   {'img': 'assets/CoursePreview.png', 'name': 'Trigonometry'},
-  // ];
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-     fetchCourses(); 
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
-  // Navigation to Course Description for All Courses
-  void _navigateToCourseDescription(String courseName) {
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => CourseDescriptionpage(courseData: ,), // Ensure you have this page for course description
-    //   ),
-    // );
-  }
-
-  // Navigation to Chapters for My Courses
-  void _navigateToChapters(String? courseName) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) =>  EnrolledCourseDescriptionPage(), // Ensure you have this page for chapters
-      ),
-    );
-  }
-    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+class _ChapterPageTeacherState extends State<CrsPagestudent> {
+  // Dynamic list to store the chapters
+   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   List<Map<String, dynamic>> chapters = [
   ];
  // Fetch courses from Firestore
@@ -89,68 +42,35 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
     }
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-   
-  // }
-
+  @override
+  void initState() {
+    super.initState();
+    fetchCourses(); 
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
           "Courses",
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.black), // Change color if needed
         ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.black), // Back arrow
           onPressed: () {
             Navigator.of(context).pop(); // Back navigation
           },
         ),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        bottom: TabBar(
-          controller: _tabController,
-          labelColor: Colors.black,
-          unselectedLabelColor: Colors.grey,
-          indicatorColor: Colors.blue,
-          tabs: const [
-            Tab(text: 'All Courses'),
-            Tab(text: 'My Courses'),
-          ],
-        ),
+        backgroundColor: Colors.white, // Change background color if needed
+        elevation: 0, // Remove shadow if not needed
       ),
-      backgroundColor: const Color(0xFFF5F5F5),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          // All Courses Tab
-          SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: Column(
-                children: allCourses.map((course) {
-                  return crstxtforstudent(
-                    course['img'] ?? 'assets/default.png', // Provide a default value if null
-                    course['name'] ?? 'No Name', // Handle null course name
-                    'coursedescr', // Your course description route
-                    context,
-                    onTap: () {
-                      _navigateToCourseDescription(course['coursedescr']); // Navigate to course description
-                    },
-                  );
-                }).toList(),
-              ),
-            ),
-          ),
-          // My Courses Tab
-          SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: Column(
-                children: 
+      backgroundColor: const Color(0xFFF5F5F5), // Light background to make cards pop
+      // bottomNavigationBar: NavTeacher(initialIndex: 1), // Bottom Navigation
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20), // Padding at the top and bottom
+          child: Column(
+            children: 
             chapters.map((chapter) {
               return crstxtforstudentData(
                 chapter['img']!,
@@ -160,15 +80,13 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
               
               );
             }).toList()
-              ),
-            ),
+            // : const Center(child: CircularProgressIndicator()),
           ),
-        ],
+        ),
       ),
     );
   }
 }
-
 
 Widget crstxtforstudentData(
   String img,
