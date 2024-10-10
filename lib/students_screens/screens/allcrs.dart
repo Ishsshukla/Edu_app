@@ -54,14 +54,14 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
   }
 
   // Navigation to Chapters for My Courses
-  void _navigateToChapters(String? courseName) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) =>  EnrolledCourseDescriptionPage(), // Ensure you have this page for chapters
-      ),
-    );
-  }
+  // void _navigateToChapters(String? courseName) {
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //       // builder: (context) =>  EnrolledCourseDescriptionPage(), // Ensure you have this page for chapters
+  //     ),
+  //   );
+  // }
     final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   List<Map<String, dynamic>> chapters = [
   ];
