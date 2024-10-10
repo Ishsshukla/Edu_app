@@ -286,15 +286,15 @@ Widget crstxtforstudent(
   String img,
   String text,
   String routeName, // Add a parameter for the route name
-  BuildContext context, {
-  VoidCallback? onTap, // Add an optional parameter for onTap
-}) {
+  BuildContext context, 
+  // VoidCallback? onTap, // Add an optional parameter for onTap
+) {
   return Padding(
     padding: const EdgeInsets.fromLTRB(20, 20, 20, 15), // Consistent padding
-    child: GestureDetector( // Wrap with GestureDetector for tap functionality
-      onTap: onTap ?? () {
-        // Default action, can be empty if not provided
-      },
+    // child: GestureDetector( // Wrap with GestureDetector for tap functionality
+    //   onTap: onTap ?? () {
+    //     // Default action, can be empty if not provided
+    //   },
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -355,8 +355,8 @@ Widget crstxtforstudent(
           ),
         ),
       ),
-    ),
-  );
+    );
+  // );
 }
 
 

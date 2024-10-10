@@ -1,16 +1,12 @@
-import 'dart:ui';
 import 'package:edu_app/students_screens/auth/login.dart';
 import 'package:edu_app/students_screens/screens/splash.dart';
 import 'package:edu_app/students_screens/widgets/round_button.dart';
 import 'package:edu_app/teacher_side/home.dart';
-import 'package:edu_app/teacher_side/screens/home.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart'; // Add this import
 
 import '../../components/const.dart';
-import '../screens/home.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});

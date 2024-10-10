@@ -1,6 +1,5 @@
 // ignore_for_file: use_key_in_widget_constructors, unused_local_variable, sort_child_properties_last
 
-import 'package:edu_app/components/const.dart';
 import 'package:edu_app/components/review_componemt.dart';
 import 'package:edu_app/students_screens/screens/review.dart';
 import 'package:flutter/material.dart';
@@ -186,26 +185,26 @@ class _EnrolledCourseDescriptionState extends State<EnrolledCourseDescriptionPag
                         Row(
                           children: [
                             // Total price text
-                            const Column(
-                              children: [
-                                Text(
-                                  'Total Price :  ',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                Text(
-                                  '  RS 12000 only',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(width: 40),
+                            // const Column(
+                            //   children: [
+                            //     Text(
+                            //       'Total Price :  ',
+                            //       style: TextStyle(
+                            //         fontSize: 18,
+                            //         color: Colors.black,
+                            //       ),
+                            //     ),
+                            //     Text(
+                            //       '  RS 12000 only',
+                            //       style: TextStyle(
+                            //         fontSize: 18,
+                            //         fontWeight: FontWeight.bold,
+                            //         color: Colors.black,
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
+                            // const SizedBox(width: 40),
 
                             // Continue button
                             ElevatedButton(

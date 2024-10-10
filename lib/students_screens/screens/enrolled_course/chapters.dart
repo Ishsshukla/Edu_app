@@ -136,6 +136,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edu_app/students_screens/screens/enrolled_course/content_chptr.dart';
 import 'package:flutter/material.dart';
 import 'package:edu_app/components/coursesbuy.dart'; // Update import if needed for chapter
+import 'package:flutter/material.dart';
 
 class ChapterPageStudent extends StatefulWidget {
   // final Map<String, dynamic> courseData; // Data for the selected course

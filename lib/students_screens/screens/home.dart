@@ -1,7 +1,6 @@
 import 'package:edu_app/models/new_page_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../components/review_componemt.dart';
 import 'user_notifier.dart';
 import 'navbar.dart';
 // import 'user_notifier.dart';

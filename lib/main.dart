@@ -75,15 +75,16 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/review', page: () => Reviewpage()),
           GetPage(name: '/paymethod', page: () => const PayMethodPage()),
           GetPage(name: '/finalpay', page: () => Finalpaypage()),
-          // GetPage(name: '/coursedescr', page: () => CourseDescriptionpage(courseData: courseData)),
-          // GetPage(name: '/chapterstudent', page: () => ChapterPageStudent()),
-          //  GetPage(name: '/viewchapterstudent', page: () => const ViewChapterStudent()),
-
+          GetPage(name: '/coursedescr', page: () => CourseDescriptionpage()),
+          // GetPage(name: '/chapterstudent', page: () => const ChapterPageStudent()),
+          // GetPage(name: '/viewchapterstudent', page: () => const ViewChapterStudent()),
+          GetPage(name: '/ EnrolledCourseDescriptionPage', page: () =>  EnrolledCourseDescriptionPage()),
+         
           GetPage(name: '/quiz', page: () => const QuizPage()),
           GetPage(name: '/coursefail', page: () => const CourseFailPage()),
           GetPage(name: '/privacy', page: () => const PrivacyPage()),
           GetPage(name: '/news', page: () => const Newspage()),
-          // GetPage(name: '/courseoption', page: () =>  CrsPagestudent()),
+          GetPage(name: '/courseoption', page: () =>  const CoursePageStudent()),
           // GetPage(name: '/enrolledcrspage', page: () => enrolledcrspage()),
           GetPage(name: '/login', page: () => const LoginScreen()),
           GetPage(name: '/signup', page: () => const SignUpScreen()),
@@ -92,8 +93,8 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/Thome', page: () => const teachHomepage()),
 
           // teacherside
-          GetPage(name: '/chapterteacher', page: () => ChapterPageTeacher()),
-          GetPage(name: '/courseteacher', page: () => CoursePageTeacher()),
+          GetPage(name: '/chapterteacher', page: () => const ChapterPageTeacher()),
+          GetPage(name: '/courseteacher', page: () => const CoursePageTeacher()),
           GetPage(
               name: '/editcoursecontent',
               page: () => const EditCourseContentTeacher()),

@@ -120,7 +120,7 @@ class _OptionPageState extends State<teacherOptionPage> {
           // Add your desired action on click here (e.g., print message)
           print('Selected: $text');
         },
-        style: ButtonStyle(
+        style: const ButtonStyle(
           // foregroundColor: WidgetStateProperty.resolveWith<Color>(
           //   (Set<WidgetState> states) {
           //     if (states.contains(WidgetState.hovered)) {

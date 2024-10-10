@@ -1,7 +1,6 @@
 // ignore_for_file: sort_child_properties_last
 
 import 'package:edu_app/components/button.dart';
-import 'package:edu_app/components/const.dart';
 import 'package:flutter/material.dart';
 
 class Paysucesspage extends StatefulWidget {
