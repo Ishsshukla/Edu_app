@@ -25,44 +25,44 @@ class _ChapterPageTeacherState extends State<ChapterPageTeacher> {
   }
 
   // Function to show a dialog for entering chapter name
-  void _showAddChapterDialog() {
-    String newChapterName = '';
+  // void _showAddChapterDialog() {
+  //   String newChapterName = '';
 
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Add New Chapter'),
-          content: TextField(
-            onChanged: (value) {
-              newChapterName = value;
-            },
-            decoration: const InputDecoration(
-              labelText: 'Chapter Name',
-              hintText: 'Enter the name of the chapter',
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context); // Close the dialog without saving
-              },
-              child: const Text('Cancel'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                if (newChapterName.isNotEmpty) {
-                  _addChapter(newChapterName);
-                  Navigator.pop(context); // Close the dialog after saving
-                }
-              },
-              child: const Text('Add'),
-            ),
-          ],
-        );
-      },
-    );
-  }
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) {
+  //       return AlertDialog(
+  //         title: const Text('Add New Chapter'),
+  //         content: TextField(
+  //           onChanged: (value) {
+  //             newChapterName = value;
+  //           },
+  //           decoration: const InputDecoration(
+  //             labelText: 'Chapter Name',
+  //             hintText: 'Enter the name of the chapter',
+  //           ),
+  //         ),
+  //         actions: [
+  //           TextButton(
+  //             onPressed: () {
+  //               Navigator.pop(context); // Close the dialog without saving
+  //             },
+  //             child: const Text('Cancel'),
+  //           ),
+  //           ElevatedButton(
+  //             onPressed: () {
+  //               if (newChapterName.isNotEmpty) {
+  //                 _addChapter(newChapterName);
+  //                 Navigator.pop(context); // Close the dialog after saving
+  //               }
+  //             },
+  //             child: const Text('Add'),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -99,14 +99,14 @@ class _ChapterPageTeacherState extends State<ChapterPageTeacher> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _showAddChapterDialog(); // Show dialog to enter chapter name
-        },
-        backgroundColor: const Color(0xFF4A90E2), // Custom button color
-        child: const Icon(Icons.add, color: Colors.white), // Plus icon with white color
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat, // Bottom right for FAB
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     _showAddChapterDialog(); // Show dialog to enter chapter name
+      //   },
+      //   backgroundColor: const Color(0xFF4A90E2), // Custom button color
+      //   child: const Icon(Icons.add, color: Colors.white), // Plus icon with white color
+      // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat, // Bottom right for FAB
     );
   }
 }
