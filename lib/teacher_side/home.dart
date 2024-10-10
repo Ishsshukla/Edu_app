@@ -1,12 +1,7 @@
-import 'package:edu_app/components/learningbox.dart';
 import 'package:edu_app/components/review_componemt.dart';
-import 'package:edu_app/students_screens/screens/navbar.dart';
 import 'package:edu_app/students_screens/screens/news.dart';
 import 'package:edu_app/teacher_side/navbar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'navbar.dart';
 
 class teachHomepage extends StatefulWidget {
   const teachHomepage({super.key});

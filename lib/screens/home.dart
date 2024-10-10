@@ -1,10 +1,7 @@
-import 'package:edu_app/components/learningbox.dart';
 import 'package:edu_app/components/review_componemt.dart';
 import 'package:edu_app/screens/navbar.dart';
 import 'package:edu_app/screens/news.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});

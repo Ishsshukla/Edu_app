@@ -669,7 +669,7 @@ import 'signup.dart';
 import 'package:edu_app/students_screens/screens/profile.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -711,12 +711,12 @@ class _LoginScreenState extends State<LoginScreen> {
         if (role == 'Student') {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => Homepage()), // Replace with actual student home screen widget
+            MaterialPageRoute(builder: (context) => const Homepage()), // Replace with actual student home screen widget
           );
         } else if (role == 'Teacher') {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => teachHomepage()), // Replace with actual teacher home screen widget
+            MaterialPageRoute(builder: (context) => const teachHomepage()), // Replace with actual teacher home screen widget
           );
         } else {
           throw Exception('Invalid user role');
@@ -901,10 +901,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ForgotPassword()),
+                              builder: (context) => const ForgotPassword()),
                         );
                       },
-                      child: Text('Reset Password',
+                      child: const Text('Reset Password',
                           style: TextStyle(color: Colors.black)),
                     ),
                   ],
@@ -936,7 +936,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               builder: (context) => const SignUpScreen()),
                         );
                       },
-                      child: Text('Sign up', style: TextStyle(color: Colors.black)),
+                      child: const Text('Sign up', style: TextStyle(color: Colors.black)),
                     ),
                   ],
                 ),

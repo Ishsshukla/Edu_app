@@ -226,7 +226,7 @@ class _enrolledcrsState extends State<enrolledcrspage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => ChapterPageStudent(),
+                                        builder: (context) => const ChapterPageStudent(),
                                       ),
                                     );
                                   },

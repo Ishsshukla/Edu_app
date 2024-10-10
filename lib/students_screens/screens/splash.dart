@@ -1,5 +1,4 @@
 import 'package:edu_app/components/button.dart';
-import 'package:edu_app/components/const.dart';
 import 'package:edu_app/students_screens/firebase_services/splash_services.dart';
 import 'package:flutter/material.dart';
 

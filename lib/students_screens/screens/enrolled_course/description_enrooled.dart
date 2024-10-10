@@ -1,6 +1,5 @@
 // ignore_for_file: use_key_in_widget_constructors, unused_local_variable, sort_child_properties_last
 
-import 'package:edu_app/components/const.dart';
 import 'package:edu_app/components/review_componemt.dart';
 import 'package:edu_app/students_screens/screens/review.dart';
 import 'package:flutter/material.dart';

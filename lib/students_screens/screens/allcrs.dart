@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:edu_app/components/coursesbuy.dart'; // Import your existing components
 
 class CoursePageStudent extends StatefulWidget {
-  const CoursePageStudent({Key? key}) : super(key: key);
+  const CoursePageStudent({super.key});
 
   @override
   State<CoursePageStudent> createState() => _CoursePageStudentState();

@@ -1,5 +1,4 @@
 import 'package:edu_app/components/coursesbuy.dart'; // Update import if needed for chapter
-import 'package:edu_app/teacher_side/navbar.dart';
 import 'package:flutter/material.dart';
 
 class ChapterPageStudent extends StatefulWidget {

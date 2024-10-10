@@ -20,7 +20,7 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>  ChapterPageTeacher(),
+        builder: (context) =>  const ChapterPageTeacher(),
       ),
     );
   }

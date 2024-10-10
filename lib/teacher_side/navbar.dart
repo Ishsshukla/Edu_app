@@ -37,7 +37,7 @@ class _NavTeacherState extends State<NavTeacher> {
       case 1:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => CoursePageTeacher()),
+          MaterialPageRoute(builder: (context) => const CoursePageTeacher()),
         );
         break;
       case 2:
