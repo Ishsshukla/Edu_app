@@ -186,26 +186,26 @@ class _EnrolledCourseDescriptionState extends State<EnrolledCourseDescriptionPag
                         Row(
                           children: [
                             // Total price text
-                            const Column(
-                              children: [
-                                Text(
-                                  'Total Price :  ',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                Text(
-                                  '  RS 12000 only',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(width: 40),
+                            // const Column(
+                            //   children: [
+                            //     Text(
+                            //       'Total Price :  ',
+                            //       style: TextStyle(
+                            //         fontSize: 18,
+                            //         color: Colors.black,
+                            //       ),
+                            //     ),
+                            //     Text(
+                            //       '  RS 12000 only',
+                            //       style: TextStyle(
+                            //         fontSize: 18,
+                            //         fontWeight: FontWeight.bold,
+                            //         color: Colors.black,
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
+                            // const SizedBox(width: 40),
 
                             // Continue button
                             ElevatedButton(
