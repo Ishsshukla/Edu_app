@@ -9,7 +9,8 @@ import 'package:edu_app/constants/constants.dart';
 // import 'package:edu_app/screens/authentication_screens/reset_password.dart';
 
 class OTPVerification extends StatefulWidget {
-  const OTPVerification({super.key});
+  final String email;
+  const OTPVerification({super.key, required this.email});
 
   @override
   State<OTPVerification> createState() => _OTPVerificationState();
@@ -64,7 +65,7 @@ class _OTPVerificationState extends State<OTPVerification> {
       backgroundColor: backgroundColor,
       appBar: AppBar(
         title: Text(
-          "Change Password",
+          "Email Varification",
           style: headingH3,
         ),
         centerTitle: true,
@@ -87,7 +88,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                 height: 10,
               ),
               Text(
-                "We have sent a verification code to your mail rupeshyadav78857@gmail.com",
+                "We have sent a verification code to your mail ${widget.email}",
                 style: GoogleFonts.dmSans(
                     color: textColor,
                     fontSize: 18,
@@ -104,7 +105,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                     vertical: 8.0,
-                    horizontal: 30,
+                    horizontal: 20,
                   ),
                   child: PinCodeTextField(
                     appContext: context,

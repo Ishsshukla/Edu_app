@@ -18,7 +18,7 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   bool loading = false;
   bool _obscureText = true;
-  String email = "", password = "";
+  String email = "", password = "", name="", phone="";
   String? selectedRole;
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
@@ -42,6 +42,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
           'email': email,
           'role': selectedRole,
           'createdAt': Timestamp.now(),
+          'name': name,
+          'phoneNo': phone,
         });
 
         if (mounted) {
@@ -123,6 +125,40 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   key: _formKey,
                   child: Column(
                     children: [
+                      TextFormField(
+                        keyboardType: TextInputType.emailAddress,
+                        controller: emailController,
+                        decoration: const InputDecoration(
+                          hintText: 'Name',
+                          prefixIcon: Icon(Icons.email),
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Enter your name';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      TextFormField(
+                        keyboardType: TextInputType.emailAddress,
+                        controller: emailController,
+                        decoration: const InputDecoration(
+                          hintText: 'Phone Number',
+                          prefixIcon: Icon(Icons.email),
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Enter phone number';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       TextFormField(
                         keyboardType: TextInputType.emailAddress,
                         controller: emailController,

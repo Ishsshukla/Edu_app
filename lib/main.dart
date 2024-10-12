@@ -1,6 +1,7 @@
 import 'package:edu_app/components/class_option.dart';
 import 'package:edu_app/firebase_options.dart';
 import 'package:edu_app/quiz/quiz_category.dart';
+import 'package:edu_app/students_screens/auth/emailOTPVerification.dart';
 import 'package:edu_app/students_screens/screens/enrolled_course/description_enrooled.dart';
 import 'package:edu_app/students_screens/screens/user_notifier.dart';
 import 'package:edu_app/students_screens/screens/class_options.dart';
@@ -29,8 +30,6 @@ import 'package:edu_app/teacher_side/home.dart';
 import 'package:edu_app/teacher_side/screens/Edit_course.dart';
 import 'package:edu_app/teacher_side/screens/chapter_screen.dart';
 import 'package:edu_app/teacher_side/screens/contenteditcourse.dart';
-// import 'package:edu_app/teacher_side/screens/crs_options_teachers.dart';
-import 'package:edu_app/teacher_side/screens/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -58,11 +57,12 @@ class MyApp extends StatelessWidget {
       create: (context) => UserNotifier(),
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        // initialRoute: '/courseteacher',
         initialRoute: '/courseteacher',
+        // initialRoute: '/login',
 
         getPages: [
           GetPage(name: '/upi_screen', page: () => const UpiScreen()),
+          GetPage(name: '/otp_varification', page: () => const OTPVerification(email: "",)),
           GetPage(name: '/category_quiz', page: () => QuizCategoryScreen()),
           GetPage(name: '/welcm_quiz', page: () => WelcomeScreen()),
           GetPage(name: '/paysucess', page: () => const Paysucesspage()),
