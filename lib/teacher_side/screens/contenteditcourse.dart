@@ -23,7 +23,6 @@
 //   final List<File> _pickedPdfFiles = []; // Updated to handle multiple PDFs
 //   final List<File> _pickedImageFiles = [];
 
-
 // //..................................
 //  String courseName = '';
 //   String lessonName = '';
@@ -465,6 +464,7 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
   String notes = ''; 
   List<String> pdfUrls = [];
   List<String> imageUrls = [];
+  String? documentId; // To store the fetched document ID
 
   @override
   void initState() {
@@ -486,21 +486,23 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
           .get();
 
       if (snapshot.docs.isNotEmpty) {
-        var data = snapshot.docs.first.data() as Map<String, dynamic>;
+        var doc = snapshot.docs.first;
+        var data = doc.data() as Map<String, dynamic>;
         setState(() {
           courseName = data['courseName'] ?? 'Unknown Course';
           lessonName = data['lessonName'] ?? 'Unknown Lesson';
           youtubeLink = data['youtubeLink'] ?? 'No YouTube Link';
           pdfUrls = List<String>.from(data['pdfUrls'] ?? []);
           imageUrls = List<String>.from(data['imageUrls'] ?? []);
-          notes = data['notes'] ?? 'No Notes'; 
+          notes = data['notes'] ?? 'No Notes';
+          documentId = doc.id; // Store the document ID
         });
 
         // Initialize controllers with fetched data
         _courseNameController.text = courseName;
         _lessonNameController.text = lessonName;
         _youtubeLinkController.text = youtubeLink;
-        _notesController.text = notes; 
+        _notesController.text = notes;
       } else {
         print("No matching course content found.");
       }
@@ -561,33 +563,48 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
     }
   }
 
-  Future<void> _uploadCourseData(String courseName, String lessonName,
+  Future<void> _updateCourseData(String courseName, String lessonName,
       String youtubeLink, List<String> pdfUrls, List<String> imageUrls, String notes) async {
+    if (documentId == null) {
+      print("Error: No document ID available for update.");
+      return;
+    }
+
     try {
-      await FirebaseFirestore.instance.collection('course_content').add({
+      await FirebaseFirestore.instance.collection('course_content').doc(documentId).update({
         'courseName': courseName,
         'lessonName': lessonName,
         'youtubeLink': youtubeLink,
         'pdfUrls': pdfUrls,
         'imageUrls': imageUrls,
-        'notes': notes,  // Save notes to Firestore
-        'timestamp': FieldValue.serverTimestamp(),
+        'notes': notes,  // Update notes in Firestore
+        'timestamp': FieldValue.serverTimestamp(), // Optional, to track the last update time
       });
     } catch (e) {
-      print('Error uploading course data: $e');
+      print('Error updating course data: $e');
     }
   }
 
   Future<void> _saveChanges() async {
     try {
-      List<String> pdfUrls = [];
-      List<String> imageUrls = [];
+      List<String> updatedPdfUrls = [...pdfUrls]; // Keep the old ones
+      List<String> updatedImageUrls = [...imageUrls]; // Keep the old ones
 
-      await _uploadPdfFiles(pdfUrls);
-      await _uploadImageFiles(imageUrls);
+      // Upload new PDFs and add their URLs to the list
+      await _uploadPdfFiles(updatedPdfUrls);
 
-      await _uploadCourseData(_courseNameController.text, _lessonNameController.text,
-          _youtubeLinkController.text, pdfUrls, imageUrls, _notesController.text);
+      // Upload new images and add their URLs to the list
+      await _uploadImageFiles(updatedImageUrls);
+
+      // Update the course document in Firestore
+      await _updateCourseData(
+        _courseNameController.text,
+        _lessonNameController.text,
+        _youtubeLinkController.text,
+        updatedPdfUrls,
+        updatedImageUrls,
+        _notesController.text,
+      );
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Changes saved successfully!')),
@@ -601,7 +618,7 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
 
   void _deletePdf(int index) {
     setState(() {
-      _pickedPdfFiles.removeAt(index);
+      pdfUrls.removeAt(index);
     });
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('PDF file deleted')),
@@ -610,7 +627,7 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
 
   void _deleteImage(int index) {
     setState(() {
-      _pickedImageFiles.removeAt(index);
+      imageUrls.removeAt(index);
     });
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Image file deleted')),
@@ -679,18 +696,19 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
               const SizedBox(height: 8),
               TextField(
                 controller: _youtubeLinkController,
-                decoration: InputDecoration(
-                  hintText: 'Paste the YouTube Link Here',
-                  border: const OutlineInputBorder(),
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.play_circle_fill, color: Colors.red),
-                    onPressed: _launchYoutubeLink,
-                  ),
+                decoration: const InputDecoration(
+                  hintText: 'Enter YouTube Link',
+                  border: OutlineInputBorder(),
                 ),
+              ),
+              const SizedBox(height: 10),
+              TextButton(
+                onPressed: _launchYoutubeLink,
+                child: const Text('Open YouTube Link'),
               ),
               const SizedBox(height: 20),
 
-              const Text('Notes',
+              const Text('Teacher Notes',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
               TextField(
@@ -795,16 +813,40 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
               ),
               const SizedBox(height: 20),
 
-              Center(
-                child: ElevatedButton(
-                  onPressed: _saveChanges,
-                  child: const Text('Save Changes'),
-                ),
-              ),
+              // Center(
+              //   child: ElevatedButton(
+              //     onPressed: _saveChanges,
+              //     child: const Text('Save Changes'),
+              //   ),
+              // ),
+      
             ],
           ),
         ),
       ),
+               bottomNavigationBar: BottomAppBar(
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.all(0), // Adjust padding as needed
+          child: ElevatedButton(
+            onPressed: _saveChanges, // Call save changes function
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(
+                  vertical: 5), // Padding inside the button
+              backgroundColor: const Color(
+                  0xFF4A90E2), // Blue color similar to the one in the image
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10), // Rounded corners
+              ),
+            ),
+            child: const Text(
+              'Save Changes', // Button text
+              style: TextStyle(fontSize: 23, color: Colors.white), // Text style
+            ),
+          ),
+        ),
+               )
     );
+    
   }
 }
