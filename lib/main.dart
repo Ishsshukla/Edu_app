@@ -93,11 +93,11 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/Thome', page: () => const teachHomepage()),
 
           // teacherside
-          GetPage(name: '/chapterteacher', page: () => const ChapterPageTeacher()),
+          // GetPage(name: '/chapterteacher', page: () => const ChapterPageTeacher()),
           GetPage(name: '/courseteacher', page: () => const CoursePageTeacher()),
-          GetPage(
-              name: '/editcoursecontent',
-              page: () => const EditCourseContentTeacher()),
+          // GetPage(
+          //     name: '/editcoursecontent',
+              // page: () => const EditCourseContentTeacher()),
           // GetPage(name: '/editcourse', page: () => EditCourseDescriptionpage()),
         ],
       ),
