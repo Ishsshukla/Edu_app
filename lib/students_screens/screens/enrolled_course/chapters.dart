@@ -158,7 +158,7 @@ Widget crstxtforstudentDataChapter(
                       ),
                     ),
                     child: const Text(
-                      'View Course',
+                      'View Chapter',
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                   ),
