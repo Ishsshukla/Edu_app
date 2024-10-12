@@ -1,6 +1,7 @@
 import 'package:edu_app/components/coursesbuy.dart'; // Update import if needed for chapter
 import 'package:edu_app/students_screens/screens/crs_description.dart';
 import 'package:edu_app/students_screens/screens/enrolled_course/enrollled_crs.dart';
+// import 'package:edu_app/students_screens/screens/enrolled_course/enrollled_crs.dart';
 import 'package:edu_app/teacher_side/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

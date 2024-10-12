@@ -1,10 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edu_app/components/const.dart';
 import 'package:edu_app/teacher_side/screens/chapter_screen.dart';
 import 'package:edu_app/teacher_side/screens/contenteditcourse.dart';
 import 'package:flutter/material.dart';
 
 class EditCourseDescriptionpage extends StatefulWidget {
-  const EditCourseDescriptionpage({super.key});
+   final Map<String, dynamic> courseData; // Data for the selected course
+
+  const EditCourseDescriptionpage({super.key, required this.courseData});
+ 
 
   @override
   State<EditCourseDescriptionpage> createState() =>
@@ -12,8 +16,11 @@ class EditCourseDescriptionpage extends StatefulWidget {
 }
 
 class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FocusNode _courseInfoFocusNode = FocusNode();
   final FocusNode _descriptionFocusNode = FocusNode();
+   late TextEditingController _descriptionController;
+  bool _isEditable = false; // Initially, the field is not editable
 
   void _editCourse() {
     // Navigate to the next page for editing
@@ -23,6 +30,27 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
         builder: (context) =>  const ChapterPageTeacher(),
       ),
     );
+  }
+   @override
+  void initState() {
+    super.initState();
+    _descriptionController = TextEditingController(text: widget.courseData['description']);
+  }
+   // Function to toggle between editable and non-editable mode
+  void _toggleEditSave() async {
+    if (_isEditable) {
+      // Save the changes when toggling to non-editable mode
+      await _firestore.collection('course_content').doc(widget.courseData['docId']).update({
+        'description': _descriptionController.text,
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Description updated successfully!')));
+    }
+
+    // Toggle the editable state
+    setState(() {
+      _isEditable = !_isEditable;
+    });
   }
 
   @override
@@ -37,7 +65,9 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-
+    String courseName = widget.courseData['name'] ?? 'Course Name Not Available';
+    String courseDescription = widget.courseData['description'] ?? 'Description not available'; // Modify as per your data structure
+    String courseImage = widget.courseData['img'] ?? 'assets/CoursePreview.png';
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,  // This ensures the layout resizes when the keyboard shows up
@@ -96,26 +126,47 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
                             ),
                           ),
                           const SizedBox(height: 16),
-
+                             TextField(
+              controller: _descriptionController,
+              maxLines: 2,
+              enabled: _isEditable, // Control whether the text field is editable or not
+              decoration: InputDecoration(
+                hintText: 'Write the course description here',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(color: Colors.grey),
+                ),
+                contentPadding: const EdgeInsets.all(10),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Align(
+              alignment: Alignment.centerRight,
+              child: ElevatedButton.icon(
+                onPressed: _toggleEditSave,
+                icon: Icon(_isEditable ? Icons.save : Icons.edit),
+                label: Text(_isEditable ? 'Save' : 'Edit'),
+              ),
+            ),
                           // Course Description
-                          const Text(
-                            'Description',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(height: 8),
-                          TextField(
-                            focusNode: _descriptionFocusNode,
-                            maxLines: 2,
-                            decoration: InputDecoration(
-                              hintText: 'Write the course description here',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(color: Colors.grey),
-                              ),
-                              contentPadding: const EdgeInsets.all(10), // Adjusted content padding
-                            ),
-                          ),
+                          // const Text(
+                          //   'Description',
+                          //   style: TextStyle(
+                          //       fontSize: 18, fontWeight: FontWeight.bold),
+                          // ),
+                          // const SizedBox(height: 8),
+                          // TextField(
+                          //   focusNode: _descriptionFocusNode,
+                          //   maxLines: 2,
+                          //   decoration: InputDecoration(
+                          //     hintText: 'Write the course description here',
+                          //     border: OutlineInputBorder(
+                          //       borderRadius: BorderRadius.circular(10),
+                          //       borderSide: const BorderSide(color: Colors.grey),
+                          //     ),
+                          //     contentPadding: const EdgeInsets.all(10), // Adjusted content padding
+                          //   ),
+                          // ),
                           const SizedBox(height: 20),
 
                           // Information Section

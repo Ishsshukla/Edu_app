@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edu_app/students_screens/screens/crs_description.dart';
-// import 'package:edu_app/students_screens/screens/enrolled_course/chapters.dart';
+import 'package:edu_app/students_screens/screens/enrolled_course/chapters.dart';
 import 'package:edu_app/students_screens/screens/enrolled_course/description_enrooled.dart';
 import 'package:edu_app/students_screens/screens/enrolled_course/enrollled_crs.dart';
 import 'package:flutter/material.dart';

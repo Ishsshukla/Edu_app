@@ -1,197 +1,261 @@
+import 'package:edu_app/students_screens/screens/enrolled_course/chapters.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ViewChapterStudent extends StatefulWidget {
-  final Map<String, dynamic> courseData; // Data for the selected course
+// ignore_for_file: use_key_in_widget_constructors, unused_local_variable, sort_child_properties_last
 
-  const ViewChapterStudent({super.key, required this.courseData});
+import 'package:edu_app/components/const.dart';
 
+class enrolledcrspage extends StatefulWidget {
+   final Map<String, dynamic> courseData; // Data for the selected course
+
+  const enrolledcrspage({super.key, required this.courseData});
   @override
-  State<ViewChapterStudent> createState() => _ViewChapterStudentState();
+  State<enrolledcrspage> createState() => _enrolledcrsState();
 }
 
-class _ViewChapterStudentState extends State<ViewChapterStudent> {
-  String courseName = '';
-  String lessonName = '';
-  String youtubeLink = '';
-  String notes = '';
-  List<String> pdfUrls = [];
-  List<String> imageUrls = [];
-
-  @override
-  void initState() {
-    super.initState();
-    fetchCourses();
-  }
-
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
-  Future<void> fetchCourses() async {
-    try {
-      String selectedCourseName = widget.courseData['courseName'];
-      String selectedLessonName = widget.courseData['lessonName'];
-
-      QuerySnapshot snapshot = await _firestore
-          .collection('course_content')
-          .where('courseName', isEqualTo: selectedCourseName)
-          .where('lessonName', isEqualTo: selectedLessonName)
-          .get();
-
-      if (snapshot.docs.isNotEmpty) {
-        var data = snapshot.docs.first.data() as Map<String, dynamic>;
-
-        setState(() {
-          courseName = data['courseName'] ?? 'Unknown Course';
-          lessonName = data['lessonName'] ?? 'Unknown Lesson';
-          youtubeLink = data['youtubeLink'] ?? 'No YouTube Link';
-          pdfUrls = data.containsKey('pdfUrls') ? List<String>.from(data['pdfUrls']) : [];
-          imageUrls = data.containsKey('imageUrls') ? List<String>.from(data['imageUrls']) : [];
-          notes = data['notes'] ?? 'No Notes';
-        });
-      } else {
-        print("No matching course content found");
-      }
-    } catch (e) {
-      print("Error fetching courses: $e");
-    }
-  }
-
-  Future<void> _launchYoutubeLink() async {
-    if (await canLaunchUrl(Uri.parse(youtubeLink))) {
-      await launchUrl(Uri.parse(youtubeLink));
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Invalid YouTube URL')),
-      );
-    }
-  }
-
+class _enrolledcrsState extends State<enrolledcrspage> {
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    String courseName = widget.courseData['name'] ?? 'Course Name Not Available';
+    print("courseName = ${courseName}");
+    String courseDescription = widget.courseData['description'] ?? 'Description not available'; 
+    print("courseDescription = ${courseDescription}");
+    String courseImage = widget.courseData['img'] ?? 'assets/CoursePreview.png';
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("View Chapter", style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Chapter Name Section
-            _buildSectionHeader('Chapter Name'),
-            _buildSectionContent(courseName),
-
-            _buildSectionHeader('Topic Name'),
-            _buildSectionContent(lessonName),
-
-            _buildSectionHeader('Class Link (YouTube)'),
-            GestureDetector(
-              onTap: _launchYoutubeLink,
-              child: Text(
-                youtubeLink.isNotEmpty ? youtubeLink : 'No YouTube Link',
-                style: const TextStyle(color: Colors.blue, decoration: TextDecoration.underline),
-              ),
-            ),
-
-            _buildSectionHeader('Notes'),
-            _buildSectionContent(notes.isNotEmpty ? notes : 'No Notes Provided'),
-
-            if (pdfUrls.isNotEmpty) _buildPdfSection(),
-
-            if (imageUrls.isNotEmpty) _buildImageSection(),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSectionHeader(String title) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Text(
-        title,
-        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87),
-      ),
-    );
-  }
-
-  Widget _buildSectionContent(String content) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
-      child: Text(
-        content,
-        style: const TextStyle(fontSize: 16, color: Colors.black54),
-      ),
-    );
-  }
-
-  Widget _buildPdfSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSectionHeader('Uploaded PDFs'),
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: pdfUrls.length,
-          itemBuilder: (context, index) {
-            return Card(
-              child: ListTile(
-                leading: const Icon(Icons.picture_as_pdf, color: Colors.red),
-                title: Text('PDF File ${index + 1}'),
-                trailing: IconButton(
-                  icon: const Icon(Icons.download),
-                  onPressed: () async {
-                    await launchUrl(Uri.parse(pdfUrls[index]));
-                  },
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+          child: Stack(
+            children: [
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  width: screenWidth * 1,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    
+                  ),
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/CoursePreview.png',
+                        scale: 5,
+                      )
+                    ],
+                  ),
                 ),
               ),
-            );
-          },
-        ),
-      ],
-    );
-  }
-
-  Widget _buildImageSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSectionHeader('Uploaded Images'),
-        GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
+              Positioned(
+                top: screenHeight * 0.33,
+                left: 0,
+                right: 0,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(70),
+                      topRight: Radius.circular(70),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(28.0, 0, 0, 0),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: screenHeight * 0.05,
+                        ),
+                        const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Course Information',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            courseName,
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.029,
+                        ),
+                        const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Description',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            courseDescription,
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                        
+                        SizedBox(
+                          height: screenHeight * 0.029,
+                        ),
+                        const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Information',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.014,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.timelapse,
+                              size: 28,
+                              color: txtColor,
+                            ),
+                            SizedBox(
+                              width: screenWidth * .018,
+                            ),
+                            Text(
+                              '1h 35m',
+                              style: TextStyle(color: txtColor, fontSize: 17),
+                            ),
+                            SizedBox(
+                              width: screenWidth * .2,
+                            ),
+                            Icon(
+                              Icons.star,
+                              size: 30,
+                              color: txtColor,
+                            ),
+                            SizedBox(
+                              width: screenWidth * .018,
+                            ),
+                            Text(
+                              ' 4.5  Star',
+                              style: TextStyle(color: txtColor, fontSize: 17),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.008,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.book,
+                              size: 30,
+                              color: txtColor,
+                            ),
+                            SizedBox(
+                              width: screenWidth * .018,
+                            ),
+                            Text(
+                              'Notes',
+                              style: TextStyle(color: txtColor, fontSize: 17),
+                            ),
+                            SizedBox(
+                              width: screenWidth * .239,
+                            ),
+                            Icon(
+                              Icons.message,
+                              size: 25,
+                              color: txtColor,
+                            ),
+                            
+                            Text(
+                              '  350 Reviews',
+                              style: TextStyle(color: txtColor, fontSize: 17),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.055,
+                        ),
+                        const Divider(
+                          color: Colors.grey,
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.01,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(18.0, 0, 0, 0),
+                          child: Row(
+                            children: [
+                              
+                              Align(
+                                alignment: Alignment.center,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ChapterPageStudent(courseName: courseName),
+                                      ),
+                                    );
+                                  },
+                                  child: const Text(
+                                    'Start Course',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 23),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: txtColor,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    minimumSize:const  Size(280,
+                                        50), 
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 80),
+                            ],
+                          ),
+                        ),
+                        const Row(
+                          children: [
+                            SizedBox(height: 50),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-          itemCount: imageUrls.length,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () async {
-                await launchUrl(Uri.parse(imageUrls[index]));
-              },
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.network(
-                  imageUrls[index],
-                  fit: BoxFit.cover,
-                ),
-              ),
-            );
-          },
         ),
-      ],
+      ),
     );
   }
 }

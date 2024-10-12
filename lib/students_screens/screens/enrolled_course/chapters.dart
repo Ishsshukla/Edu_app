@@ -144,7 +144,7 @@ Widget crstxtforstudentDataChapter(
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              CoursePage (),
+                              ViewChapterStudent(courseData: courseData,),
                         ),
                       );
                     },

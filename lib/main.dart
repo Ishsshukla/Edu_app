@@ -98,7 +98,7 @@ class MyApp extends StatelessWidget {
           GetPage(
               name: '/editcoursecontent',
               page: () => const EditCourseContentTeacher()),
-          GetPage(name: '/editcourse', page: () => const EditCourseDescriptionpage()),
+          // GetPage(name: '/editcourse', page: () => EditCourseDescriptionpage()),
         ],
       ),
     );
