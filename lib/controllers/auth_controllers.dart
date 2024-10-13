@@ -1,4 +1,5 @@
 import 'package:edu_app/screens/home.dart';
+import 'package:edu_app/students_screens/screens/home.dart';
 // import 'package:edu_app/screens/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -27,7 +28,7 @@ class AuthController extends GetxController {
     if (user == null) {
       // Get.offAll(() => const SplashScreen());
     } else {
-      Get.offAll(() => const Homepage());
+      Get.offAll(() => Homepage(docIdUser: '',));
     }
   }
 

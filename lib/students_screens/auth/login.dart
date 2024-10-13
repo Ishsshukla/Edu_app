@@ -26,6 +26,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   String email = "", password = "";
   bool loading = false;
+  // String docIdUser = '';
   bool _obscureText = true;
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
@@ -33,67 +34,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // Function to authenticate the user, fetch role and redirect accordingly
-  // Future<void> userLogin() async {
-  //   setState(() {
-  //     loading = true;
-  //   });
-  //   try {
-  //     // Authenticate the user
-  //     UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-  //       email: email,
-  //       password: password,
-  //     );
-
-  //     // Fetch user role from Firestore using user's UID
-  //     DocumentSnapshot userDoc = await FirebaseFirestore.instance
-  //         .collection('users')
-  //         .doc(userCredential.user?.uid)
-  //         .get();
-
-  //     // Check if user document exists and contains the 'role' field
-  //     if (userDoc.exists && userDoc.data() != null) {
-  //       String role = userDoc['role'];
-
-  //       // Redirect to appropriate screen based on role
-  //       if (role == 'Student') {
-  //         Navigator.pushReplacement(
-  //           context,
-  //           MaterialPageRoute(builder: (context) => const Homepage()), // Replace with actual student home screen widget
-  //         );
-  //       } else if (role == 'Teacher') {
-  //         Navigator.pushReplacement(
-  //           context,
-  //           MaterialPageRoute(builder: (context) => const teachHomepage()), // Replace with actual teacher home screen widget
-  //         );
-  //       } else {
-  //         throw Exception('Invalid user role');
-  //       }
-  //     } else {
-  //       throw Exception('User role not found');
-  //     }
-  //   } on FirebaseAuthException catch (e) {
-  //     String message;
-  //     if (e.code == 'user-not-found') {
-  //       message = 'No user found for that email';
-  //     } else if (e.code == 'wrong-password') {
-  //       message = 'Wrong password provided for that user';
-  //     } else {
-  //       message = 'An error occurred: ${e.message}';
-  //     }
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text(message)),
-  //     );
-  //   } catch (e) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text('Login failed: $e')),
-  //     );
-  //   } finally {
-  //     setState(() {
-  //       loading = false;
-  //     });
-  //   }
-  // }
   Future<void> userLogin() async {
     setState(() {
       loading = true;
@@ -113,6 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
       // Check if the user document exists and contains the 'role' field
       if (userDoc.exists && userDoc.data() != null) {
+        String docIdUser = userDoc.id;
         String role = userDoc['role'];
 
         // Fetch OTP verification status from 'otp_verification' collection
@@ -128,8 +69,9 @@ class _LoginScreenState extends State<LoginScreen> {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) =>
-                    const Homepage(), // Replace with student home screen widget
+                builder: (context) => Homepage(
+                  docIdUser: docIdUser,
+                ), // Replace with student home screen widget
               ),
             );
           } else if (role == 'Teacher') {
@@ -137,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
               context,
               MaterialPageRoute(
                 builder: (context) =>
-                    const teachHomepage(), // Replace with teacher home screen widget
+                    teachHomepage(docidUser: docIdUser,), // Replace with teacher home screen widget
               ),
             );
           } else {
@@ -173,23 +115,23 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  void handleGoogleBtnClick() async {
-    try {
-      await GoogleSignIn().signOut();
-      UserCredential userCredential = await _signInWithGoogle();
-      log('\nUser : ${userCredential.user}');
-      log('\nuser: ${userCredential.additionalUserInfo}');
+  // void handleGoogleBtnClick() async {
+  //   try {
+  //     await GoogleSignIn().signOut();
+  //     UserCredential userCredential = await _signInWithGoogle();
+  //     log('\nUser : ${userCredential.user}');
+  //     log('\nuser: ${userCredential.additionalUserInfo}');
 
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => const SplashScreen()),
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to sign in with Google: $e')),
-      );
-    }
-  }
+  //     Navigator.pushReplacement(
+  //       context,
+  //       MaterialPageRoute(builder: (_) => const SplashScreen()),
+  //     );
+  //   } catch (e) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text('Failed to sign in with Google: $e')),
+  //     );
+  //   }
+  // }
 
   Future<UserCredential> _signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -367,16 +309,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 30),
-                InkWell(
-                  onTap: handleGoogleBtnClick,
-                  child: Container(
-                    height: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                  ),
-                ),
+                // const SizedBox(height: 30),
+                // InkWell(
+                //   onTap: handleGoogleBtnClick,
+                //   child: Container(
+                //     height: 50,
+                //     decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(50),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),

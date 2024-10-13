@@ -1,9 +1,11 @@
 import 'package:edu_app/components/button.dart';
 import 'package:edu_app/students_screens/firebase_services/splash_services.dart';
+import 'package:edu_app/students_screens/screens/splash2.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  final String email;
+  const SplashScreen({super.key, required this.email});
 
   @override
   State<SplashScreen> createState() => _SplashState();
@@ -43,7 +45,9 @@ class _SplashState extends State<SplashScreen> {
                 color: const Color(0xFF4A90E2),
                 textColor: Colors.white,
                 function: () {
-                  Navigator.pushNamed(context, 'splash2');
+                  Navigator.push(
+            context, MaterialPageRoute(builder: (context) =>  SplashScreen2(email: widget.email,)));
+                  // Navigator.pushNamed(context, 'splash2');
                 })
           ],
         ),

@@ -356,7 +356,7 @@ class _OTPVerificationEmailState extends State<OTPVerificationEmail> {
                 .doc(widget.email)
                 .update({'verified': true});
                 Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const SplashScreen()));
+            context, MaterialPageRoute(builder: (context) =>  SplashScreen(email: widget.email,)));
               // Navigate to a new screen or perform further actions here
             } else {
               ScaffoldMessenger.of(context)

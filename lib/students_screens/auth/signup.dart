@@ -18,6 +18,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  String docidUser = '';
   bool loading = false;
   bool _obscureText = true;
   String email = "", password = "", name="", phone="";
@@ -68,7 +69,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         }
         else{
            Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const teachHomepage()));
+            context, MaterialPageRoute(builder: (context) => teachHomepage(docidUser: '',)));
         }
 
        
