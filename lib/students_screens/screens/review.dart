@@ -240,6 +240,7 @@ class _ReviewState extends State<Reviewpage> {
                     children: [
                       Column(
                         children: [
+                          const SizedBox(height: 15),
                           txt('Have a Coupon Code ?', context),
                           Padding(
                             padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -301,6 +302,7 @@ class _ReviewState extends State<Reviewpage> {
                       ),
                     ],
                   ),
+                  const SizedBox(height: 10),
                   const Divider(
                     color: Colors.grey,
                   ),
@@ -309,6 +311,7 @@ class _ReviewState extends State<Reviewpage> {
                     children: [
                       Column(
                         children: [
+                          
                           txt2('Total Price :  ', context),
                           txt('  RS 12000 only', context),
                         ],
