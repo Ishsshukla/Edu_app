@@ -1,15 +1,20 @@
 import 'package:edu_app/components/const.dart';
 import 'package:edu_app/students_screens/screens/allcrs.dart';
 import 'package:edu_app/students_screens/screens/crs_options.dart';
-import 'package:edu_app/students_screens/screens/home.dart';
-import 'package:edu_app/students_screens/screens/profile.dart';
+import 'package:edu_app/teacher_side/home.dart';
+// import 'package:edu_app/students_screens/screens/home.dart';
+// import 'package:edu_app/students_screens/screens/profile.dart';
 import 'package:edu_app/teacher_side/screens/course_screen.dart';
+import 'package:edu_app/teacher_side/screens/profile.dart';
 import 'package:flutter/material.dart';
 
+import '../screens/home.dart';
+
 class NavTeacher extends StatefulWidget {
+  final String docidUser;
   final int initialIndex;
 
-  const NavTeacher({super.key, required this.initialIndex});
+  const NavTeacher({super.key, required this.initialIndex, required this.docidUser});
 
   @override
   _NavTeacherState createState() => _NavTeacherState();
@@ -31,19 +36,19 @@ class _NavTeacherState extends State<NavTeacher> {
       case 0:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const Homepage()),
+          MaterialPageRoute(builder: (context) => teachHomepage(docidUser: widget.docidUser,)),
         );
         break;
       case 1:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const CoursePageTeacher()),
+          MaterialPageRoute(builder: (context) => CoursePageTeacher(docidUser: widget.docidUser,)),
         );
         break;
       case 2:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const Prflpage()),
+          MaterialPageRoute(builder: (context) => Prflpage(docidUser: widget.docidUser,)),
         );
         break;
     }
@@ -101,7 +106,8 @@ class NavBarItem extends StatelessWidget {
   final bool isSelected;
   final VoidCallback onTap;
 
-  const NavBarItem({super.key, 
+  const NavBarItem({
+    super.key,
     required this.icon,
     required this.label,
     required this.isSelected,

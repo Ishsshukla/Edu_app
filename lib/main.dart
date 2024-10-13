@@ -68,8 +68,8 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/paysucess', page: () => const Paysucesspage()),
           GetPage(name: '/optionpage', page: () => const OptionPage()),
           GetPage(name: '/courseoptionpage', page: () => const courseoptionPage()),
-          GetPage(name: '/homepage', page: () => const Homepage()),
-          GetPage(name: '/profile', page: () => const Prflpage()),
+          // GetPage(name: '/homepage', page: () => const Homepage()),
+          // GetPage(name: '/profile', page: () => const Prflpage()),
           GetPage(name: '/congo', page: () => const Congopage()),
           GetPage(name: '/transaction_sucess', page: () => const transactionpage()),
           GetPage(name: '/review', page: () => Reviewpage()),
@@ -88,13 +88,13 @@ class MyApp extends StatelessWidget {
           // GetPage(name: '/enrolledcrspage', page: () => enrolledcrspage()),
           GetPage(name: '/login', page: () => const LoginScreen()),
           GetPage(name: '/signup', page: () => const SignUpScreen()),
-          GetPage(name: '/splash2', page: () => const SplashScreen2()),
-          GetPage(name: '/phnhome', page: () => const PhnHome()),
-          GetPage(name: '/Thome', page: () => const teachHomepage()),
+          // GetPage(name: '/splash2', page: () => const SplashScreen2()),
+          // GetPage(name: '/phnhome', page: () => const PhnHome()),
+          // GetPage(name: '/Thome', page: () => const teachHomepage()),
 
           // teacherside
           // GetPage(name: '/chapterteacher', page: () => const ChapterPageTeacher()),
-          GetPage(name: '/courseteacher', page: () => const CoursePageTeacher()),
+          // GetPage(name: '/courseteacher', page: () => const CoursePageTeacher()),
           // GetPage(
           //     name: '/editcoursecontent',
               // page: () =>  EditCourseContentTeacher(courseData: 'hu')),

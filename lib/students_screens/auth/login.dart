@@ -28,13 +28,13 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   String email = "", password = "";
   bool loading = false;
+  // String docIdUser = '';
   bool _obscureText = true;
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // Function to handle user login
   Future<void> userLogin() async {
     setState(() {
       loading = true;
@@ -54,6 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
       // Check if the user document exists and contains the 'role' field
       if (userDoc.exists && userDoc.data() != null) {
+        String docIdUser = userDoc.id;
         String role = userDoc['role'];
 
         // Fetch OTP verification status from 'otp_verification' collection
@@ -69,14 +70,17 @@ class _LoginScreenState extends State<LoginScreen> {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => const Homepage(), // Replace with student home screen widget
+                builder: (context) => Homepage(
+                  docIdUser: docIdUser,
+                ), // Replace with student home screen widget
               ),
             );
           } else if (role == 'Teacher') {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => const teachHomepage(), // Replace with teacher home screen widget
+                builder: (context) =>
+                    teachHomepage(docidUser: docIdUser,), // Replace with teacher home screen widget
               ),
             );
           } else {
@@ -112,24 +116,23 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  // Function to handle Google sign-in button click
-  void handleGoogleBtnClick() async {
-    try {
-      await GoogleSignIn().signOut();
-      UserCredential userCredential = await _signInWithGoogle();
-      log('\nUser : ${userCredential.user}');
-      log('\nuser: ${userCredential.additionalUserInfo}');
+  // void handleGoogleBtnClick() async {
+  //   try {
+  //     await GoogleSignIn().signOut();
+  //     UserCredential userCredential = await _signInWithGoogle();
+  //     log('\nUser : ${userCredential.user}');
+  //     log('\nuser: ${userCredential.additionalUserInfo}');
 
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => const SplashScreen()),
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to sign in with Google: $e')),
-      );
-    }
-  }
+  //     Navigator.pushReplacement(
+  //       context,
+  //       MaterialPageRoute(builder: (_) => const SplashScreen()),
+  //     );
+  //   } catch (e) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text('Failed to sign in with Google: $e')),
+  //     );
+  //   }
+  // }
 
   // Function to handle Google sign-in
   Future<UserCredential> _signInWithGoogle() async {
@@ -333,8 +336,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 30),
-                // Uncomment and implement Google sign-in if needed
+                // const SizedBox(height: 30),
                 // InkWell(
                 //   onTap: handleGoogleBtnClick,
                 //   child: Container(

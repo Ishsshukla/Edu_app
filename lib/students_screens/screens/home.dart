@@ -145,7 +145,7 @@ class _HomepageState extends State<Homepage> {
           ),
         ),
       ),
-      bottomNavigationBar: const Nav(initialIndex: 0),
+      bottomNavigationBar: const Nav(initialIndex: 0,docIdUser: ,),
     );
   }
 

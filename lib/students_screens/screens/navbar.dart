@@ -6,9 +6,10 @@ import 'package:edu_app/students_screens/screens/profile.dart';
 import 'package:flutter/material.dart';
 
 class Nav extends StatefulWidget {
+  final String docIdUser;
   final int initialIndex;
 
- const Nav({super.key, required this.initialIndex});
+  const Nav({super.key, required this.initialIndex, required this.docIdUser});
 
   @override
   _NavState createState() => _NavState();
@@ -28,21 +29,27 @@ class _NavState extends State<Nav> {
 
     switch (index) {
       case 0:
-        Navigator.pushReplacement(
+        Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const Homepage()),
+          MaterialPageRoute(
+              builder: (context) => Homepage(
+                    docIdUser: widget.docIdUser,
+                  )),
         );
         break;
       case 1:
-        Navigator.pushReplacement(
+        Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) =>  const CoursePageStudent()),
+          MaterialPageRoute(builder: (context) => const CoursePageStudent()),
         );
         break;
       case 2:
-        Navigator.pushReplacement(
+        Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const Prflpage()),
+          MaterialPageRoute(
+              builder: (context) => Prflpage(
+                    docIdUser: widget.docIdUser,
+                  )),
         );
         break;
     }
@@ -60,7 +67,9 @@ class _NavState extends State<Nav> {
             icon: Icon(
               Icons.home,
               size: 40,
-              color: _selectedIndex == 0 ? const Color(0xFF4A90E2) : Colors.grey.shade500,
+              color: _selectedIndex == 0
+                  ? const Color(0xFF4A90E2)
+                  : Colors.grey.shade500,
             ),
             label: 'Home',
             isSelected: _selectedIndex == 0,
@@ -71,7 +80,9 @@ class _NavState extends State<Nav> {
             icon: Icon(
               Icons.book,
               size: 40,
-              color: _selectedIndex == 1 ? const Color(0xFF4A90E2) : Colors.grey.shade500,
+              color: _selectedIndex == 1
+                  ? const Color(0xFF4A90E2)
+                  : Colors.grey.shade500,
             ),
             label: 'Courses',
             isSelected: _selectedIndex == 1,
@@ -82,7 +93,9 @@ class _NavState extends State<Nav> {
             icon: Icon(
               Icons.person,
               size: 40,
-              color: _selectedIndex == 2 ? const Color(0xFF4A90E2) : Colors.grey.shade500,
+              color: _selectedIndex == 2
+                  ? const Color(0xFF4A90E2)
+                  : Colors.grey.shade500,
             ),
             label: 'Profile',
             isSelected: _selectedIndex == 2,
@@ -100,7 +113,8 @@ class NavBarItem extends StatelessWidget {
   final bool isSelected;
   final VoidCallback onTap;
 
-  const NavBarItem({super.key, 
+  const NavBarItem({
+    super.key,
     required this.icon,
     required this.label,
     required this.isSelected,
@@ -120,7 +134,8 @@ class NavBarItem extends StatelessWidget {
             Text(
               label,
               style: const TextStyle(
-                  fontSize: 15, color: Color(0xFF4A90E2)), // Ensure the text is blue
+                  fontSize: 15,
+                  color: Color(0xFF4A90E2)), // Ensure the text is blue
             ),
         ],
       ),

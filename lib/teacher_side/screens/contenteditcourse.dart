@@ -7,6 +7,7 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:open_file/open_file.dart';
 
 class EditCourseContentTeacher extends StatefulWidget {
   final Map<String, dynamic> courseData;
@@ -212,46 +213,6 @@ Future<void> _launchYoutubeLink() async {
       print('Error uploading course data: $e');
     }
   }
-
-  // Future<void> _saveChanges() async {
-  //    setState(() {
-  //   _isLoading = true; // Start loading
-  // });
-  //   try {
-  //     List<String> updatedPdfUrls = [...pdfUrls]; // Keep the old ones
-  //     List<String> updatedImageUrls = [...imageUrls]; // Keep the old ones
-
-  //     // Upload new PDFs and add their URLs to the list
-  //     await _uploadPdfFiles(updatedPdfUrls);
-
-  //     // Upload new images and add their URLs to the list
-  //     await _uploadImageFiles(updatedImageUrls);
-
-  //     // Update the course document in Firestore
-  //     await _updateCourseData(
-  //       _courseNameController.text,
-  //       _lessonNameController.text,
-  //       _youtubeLinkController.text,
-  //       updatedPdfUrls,
-  //       updatedImageUrls,
-  //       _notesController.text,
-  //     );
-
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(content: Text('Changes saved successfully!')),
-  //     );
-  //   } catch (e) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(content: Text('Error saving changes')),
-  //     );
-  //   }
-  //    finally {
-  //   setState(() {
-  //     _isLoading = false; // Stop loading after process completion
-  //   });
-  //    }
-  // }
-
   Future<void> _saveChanges() async {
   setState(() {
     _isLoading = true; // Start loading
@@ -317,6 +278,14 @@ Future<void> _launchYoutubeLink() async {
       );
     }
   }
+  void _launchPdf(String pdfPath) async {
+  final result = await OpenFile.open(pdfPath);
+  if (result.message != 'null') {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(result.message)),
+    );
+  }
+}
 
   void removeImage(int index) {
     setState(() {
@@ -450,8 +419,9 @@ Future<void> _launchYoutubeLink() async {
                           IconButton(
                             icon: const Icon(Icons.download),
                             onPressed: () async {
-                              await launchUrl(Uri.file(_pickedPdfFiles[index]
-                                  .path)); // Open/download PDF
+                               _launchPdf(_pickedPdfFiles[index].path);
+                              // await launchUrl(Uri.file(_pickedPdfFiles[index]
+                              //     .path)); // Open/download PDF
                             },
                           ),
                         ],

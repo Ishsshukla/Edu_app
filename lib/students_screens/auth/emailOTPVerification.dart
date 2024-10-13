@@ -353,13 +353,14 @@ class _OTPVerificationEmailState extends State<OTPVerificationEmail> {
             if (storedOtp == otpController.text) {
               ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('OTP verified successfully!')));
-              // Update the verification status in Firestore
-              await _firestore
-                  .collection('otp_varification')
-                  .doc(widget.email)
-                  .update({'verified': true});
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => const SplashScreen()));
+                    // Update the verification status in Firestore
+            await _firestore
+                .collection('otp_varification')
+                .doc(widget.email)
+                .update({'verified': true});
+                Navigator.push(
+            context, MaterialPageRoute(builder: (context) =>  SplashScreen(email: widget.email,)));
+              // Navigate to a new screen or perform further actions here
             } else {
               ScaffoldMessenger.of(context)
                   .showSnackBar(SnackBar(content: Text('Invalid OTP!')));

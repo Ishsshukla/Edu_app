@@ -17,7 +17,8 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  bool loading = false; // Loading state
+  String docidUser = '';
+  bool loading = false;
   bool _obscureText = true;
   String email = "", password = "", name = "", phone = "";
   String? selectedRole;
@@ -63,11 +64,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
         }
 
         if (selectedRole == 'Student') {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => OTPVerificationEmail(email: email)));
-        } else {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => const teachHomepage()));
+           Navigator.push(
+            context, MaterialPageRoute(builder: (context) => OTPVerificationEmail(email: email)));
+        }
+        else{
+           Navigator.push(
+            context, MaterialPageRoute(builder: (context) => teachHomepage(docidUser: '',)));
         }
       } on FirebaseAuthException catch (e) {
         String errorMsg = '';
