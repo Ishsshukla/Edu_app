@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart'; // For Images
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class EditCourseContentTeacher extends StatefulWidget {
   final Map<String, dynamic> courseData;
@@ -24,6 +25,9 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
       TextEditingController(); // For teacher's notes
   final List<File> _pickedPdfFiles = [];
   final List<File> _pickedImageFiles = [];
+  
+  
+  bool _isLoading = false; // To track the loading state
 
   String courseName = '';
   String lessonName = '';
@@ -31,7 +35,7 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
   String notes = '';
   List<String> pdfUrls = [];
   List<String> imageUrls = [];
-  String? documentId; // To store the fetched document ID
+  String? documentId; 
 
   @override
   void initState() {
@@ -53,7 +57,7 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
           .get();
 
       if (snapshot.docs.isNotEmpty) {
-        var doc = snapshot.docs.first;
+          var doc = snapshot.docs.first;
         var data = doc.data() as Map<String, dynamic>;
         setState(() {
           courseName = data['courseName'] ?? 'Unknown Course';
@@ -61,15 +65,15 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
           youtubeLink = data['youtubeLink'] ?? 'No YouTube Link';
           pdfUrls = List<String>.from(data['pdfUrls'] ?? []);
           imageUrls = List<String>.from(data['imageUrls'] ?? []);
-          notes = data['notes'] ?? 'No Notes';
-          documentId = doc.id; // Store the document ID
+          notes = data['notes'] ?? 'No Notes'; 
+          documentId = doc.id;
         });
 
         // Initialize controllers with fetched data
         _courseNameController.text = courseName;
         _lessonNameController.text = lessonName;
         _youtubeLinkController.text = youtubeLink;
-        _notesController.text = notes;
+        _notesController.text = notes; 
       } else {
         print("No matching course content found.");
       }
@@ -78,19 +82,47 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
     }
   }
 
-  Future<void> _launchYoutubeLink() async {
-    final url = _youtubeLinkController.text;
-    if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url));
-    } else {
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Invalid YouTube URL')),
-      );
-    }
+Future<void> _launchYoutubeLink() async {
+  String url = _youtubeLinkController.text.trim(); // Trim any extra spaces
+
+  if (url.isEmpty) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Please enter a YouTube link')),
+    );
+    return;
   }
 
-  Future<void> _pickPdfFiles() async {
+  // Ensure the URL is a valid YouTube link
+  if (!url.startsWith('http://') && !url.startsWith('https://')) {
+    url = 'https://$url'; // Add https if it's missing
+  }
+
+  // Check if the URL is a valid YouTube URL
+  if (!url.contains('youtube.com') && !url.contains('youtu.be')) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Please enter a valid YouTube link')),
+    );
+    return;
+  }
+
+  final Uri? uri = Uri.tryParse(url);
+  if (uri != null) {
+    // Launch the URL and set to open in an external browser
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Could not launch YouTube URL')),
+      );
+    }
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Invalid URL format')),
+    );
+  }
+}
+
+ Future<void> _pickPdfFiles() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['pdf'],
@@ -164,40 +196,103 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
     }
   }
 
-  Future<void> _saveChanges() async {
+  Future<void> _uploadCourseData(String courseName, String lessonName,
+      String youtubeLink, List<String> pdfUrls, List<String> imageUrls, String notes) async {
     try {
-      List<String> updatedPdfUrls = [...pdfUrls]; // Keep the old ones
-      List<String> updatedImageUrls = [...imageUrls]; // Keep the old ones
-
-      // Upload new PDFs and add their URLs to the list
-      await _uploadPdfFiles(updatedPdfUrls);
-
-      // Upload new images and add their URLs to the list
-      await _uploadImageFiles(updatedImageUrls);
-
-      // Update the course document in Firestore
-      await _updateCourseData(
-        _courseNameController.text,
-        _lessonNameController.text,
-        _youtubeLinkController.text,
-        updatedPdfUrls,
-        updatedImageUrls,
-        _notesController.text,
-      );
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Changes saved successfully!')),
-      );
+      await FirebaseFirestore.instance.collection('course_content').add({
+        'courseName': courseName,
+        'lessonName': lessonName,
+        'youtubeLink': youtubeLink,
+        'pdfUrls': pdfUrls,
+        'imageUrls': imageUrls,
+        'notes': notes,  // Save notes to Firestore
+        'timestamp': FieldValue.serverTimestamp(),
+      });
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Error saving changes')),
-      );
+      print('Error uploading course data: $e');
     }
   }
 
+  // Future<void> _saveChanges() async {
+  //    setState(() {
+  //   _isLoading = true; // Start loading
+  // });
+  //   try {
+  //     List<String> updatedPdfUrls = [...pdfUrls]; // Keep the old ones
+  //     List<String> updatedImageUrls = [...imageUrls]; // Keep the old ones
+
+  //     // Upload new PDFs and add their URLs to the list
+  //     await _uploadPdfFiles(updatedPdfUrls);
+
+  //     // Upload new images and add their URLs to the list
+  //     await _uploadImageFiles(updatedImageUrls);
+
+  //     // Update the course document in Firestore
+  //     await _updateCourseData(
+  //       _courseNameController.text,
+  //       _lessonNameController.text,
+  //       _youtubeLinkController.text,
+  //       updatedPdfUrls,
+  //       updatedImageUrls,
+  //       _notesController.text,
+  //     );
+
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(content: Text('Changes saved successfully!')),
+  //     );
+  //   } catch (e) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(content: Text('Error saving changes')),
+  //     );
+  //   }
+  //    finally {
+  //   setState(() {
+  //     _isLoading = false; // Stop loading after process completion
+  //   });
+  //    }
+  // }
+
+  Future<void> _saveChanges() async {
+  setState(() {
+    _isLoading = true; // Start loading
+  });
+  try {
+    List<String> updatedPdfUrls = [...pdfUrls]; // Keep the old ones
+    List<String> updatedImageUrls = [...imageUrls]; // Keep the old ones
+
+    // Upload new PDFs and add their URLs to the list
+    await _uploadPdfFiles(updatedPdfUrls);
+
+    // Upload new images and add their URLs to the list
+    await _uploadImageFiles(updatedImageUrls);
+
+    // Update the course document in Firestore
+    await _updateCourseData(
+      _courseNameController.text,
+      _lessonNameController.text,
+      _youtubeLinkController.text,
+      updatedPdfUrls,
+      updatedImageUrls,
+      _notesController.text,
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Changes saved successfully!')),
+    );
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Error saving changes')),
+    );
+  } finally {
+    setState(() {
+      _isLoading = false; // Stop loading after process completion
+    });
+  }
+}
+
   void _deletePdf(int index) {
     setState(() {
-      pdfUrls.removeAt(index);
+      _pickedPdfFiles.removeAt(index);
     });
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('PDF file deleted')),
@@ -206,7 +301,7 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
 
   void _deleteImage(int index) {
     setState(() {
-      imageUrls.removeAt(index);
+      _pickedImageFiles.removeAt(index);
     });
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Image file deleted')),

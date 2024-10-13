@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edu_app/students_screens/screens/crs_description.dart';
-// import 'package:edu_app/students_screens/screens/enrolled_course/chapters.dart';
+import 'package:edu_app/students_screens/screens/enrolled_course/chapters.dart';
 import 'package:edu_app/students_screens/screens/enrolled_course/description_enrooled.dart';
 import 'package:edu_app/students_screens/screens/enrolled_course/enrollled_crs.dart';
 import 'package:flutter/material.dart';
@@ -54,14 +54,14 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
   }
 
   // Navigation to Chapters for My Courses
-  void _navigateToChapters(String? courseName) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) =>  EnrolledCourseDescriptionPage(), // Ensure you have this page for chapters
-      ),
-    );
-  }
+  // void _navigateToChapters(String? courseName) {
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //       // builder: (context) =>  EnrolledCourseDescriptionPage(), // Ensure you have this page for chapters
+  //     ),
+  //   );
+  // }
     final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   List<Map<String, dynamic>> chapters = [
   ];

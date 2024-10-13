@@ -78,7 +78,7 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/coursedescr', page: () => CourseDescriptionpage()),
           // GetPage(name: '/chapterstudent', page: () => const ChapterPageStudent()),
           // GetPage(name: '/viewchapterstudent', page: () => const ViewChapterStudent()),
-          GetPage(name: '/ EnrolledCourseDescriptionPage', page: () =>  EnrolledCourseDescriptionPage()),
+          // GetPage(name: '/ EnrolledCourseDescriptionPage', page: () =>  EnrolledCourseDescriptionPage()),
          
           GetPage(name: '/quiz', page: () => const QuizPage()),
           GetPage(name: '/coursefail', page: () => const CourseFailPage()),
@@ -97,7 +97,7 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/courseteacher', page: () => const CoursePageTeacher()),
           // GetPage(
           //     name: '/editcoursecontent',
-              // page: () => const EditCourseContentTeacher()),
+              // page: () =>  EditCourseContentTeacher(courseData: 'hu')),
           // GetPage(name: '/editcourse', page: () => EditCourseDescriptionpage()),
         ],
       ),

@@ -245,6 +245,7 @@ class _EnrolledCourseDescriptionState extends State<EnrolledCourseDescriptionPag
           ),
         ),
       ),
+      
     );
   }
 }
