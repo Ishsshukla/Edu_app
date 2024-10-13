@@ -1,3 +1,5 @@
+// import 'package:edu_app/screens/authentication/emailOTPVerification.dart';
+import 'package:edu_app/students_screens/auth/emailOTPVerification.dart';
 import 'package:edu_app/students_screens/auth/login.dart';
 import 'package:edu_app/students_screens/screens/splash.dart';
 import 'package:edu_app/students_screens/widgets/round_button.dart';
@@ -23,10 +25,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final nameController = TextEditingController();
+  final phoneController = TextEditingController();
 
   final _auth = FirebaseAuth.instance;
   final _firestore =
       FirebaseFirestore.instance; // Initialize Firestore instance
+      // final FirebaseFunctions _functions = FirebaseFunctions.instance;
 
   void registration() async {
     if (selectedRole != null) {
@@ -59,7 +64,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         }
         if (selectedRole == 'Student') {
            Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const SplashScreen()));
+            context, MaterialPageRoute(builder: (context) => OTPVerificationEmail(email: email)));
         }
         else{
            Navigator.push(
@@ -127,10 +132,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     children: [
                       TextFormField(
                         keyboardType: TextInputType.emailAddress,
-                        controller: emailController,
+                        controller: nameController,
                         decoration: const InputDecoration(
                           hintText: 'Name',
-                          prefixIcon: Icon(Icons.email),
+                          prefixIcon: Icon(Icons.person),
                         ),
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -144,10 +149,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       TextFormField(
                         keyboardType: TextInputType.emailAddress,
-                        controller: emailController,
+                        controller: phoneController,
                         decoration: const InputDecoration(
                           hintText: 'Phone Number',
-                          prefixIcon: Icon(Icons.email),
+                          prefixIcon: Icon(Icons.phone),
                         ),
                         validator: (value) {
                           if (value!.isEmpty) {

@@ -57,12 +57,12 @@ class MyApp extends StatelessWidget {
       create: (context) => UserNotifier(),
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        // initialRoute: '/courseteacher',
-        initialRoute: '/otp_varification',
+        initialRoute: '/login',
+        // initialRoute: '/otp_varification',
 
         getPages: [
           GetPage(name: '/upi_screen', page: () => const UpiScreen()),
-          GetPage(name: '/otp_varification', page: () => const OTPVerification(email: "",)),
+          GetPage(name: '/otp_varification', page: () => const OTPVerificationEmail(email: "yadavrahul818980@gmail.com",)),
           GetPage(name: '/category_quiz', page: () => QuizCategoryScreen()),
           GetPage(name: '/welcm_quiz', page: () => WelcomeScreen()),
           GetPage(name: '/paysucess', page: () => const Paysucesspage()),
