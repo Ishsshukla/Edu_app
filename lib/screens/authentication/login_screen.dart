@@ -1,15 +1,11 @@
 import 'package:edu_app/components/button.dart';
 import 'package:edu_app/constants/constants.dart';
-// import 'package:edu_app/constants/constants.dart';
 import 'package:edu_app/controllers/auth_controllers.dart';
 import 'package:edu_app/screens/authentication/create_account.dart';
 import 'package:edu_app/screens/authentication/forgot_password.dart';
 import 'package:flutter/material.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
-
-
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -24,40 +20,44 @@ class _LoginScreenState extends State<LoginScreen> {
     TextEditingController emailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
     bool obsVal = true;
+
+    // Get the screen size
+    final screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: backgroundColor,
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.symmetric(horizontal: screenSize.width * 0.05),
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 100,
+              SizedBox(
+                height: screenSize.height * 0.1,
               ),
               Text(
                 "Welcome back",
                 style: headingH1,
               ),
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: screenSize.height * 0.01,
               ),
               Text(
                 "Welcome back. Enter your credentials to access your account",
                 style: GoogleFonts.dmSans(
                     color: textColor,
-                    fontSize: 18,
+                    fontSize: screenSize.width * 0.045,
                     fontWeight: FontWeight.normal),
               ),
-              const SizedBox(
-                height: 50,
+              SizedBox(
+                height: screenSize.height * 0.05,
               ),
               Text(
                 "Email Address",
                 style: GoogleFonts.dmSans(
                     color: Colors.black,
-                    fontSize: 14,
+                    fontSize: screenSize.width * 0.035,
                     fontWeight: FontWeight.bold),
               ),
               TextField(
@@ -73,30 +73,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: screenSize.height * 0.02,
               ),
               Text(
                 "Password",
                 style: GoogleFonts.dmSans(
                     color: Colors.black,
-                    fontSize: 14,
+                    fontSize: screenSize.width * 0.035,
                     fontWeight: FontWeight.bold),
               ),
               TextField(
                 controller: passwordController,
                 obscureText: obsVal,
                 decoration: InputDecoration(
-                  // suffixIcon: IconButton(
-                  //   icon: Icon(Icons.remove_red_eye_outlined),
-                  //   color: Colors.grey.shade500,
-                  //   onPressed: () {
-                  //     // print(passwordController.text);
-                  //     // setState(() {
-                  //     //   obsVal = !obsVal;
-                  //     // });
-                  //   },
-                  // ),
                   hintText: "Password",
                   hintStyle: GoogleFonts.dmSans(
                     color: Colors.grey.shade500,
@@ -107,8 +97,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: screenSize.height * 0.02,
               ),
               Align(
                 alignment: Alignment.centerRight,
@@ -124,13 +114,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     "Forgot Password?",
                     style: GoogleFonts.dmSans(
                         color: primaryColor,
-                        fontSize: 18,
+                        fontSize: screenSize.width * 0.045,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: screenSize.height * 0.02,
               ),
               CustomButton(
                 text: "Sign In",
@@ -141,8 +131,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       passwordController.text.trim());
                 },
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: screenSize.height * 0.02,
               ),
               Row(
                 children: <Widget>[
@@ -152,7 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    padding: EdgeInsets.symmetric(horizontal: screenSize.width * 0.02),
                     child: Text("or login with",
                         style: GoogleFonts.dmSans(color: Colors.black)),
                   ),
@@ -163,8 +153,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: screenSize.height * 0.02,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -190,7 +180,8 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        padding: EdgeInsets.symmetric(
+            vertical: screenSize.height * 0.01, horizontal: screenSize.width * 0.05),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -199,7 +190,7 @@ class _LoginScreenState extends State<LoginScreen> {
               style: GoogleFonts.dmSans(
                   color: Colors.black,
                   fontWeight: FontWeight.normal,
-                  fontSize: 16),
+                  fontSize: screenSize.width * 0.04),
             ),
             GestureDetector(
               onTap: () {
@@ -214,7 +205,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: GoogleFonts.dmSans(
                     color: primaryColor,
                     fontWeight: FontWeight.bold,
-                    fontSize: 16),
+                    fontSize: screenSize.width * 0.04),
               ),
             ),
           ],
@@ -239,7 +230,6 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         child: Container(
           padding: const EdgeInsets.all(15),
-          // decoration: BoxDecoration(color: Colors.blue),
           child: Image.asset(
             path,
             fit: BoxFit.contain,

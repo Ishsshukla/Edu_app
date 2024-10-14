@@ -72,82 +72,87 @@ class _PrflpageState extends State<Prflpage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Row(
+                Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(100.0, 10, 0, 20),
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 35,
-                        ),
-                        Image.asset(
-                          'assets/profile.png',
-                          scale: 4.5,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Text(
-                          'ishii',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 17, 1, 1),
-                            letterSpacing: 1.0,
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'poppins',
-                          ),
-                        ),
-                        const Text(
-                          '@ishi2048',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 17, 1, 1),
-                            letterSpacing: 1.0,
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                            fontFamily: 'poppins',
-                          ),
-                        ),
-                      ],
+                  padding: EdgeInsets.fromLTRB(
+                    MediaQuery.of(context).size.width * 0.25,
+                    10,
+                    0,
+                    20,
+                  ),
+                  child: Column(
+                    children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.05,
                     ),
+                    Image.asset(
+                      'assets/profile.png',
+                      scale: MediaQuery.of(context).size.width * 0.01,
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.015,
+                    ),
+                    Text(
+                      'ishii',
+                      style: TextStyle(
+                      color: const Color.fromARGB(255, 17, 1, 1),
+                      letterSpacing: 1.0,
+                      fontSize: MediaQuery.of(context).size.width * 0.08,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'poppins',
+                      ),
+                    ),
+                    Text(
+                      '@ishi2048',
+                      style: TextStyle(
+                      color: const Color.fromARGB(255, 17, 1, 1),
+                      letterSpacing: 1.0,
+                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                      fontWeight: FontWeight.normal,
+                      fontFamily: 'poppins',
+                      ),
+                    ),
+                    ],
+                  ),
                   ),
                 ],
-              ),
-              Row(
+                ),
+                Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0.0, 0, 0, 0),
-                    child: Column(
-                      children: [
-                        prflTxtEdit(
-                            Icons.near_me_rounded, 'Name', userName, context),
-                        const SizedBox(
-                          height: 0,
-                        ),
-                        prflTxtEdit(Icons.email, 'Email', email, context),
-                        const SizedBox(
-                          height: 0,
-                        ),
-                        // prflTxtEdit(Icons.lock_open_outlined, 'Password',
-                        //     '52535454436', context),
-                        // const SizedBox(
-                        //   height: 0,
-                        // ),
-                        prflTxtEdit(Icons.phone_android, 'Phone Number',
-                            "$phoneNo", context),
-                        const SizedBox(
-                          height: 0,
-                        ),
-                      ],
-                    ),
+                  padding: EdgeInsets.fromLTRB(
+                    MediaQuery.of(context).size.width * 0.05,
+                    0,
+                    MediaQuery.of(context).size.width * 0.05,
+                    0,
                   ),
-                  const SizedBox(
-                    width: 10,
+                  child: Column(
+                    children: [
+                    prflTxtEdit(
+                      Icons.near_me_rounded, 'Name', userName, context),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.02,
+                    ),
+                    prflTxtEdit(Icons.email, 'Email', email, context),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.02,
+                    ),
+                    prflTxtEdit(Icons.phone_android, 'Phone Number',
+                      "$phoneNo", context),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.02,
+                    ),
+                    ],
+                  ),
+                  ),
+                  SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.02,
                   ),
                 ],
-              ),
+                ),
               SizedBox(height: screenHeight * 0.03),
               CustomButton(
                   text: 'Log Out',

@@ -57,8 +57,8 @@ class MyApp extends StatelessWidget {
       create: (context) => UserNotifier(),
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        // initialRoute: '/login',
-        initialRoute: '/homepage',
+        initialRoute: '/login',
+        // initialRoute: '/homepage',
 
         getPages: [
           GetPage(name: '/upi_screen', page: () => const UpiScreen()),
@@ -66,8 +66,8 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/category_quiz', page: () => QuizCategoryScreen()),
           GetPage(name: '/welcm_quiz', page: () => WelcomeScreen()),
           GetPage(name: '/paysucess', page: () => const Paysucesspage()),
-          GetPage(name: '/optionpage', page: () => const OptionPage()),
-          GetPage(name: '/courseoptionpage', page: () => const courseoptionPage()),
+          // GetPage(name: '/optionpage', page: () => const OptionPage()),
+          // GetPage(name: '/courseoptionpage', page: () => const courseoptionPage()),
           GetPage(name: '/homepage', page: () => const Homepage(docIdUser: '',)),
           // GetPage(name: '/profile', page: () => const Prflpage()),
           GetPage(name: '/congo', page: () => const Congopage()),

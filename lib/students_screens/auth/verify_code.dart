@@ -23,24 +23,28 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final screenHeight = mediaQuery.size.height;
+    final screenWidth = mediaQuery.size.width;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Verify'),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
         child: Column(
           children: [
-            const SizedBox(
-              height: 80,
+            SizedBox(
+              height: screenHeight * 0.1,
             ),
             TextFormField(
               controller: verificationCodeController,
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(hintText: '6 digit code'),
             ),
-            const SizedBox(
-              height: 80,
+            SizedBox(
+              height: screenHeight * 0.1,
             ),
             RoundButton(
                 title: 'Verify',

@@ -3,9 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'signup.dart';
 
-// import 'package:authenticationapp/signup.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});
 
@@ -40,13 +37,18 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final screenHeight = mediaQuery.size.height;
+    final screenWidth = mediaQuery.size.width;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
+        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
         child: Column(
           children: [
-            const SizedBox(
-              height: 70.0,
+            SizedBox(
+              height: screenHeight * 0.1,
             ),
             Container(
               alignment: Alignment.topCenter,
@@ -58,8 +60,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     fontWeight: FontWeight.bold),
               ),
             ),
-            const SizedBox(
-              height: 10.0,
+            SizedBox(
+              height: screenHeight * 0.02,
             ),
             const Text(
               "Enter your mail",
@@ -72,11 +74,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 child: Form(
                     key: _formkey,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 10.0),
+                      padding: EdgeInsets.only(left: screenWidth * 0.02),
                       child: ListView(
                         children: [
                           Container(
-                            padding: const EdgeInsets.only(left: 10.0),
+                            padding: EdgeInsets.only(left: screenWidth * 0.02),
                             decoration: BoxDecoration(
                               border: Border.all(color: txtColor, width: 2.0),
                               borderRadius: BorderRadius.circular(30),
@@ -102,8 +104,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                   border: InputBorder.none),
                             ),
                           ),
-                          const SizedBox(
-                            height: 40.0,
+                          SizedBox(
+                            height: screenHeight * 0.05,
                           ),
                           GestureDetector(
                             onTap: () {
@@ -115,8 +117,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                               }
                             },
                             child: Container(
-                              width: 140,
-                              padding: const EdgeInsets.all(10),
+                              width: screenWidth * 0.4,
+                              padding: EdgeInsets.all(screenWidth * 0.03),
                               decoration: BoxDecoration(
                                   color: txtColor,
                                   borderRadius: BorderRadius.circular(10)),
@@ -131,8 +133,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            height: 50.0,
+                          SizedBox(
+                            height: screenHeight * 0.07,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -142,8 +144,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                 style: TextStyle(
                                     fontSize: 18.0, color: Colors.black),
                               ),
-                              const SizedBox(
-                                width: 5.0,
+                              SizedBox(
+                                width: screenWidth * 0.02,
                               ),
                               GestureDetector(
                                 onTap: () {

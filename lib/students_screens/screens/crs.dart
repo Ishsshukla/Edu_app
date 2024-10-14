@@ -15,14 +15,14 @@ class CrsPagestudent extends StatefulWidget {
 
 class _ChapterPageTeacherState extends State<CrsPagestudent> {
   // Dynamic list to store the chapters
-   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  List<Map<String, dynamic>> chapters = [
-  ];
- // Fetch courses from Firestore
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  List<Map<String, dynamic>> chapters = [];
+
+  // Fetch courses from Firestore
   Future<void> fetchCourses() async {
     try {
       QuerySnapshot snapshot = await _firestore.collection('course_content').get();
-         List<Map<String, dynamic>> fetchedCourses = snapshot.docs.map((doc) {
+      List<Map<String, dynamic>> fetchedCourses = snapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
         print(data);
         return {
@@ -36,9 +36,7 @@ class _ChapterPageTeacherState extends State<CrsPagestudent> {
         chapters = fetchedCourses;
         print("Courses fetched successfully=${chapters}");
       });
-      // print("Courses fetched successfully=${chapters}");
-    } 
-    catch (e) {
+    } catch (e) {
       print("Error fetching courses: $e");
     }
   }
@@ -46,10 +44,14 @@ class _ChapterPageTeacherState extends State<CrsPagestudent> {
   @override
   void initState() {
     super.initState();
-    fetchCourses(); 
+    fetchCourses();
   }
+
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final screenWidth = mediaQuery.size.width;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -66,22 +68,19 @@ class _ChapterPageTeacherState extends State<CrsPagestudent> {
         elevation: 0, // Remove shadow if not needed
       ),
       backgroundColor: const Color(0xFFF5F5F5), // Light background to make cards pop
-      // bottomNavigationBar: NavTeacher(initialIndex: 1), // Bottom Navigation
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20), // Padding at the top and bottom
+          padding: EdgeInsets.symmetric(vertical: screenWidth * 0.05), // Responsive padding
           child: Column(
-            children: 
-            chapters.map((chapter) {
+            children: chapters.map((chapter) {
               return crstxtforstudentData(
                 chapter['img']!,
                 chapter['name']!,
                 context,
                 chapter,
-              
+                screenWidth,
               );
-            }).toList()
-            // : const Center(child: CircularProgressIndicator()),
+            }).toList(),
           ),
         ),
       ),
@@ -93,10 +92,11 @@ Widget crstxtforstudentData(
   String img,
   String text,
   BuildContext context,
-  Map<String, dynamic> courseData, // Passing the course data to the widget
+  Map<String, dynamic> courseData,
+  double screenWidth, // Pass screen width for responsive design
 ) {
   return Padding(
-    padding: const EdgeInsets.fromLTRB(20, 20, 20, 15), // Consistent padding
+    padding: EdgeInsets.fromLTRB(screenWidth * 0.05, screenWidth * 0.05, screenWidth * 0.05, screenWidth * 0.03), // Responsive padding
     child: Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -111,13 +111,13 @@ Widget crstxtforstudentData(
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 10, 10, 7), // Padding inside the container for a clean layout
+        padding: EdgeInsets.fromLTRB(screenWidth * 0.03, screenWidth * 0.03, screenWidth * 0.03, screenWidth * 0.02), // Responsive padding inside the container
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center, // Center the items vertically
           children: [
             // Image Section
-            Image.asset(img, scale: 12),
-            const SizedBox(width: 15), // Space between image and text
+            Image.asset(img, scale: screenWidth * 0.03),
+            SizedBox(width: screenWidth * 0.04), // Responsive space between image and text
 
             // Text and Button Section
             Expanded(
@@ -126,33 +126,33 @@ Widget crstxtforstudentData(
                 children: [
                   Text(
                     text,
-                    style: const TextStyle(
-                      fontSize: 18, // Larger font for course title
+                    style: TextStyle(
+                      fontSize: screenWidth * 0.045, // Responsive font size
                       color: Colors.black,
                       fontWeight: FontWeight.w500, // Medium weight for emphasis
                     ),
                   ),
-                  const SizedBox(height: 10),
-                   ElevatedButton(
+                  SizedBox(height: screenWidth * 0.03), // Responsive space between text and button
+                  ElevatedButton(
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => enrolledcrspage( courseData: courseData), // Passing courseData
+                          builder: (context) => enrolledcrspage(courseData: courseData), // Passing courseData
                         ),
                       );
                     },
                     style: ElevatedButton.styleFrom(
                       elevation: 3,
-                      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                      padding: EdgeInsets.symmetric(vertical: screenWidth * 0.03, horizontal: screenWidth * 0.06), // Responsive padding
                       backgroundColor: const Color(0xFF4A90E2), // Custom button color
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8), // Rounded corners for the button
                       ),
                     ),
-                    child: const Text(
+                    child: Text(
                       'View Course',
-                      style: TextStyle(fontSize: 16, color: Colors.white), // White text color
+                      style: TextStyle(fontSize: screenWidth * 0.04, color: Colors.white), // Responsive text size
                     ),
                   ),
                 ],

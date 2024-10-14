@@ -57,6 +57,10 @@ class _NavState extends State<Nav> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double iconSize = screenWidth * 0.1; // Adjust icon size based on screen width
+    double fontSize = screenWidth * 0.04; // Adjust font size based on screen width
+
     return Container(
       height: 70,
       color: Colors.white,
@@ -66,7 +70,7 @@ class _NavState extends State<Nav> {
           NavBarItem(
             icon: Icon(
               Icons.home,
-              size: 40,
+              size: iconSize,
               color: _selectedIndex == 0
                   ? const Color(0xFF4A90E2)
                   : Colors.grey.shade500,
@@ -74,12 +78,13 @@ class _NavState extends State<Nav> {
             label: 'Home',
             isSelected: _selectedIndex == 0,
             onTap: () => _onNavItemTapped(0),
+            fontSize: fontSize,
           ),
           const SizedBox(width: 3),
           NavBarItem(
             icon: Icon(
               Icons.book,
-              size: 40,
+              size: iconSize,
               color: _selectedIndex == 1
                   ? const Color(0xFF4A90E2)
                   : Colors.grey.shade500,
@@ -87,12 +92,13 @@ class _NavState extends State<Nav> {
             label: 'Courses',
             isSelected: _selectedIndex == 1,
             onTap: () => _onNavItemTapped(1),
+            fontSize: fontSize,
           ),
           const SizedBox(width: 3),
           NavBarItem(
             icon: Icon(
               Icons.person,
-              size: 40,
+              size: iconSize,
               color: _selectedIndex == 2
                   ? const Color(0xFF4A90E2)
                   : Colors.grey.shade500,
@@ -100,6 +106,7 @@ class _NavState extends State<Nav> {
             label: 'Profile',
             isSelected: _selectedIndex == 2,
             onTap: () => _onNavItemTapped(2),
+            fontSize: fontSize,
           ),
         ],
       ),
@@ -112,6 +119,7 @@ class NavBarItem extends StatelessWidget {
   final String label;
   final bool isSelected;
   final VoidCallback onTap;
+  final double fontSize;
 
   const NavBarItem({
     super.key,
@@ -119,6 +127,7 @@ class NavBarItem extends StatelessWidget {
     required this.label,
     required this.isSelected,
     required this.onTap,
+    required this.fontSize,
   });
 
   @override
@@ -133,9 +142,9 @@ class NavBarItem extends StatelessWidget {
           if (isSelected)
             Text(
               label,
-              style: const TextStyle(
-                  fontSize: 15,
-                  color: Color(0xFF4A90E2)), // Ensure the text is blue
+              style: TextStyle(
+                  fontSize: fontSize,
+                  color: const Color(0xFF4A90E2)), // Ensure the text is blue
             ),
         ],
       ),

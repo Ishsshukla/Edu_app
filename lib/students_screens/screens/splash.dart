@@ -32,7 +32,7 @@ class _SplashState extends State<SplashScreen> {
             const SizedBox(
               width: 200, // Set the desired width
               child: Text(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras netus mauris pulvinar suspendisse. Et sit ac lacus in rhoncus.',
+                "Let's begin your journey",
                 style: TextStyle(fontSize: 20),
                 overflow:
                     TextOverflow.ellipsis, // Truncate the text with ellipsis

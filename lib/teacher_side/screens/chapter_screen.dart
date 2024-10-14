@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edu_app/students_screens/screens/enrolled_course/content_chptr.dart';
 import 'package:edu_app/teacher_side/screens/contenteditcourse.dart';
@@ -7,7 +6,6 @@ import 'package:edu_app/components/coursesbuy.dart'; // Update import if needed 
 import 'package:flutter/material.dart';
 
 class ChapterPageTeacher extends StatefulWidget {
-  // final Map<String, dynamic> courseData; // Data for the selected course
   final String courseName;
   final String docId;
 
@@ -18,24 +16,19 @@ class ChapterPageTeacher extends StatefulWidget {
 }
 
 class _ChapterPageTeacherState extends State<ChapterPageTeacher> {
-  // Dynamic list to store the chapters fetched from Firestore
-
   @override
   void initState() {
     super.initState();
     fetchCourses();
   }
- 
+
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   List<Map<String, dynamic>> chapters = [];
-  // Fetch courses from Firestore
 
   Future<void> fetchCourses() async {
     try {
-      // Assuming widget.courseData['courseName'] contains the course name passed from the previous page
       String selectedCourseName = widget.courseName;
 
-      // Query the Firestore collection to get documents where 'courseName' equals the selectedCourseName
       QuerySnapshot snapshot = await _firestore
           .collection('course_content')
           .where('courseName', isEqualTo: selectedCourseName)
@@ -46,15 +39,10 @@ class _ChapterPageTeacherState extends State<ChapterPageTeacher> {
         print(data);
 
         return {
-          'docId': doc.id, // Store the document ID
-          'courseName': data.containsKey('courseName')
-              ? data['courseName']
-              : 'Unknown Course',
+          'docId': doc.id,
+          'courseName': data.containsKey('courseName') ? data['courseName'] : 'Unknown Course',
           'img': 'assets/CoursePreview.png',
-          'lessonName': data.containsKey('lessonName')
-              ? data['lessonName']
-              : 'Unknown Lesson',
-          // Other fields if needed
+          'lessonName': data.containsKey('lessonName') ? data['lessonName'] : 'Unknown Lesson',
         };
       }).toList();
 
@@ -67,14 +55,12 @@ class _ChapterPageTeacherState extends State<ChapterPageTeacher> {
     }
   }
 
-  // Function to add a new chapter (in local state)
   void _addChapter(String chapterName) {
     setState(() {
       chapters.add({'img': 'assets/CoursePreview.png', 'name': chapterName});
     });
   }
 
-  // Function to show a dialog for entering chapter name
   void _showAddChapterDialog() {
     String newChapterName = '';
 
@@ -95,7 +81,7 @@ class _ChapterPageTeacherState extends State<ChapterPageTeacher> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.pop(context); // Close the dialog without saving
+                Navigator.pop(context);
               },
               child: const Text('Cancel'),
             ),
@@ -103,7 +89,7 @@ class _ChapterPageTeacherState extends State<ChapterPageTeacher> {
               onPressed: () {
                 if (newChapterName.isNotEmpty) {
                   _addChapter(newChapterName);
-                  Navigator.pop(context); // Close the dialog after saving
+                  Navigator.pop(context);
                 }
               },
               child: const Text('Add'),
@@ -116,122 +102,120 @@ class _ChapterPageTeacherState extends State<ChapterPageTeacher> {
 
   @override
   Widget build(BuildContext context) {
-    // String courseName = widget.courseData['name'] ?? 'Course Name Not Available';
-    // String courseDescription = widget.courseData['description'] ?? 'Description not available'; // Modify as per your data structure
-    // String courseImage = widget.courseData['img'] ?? 'assets/CoursePreview.png';
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text(
           "Chapters",
-          style: TextStyle(color: Colors.black), // Change color if needed
+          style: TextStyle(color: Colors.black),
         ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black), // Back arrow
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            Navigator.of(context).pop(); // Back navigation
+            Navigator.of(context).pop();
           },
         ),
-        backgroundColor: Colors.white, // Change background color if needed
-        elevation: 0, // Remove shadow if not needed
+        backgroundColor: Colors.white,
+        elevation: 0,
       ),
-      backgroundColor:
-          const Color(0xFFF5F5F5), // Light background to make cards pop
+      backgroundColor: const Color(0xFFF5F5F5),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-              vertical: 20), // Padding at the top and bottom
+          padding: const EdgeInsets.symmetric(vertical: 20),
           child: Column(
             children: chapters.isNotEmpty
                 ? chapters.map<Widget>((chapter) {
                     return crstxtforTeacherDataChapter(
                       chapter['img'] ?? 'assets/CoursePreview.png',
                       chapter['lessonName'] ?? 'Unnamed Chapter',
-                       // Replace this with your actual edit route if needed
                       context,
                       chapter,
+                      screenWidth,
                     );
                   }).toList()
                 : [
                     const Center(child: CircularProgressIndicator())
-                  ], // Add as a list of widgets
+                  ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _showAddChapterDialog, // Add new chapter dialog
+        onPressed: _showAddChapterDialog,
         child: const Icon(Icons.add),
       ),
     );
   }
 }
 
-
-
 Widget crstxtforTeacherDataChapter(
   String img,
   String text,
   BuildContext context,
-  Map<String, dynamic> courseData, // Passing the course data to the widget
+  Map<String, dynamic> courseData,
+  double screenWidth,
 ) {
   return Padding(
-    padding: const EdgeInsets.fromLTRB(20, 20, 20, 15), // Consistent padding
+    padding: const EdgeInsets.fromLTRB(20, 20, 20, 15),
     child: Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(15), // Increased border radius for a smoother look
+        borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.3), // Softer shadow for a modern look
+            color: Colors.grey.withOpacity(0.3),
             spreadRadius: 2,
             blurRadius: 8,
-            offset: const Offset(0, 4), // Adds more depth
+            offset: const Offset(0, 4),
           ),
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 10, 10, 7), // Padding inside the container for a clean layout
+        padding: const EdgeInsets.fromLTRB(10, 10, 10, 7),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center, // Center the items vertically
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Image Section
-            Image.asset(img, scale: 12),
-            const SizedBox(width: 15), // Space between image and text
-
-            // Text and Button Section
+            Image.asset(img, scale: screenWidth < 600 ? 12 : 8),
+            const SizedBox(width: 15),
             Expanded(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start, // Align text to the left
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     text,
-                    style: const TextStyle(
-                      fontSize: 18, // Larger font for course title
+                    style: TextStyle(
+                      fontSize: screenWidth < 600 ? 16 : 18,
                       color: Colors.black,
-                      fontWeight: FontWeight.w500, // Medium weight for emphasis
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                   const SizedBox(height: 10),
-                   ElevatedButton(
+                  ElevatedButton(
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => EditCourseContentTeacher( courseData: courseData), // Passing courseData
+                          builder: (context) => EditCourseContentTeacher(courseData: courseData),
                         ),
                       );
                     },
                     style: ElevatedButton.styleFrom(
                       elevation: 3,
-                      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-                      backgroundColor: const Color(0xFF4A90E2), // Custom button color
+                      padding: EdgeInsets.symmetric(
+                        vertical: screenWidth < 600 ? 10 : 12,
+                        horizontal: screenWidth < 600 ? 20 : 24,
+                      ),
+                      backgroundColor: const Color(0xFF4A90E2),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8), // Rounded corners for the button
+                        borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    child: const Text(
+                    child: Text(
                       'Edit Course',
-                      style: TextStyle(fontSize: 16, color: Colors.white), // White text color
+                      style: TextStyle(
+                        fontSize: screenWidth < 600 ? 14 : 16,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ],

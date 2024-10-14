@@ -15,21 +15,24 @@ class _FinalpayState extends State<Finalpaypage> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+    final paddingHorizontal = screenWidth * 0.08;
+    final paddingVertical = screenHeight * 0.01;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
+              padding: EdgeInsets.fromLTRB(paddingHorizontal, paddingVertical, paddingHorizontal, 0),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Column(
                     children: [
-                      const SizedBox(
-                        height: 25,
+                      SizedBox(
+                        height: screenHeight * 0.03,
                       ),
                       reivewtxt(
                         'assets/review.png',
@@ -39,17 +42,16 @@ class _FinalpayState extends State<Finalpaypage> {
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 60, 0, 0),
+                    padding: EdgeInsets.fromLTRB(0, screenHeight * 0.07, 0, 0),
                     child: Image.asset(
                       'assets/Line 7.png',
                       scale: 1.3,
                     ),
                   ),
-
                   Column(
                     children: [
-                      const SizedBox(
-                        height: 25,
+                      SizedBox(
+                        height: screenHeight * 0.03,
                       ),
                       reivewtxt(
                         'assets/Group287.png',
@@ -59,7 +61,7 @@ class _FinalpayState extends State<Finalpaypage> {
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 60, 0, 0),
+                    padding: EdgeInsets.fromLTRB(0, screenHeight * 0.07, 0, 0),
                     child: Image.asset(
                       'assets/Line 7.png',
                       scale: 1.4,
@@ -67,8 +69,8 @@ class _FinalpayState extends State<Finalpaypage> {
                   ),
                   Column(
                     children: [
-                      const SizedBox(
-                        height: 25,
+                      SizedBox(
+                        height: screenHeight * 0.03,
                       ),
                       reivewtxt(
                         'assets/payblue.png',
@@ -77,19 +79,18 @@ class _FinalpayState extends State<Finalpaypage> {
                       ),
                     ],
                   ),
-                  //
                 ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(25.0, 0, 18, 0),
+              padding: EdgeInsets.fromLTRB(paddingHorizontal, 0, paddingHorizontal, 0),
               child: Column(
                 children: [
                   const Divider(
                     color: Colors.black,
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: screenHeight * 0.01,
                   ),
                   const Align(
                     alignment: Alignment.centerLeft,
@@ -100,15 +101,15 @@ class _FinalpayState extends State<Finalpaypage> {
                           fontWeight: FontWeight.bold,
                         )),
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: screenHeight * 0.01,
                   ),
                   Row(
                     children: [
                       Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 0, 70, 0),
+                            padding: EdgeInsets.fromLTRB(0, 0, screenWidth * 0.2, 0),
                             child: txt('Order ID', context),
                           ),
                           const Text('INV-P6FDC7WMs',
@@ -121,8 +122,8 @@ class _FinalpayState extends State<Finalpaypage> {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: screenHeight * 0.01,
                   ),
                   Row(
                     children: [
@@ -140,10 +141,9 @@ class _FinalpayState extends State<Finalpaypage> {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: screenHeight * 0.02,
                   ),
-                  
                   Row(
                     children: [
                       Column(
@@ -175,13 +175,13 @@ class _FinalpayState extends State<Finalpaypage> {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 300,
+                  SizedBox(
+                    height: screenHeight * 0.3,
                   ),
                   const Divider(
                     color: Colors.grey,
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: screenHeight * 0.01),
                   Row(
                     children: [
                       Column(
@@ -190,8 +190,8 @@ class _FinalpayState extends State<Finalpaypage> {
                           txt('  RS 12000 only', context),
                         ],
                       ),
-                      const SizedBox(
-                        width: 40,
+                      SizedBox(
+                        width: screenWidth * 0.1,
                       ),
                       ElevatedButton(
                         onPressed: () {

@@ -13,58 +13,43 @@ class CoursePageTeacher extends StatefulWidget {
 }
 
 class _CoursePageTeacherState extends State<CoursePageTeacher> {
-
-   // Dynamic list to store the chapters
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   List<Map<String, dynamic>> courses = [];
- // Fetch courses from Firestore
+
   Future<void> fetchCourses() async {
-  try {
-    QuerySnapshot snapshot = await _firestore.collection('course_content').get();
+    try {
+      QuerySnapshot snapshot = await _firestore.collection('course_content').get();
+      List<Map<String, dynamic>> fetchedCourses = snapshot.docs.map((doc) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        return {
+          'docId': doc.id,
+          'img': 'assets/CoursePreview.png',
+          'name': data.containsKey('courseName') ? data['courseName'] : 'Unknown Course',
+          'description': data.containsKey('description') ? data['description'] : 'No description available',
+        };
+      }).toList();
 
-    // Map over the documents to extract both data and documentId
-    List<Map<String, dynamic>> fetchedCourses = snapshot.docs.map((doc) {
-      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-
-      return {
-        'docId': doc.id, // Store the document ID
-        'img': 'assets/CoursePreview.png',
-        'name': data.containsKey('courseName') ? data['courseName'] : 'Unknown Course',
-        'description': data.containsKey('description') ? data['description'] : 'No description available',
-      };
-    }).toList();
-
-    setState(() {
-      courses = fetchedCourses;
-      print("Courses fetched successfully: $courses");
-    });
-  } 
-  catch (e) {
-    print("Error fetching courses: $e");
+      setState(() {
+        courses = fetchedCourses;
+        print("Courses fetched successfully: $courses");
+      });
+    } catch (e) {
+      print("Error fetching courses: $e");
+    }
   }
-}
-
 
   @override
   void initState() {
     super.initState();
-    fetchCourses(); 
+    fetchCourses();
   }
-  // Dynamic list to store the courses
-  // List<Map<String, String>> courses = [
-  //   {'img': 'assets/CoursePreview.png', 'name': 'Sainik School'},
-  //   {'img': 'assets/CoursePreview.png', 'name': 'Military School'},
-  //   {'img': 'assets/CoursePreview.png', 'name': 'RMS School'},
-  // ];
 
-  // Function to add a new course
   void _addCourse(String courseName) {
     setState(() {
       courses.add({'img': 'assets/CoursePreview.png', 'name': courseName});
     });
   }
 
-  // Function to show a dialog for entering course name
   void _showAddCourseDialog() {
     String newCourseName = '';
 
@@ -85,7 +70,7 @@ class _CoursePageTeacherState extends State<CoursePageTeacher> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.pop(context); // Close the dialog without saving
+                Navigator.pop(context);
               },
               child: const Text('Cancel'),
             ),
@@ -93,7 +78,7 @@ class _CoursePageTeacherState extends State<CoursePageTeacher> {
               onPressed: () {
                 if (newCourseName.isNotEmpty) {
                   _addCourse(newCourseName);
-                  Navigator.pop(context); // Close the dialog after saving
+                  Navigator.pop(context);
                 }
               },
               child: const Text('Add'),
@@ -106,34 +91,37 @@ class _CoursePageTeacherState extends State<CoursePageTeacher> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
           "Courses",
-          style: TextStyle(color: Colors.black), // Change color if needed
+          style: TextStyle(color: Colors.black),
         ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black), // Back arrow
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            Navigator.of(context).pop(); // Back navigation
+            Navigator.of(context).pop();
           },
         ),
-        backgroundColor: Colors.white, // Change background color if needed
-        elevation: 0, // Remove shadow if not needed
+        backgroundColor: Colors.white,
+        elevation: 0,
       ),
-      backgroundColor: const Color(0xFFF5F5F5), // Light background to make cards pop
-      bottomNavigationBar:  NavTeacher(initialIndex: 1, docidUser: widget.docidUser,), // Bottom Navigation
+      backgroundColor: const Color(0xFFF5F5F5),
+      bottomNavigationBar: NavTeacher(initialIndex: 1, docidUser: widget.docidUser),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20), // Padding at the top and bottom
+          padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
           child: Column(
             children: courses.map((course) {
               return crstxtforTeacherData(
                 course['img']!,
                 course['name']!,
-                 // Replace this with your actual edit route if needed
                 context,
                 course,
+                screenWidth,
               );
             }).toList(),
           ),
@@ -141,81 +129,78 @@ class _CoursePageTeacherState extends State<CoursePageTeacher> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _showAddCourseDialog(); // Show dialog to enter course name
+          _showAddCourseDialog();
         },
-        backgroundColor: const Color(0xFF4A90E2), // Custom button color
-        child: const Icon(Icons.add, color: Colors.white), // Plus icon with white color
+        backgroundColor: const Color(0xFF4A90E2),
+        child: const Icon(Icons.add, color: Colors.white),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat, // Bottom right for FAB
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
-
 
 Widget crstxtforTeacherData(
   String img,
   String text,
   BuildContext context,
-  Map<String, dynamic> courseData, // Passing the course data to the widget
+  Map<String, dynamic> courseData,
+  double screenWidth,
 ) {
   return Padding(
-    padding: const EdgeInsets.fromLTRB(20, 20, 20, 15), // Consistent padding
+    padding: EdgeInsets.fromLTRB(screenWidth * 0.05, screenWidth * 0.05, screenWidth * 0.05, screenWidth * 0.04),
     child: Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(15), // Increased border radius for a smoother look
+        borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.3), // Softer shadow for a modern look
+            color: Colors.grey.withOpacity(0.3),
             spreadRadius: 2,
             blurRadius: 8,
-            offset: const Offset(0, 4), // Adds more depth
+            offset: const Offset(0, 4),
           ),
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 10, 10, 7), // Padding inside the container for a clean layout
+        padding: EdgeInsets.fromLTRB(screenWidth * 0.03, screenWidth * 0.03, screenWidth * 0.03, screenWidth * 0.02),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center, // Center the items vertically
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Image Section
             Image.asset(img, scale: 12),
-            const SizedBox(width: 15), // Space between image and text
-
-            // Text and Button Section
+            SizedBox(width: screenWidth * 0.04),
             Expanded(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start, // Align text to the left
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     text,
-                    style: const TextStyle(
-                      fontSize: 18, // Larger font for course title
+                    style: TextStyle(
+                      fontSize: screenWidth * 0.045,
                       color: Colors.black,
-                      fontWeight: FontWeight.w500, // Medium weight for emphasis
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const SizedBox(height: 10),
-                   ElevatedButton(
+                  SizedBox(height: screenWidth * 0.025),
+                  ElevatedButton(
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => EditCourseDescriptionpage( courseData: courseData), // Passing courseData
+                          builder: (context) => EditCourseDescriptionpage(courseData: courseData),
                         ),
                       );
                     },
                     style: ElevatedButton.styleFrom(
                       elevation: 3,
-                      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-                      backgroundColor: const Color(0xFF4A90E2), // Custom button color
+                      padding: EdgeInsets.symmetric(vertical: screenWidth * 0.03, horizontal: screenWidth * 0.06),
+                      backgroundColor: const Color(0xFF4A90E2),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8), // Rounded corners for the button
+                        borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    child: const Text(
+                    child: Text(
                       'View Course',
-                      style: TextStyle(fontSize: 16, color: Colors.white), // White text color
+                      style: TextStyle(fontSize: screenWidth * 0.04, color: Colors.white),
                     ),
                   ),
                 ],

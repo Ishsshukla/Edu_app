@@ -106,23 +106,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: Stack(
         children: [
           SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+              padding: EdgeInsets.fromLTRB(0, screenHeight * 0.03, 0, 0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                      Image.asset(
-                      'assets/HeroImage.png',
-                      width: MediaQuery.of(context).size.width, // Full width
-                      height: MediaQuery.of(context).size.height * 0.54, // Adjust height
-                      ),
+                  Image.asset(
+                    'assets/HeroImage.png',
+                    width: screenWidth, // Full width
+                    height: screenHeight * 0.54, // Adjust height
+                  ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                     child: Form(
                       key: _formKey,
                       child: Column(
@@ -132,7 +135,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             controller: nameController,
                             decoration: const InputDecoration(
                               hintText: ' Name',
-                                prefixIcon: Icon(Icons.person, color: Colors.black, size: 30),
+                              prefixIcon: Icon(Icons.person, color: Colors.black, size: 30),
                             ),
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -141,15 +144,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               return null;
                             },
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          SizedBox(height: screenHeight * 0.01),
                           TextFormField(
                             keyboardType: TextInputType.emailAddress,
                             controller: phoneController,
                             decoration: const InputDecoration(
                               hintText: ' Phone Number',
-                              prefixIcon: Icon(Icons.phone,color: Colors.black, size: 30),
+                              prefixIcon: Icon(Icons.phone, color: Colors.black, size: 30),
                             ),
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -158,15 +159,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               return null;
                             },
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          SizedBox(height: screenHeight * 0.01),
                           TextFormField(
                             keyboardType: TextInputType.emailAddress,
                             controller: emailController,
                             decoration: const InputDecoration(
                               hintText: ' Email',
-                              prefixIcon: Icon(Icons.email,color: Colors.black, size: 30),
+                              prefixIcon: Icon(Icons.email, color: Colors.black, size: 30),
                             ),
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -175,16 +174,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               return null;
                             },
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          SizedBox(height: screenHeight * 0.01),
                           TextFormField(
                             keyboardType: TextInputType.text,
                             controller: passwordController,
                             obscureText: _obscureText,
                             decoration: InputDecoration(
                               hintText: ' Password',
-                              prefixIcon: const Icon(Icons.lock_open,color: Colors.black, size: 30),
+                              prefixIcon: const Icon(Icons.lock_open, color: Colors.black, size: 30),
                               suffixIcon: IconButton(
                                 icon: Icon(
                                   _obscureText ? Icons.visibility : Icons.visibility_off,
@@ -206,9 +203,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               return null;
                             },
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          SizedBox(height: screenHeight * 0.01),
                           Text(
                             selectedRole == null
                                 ? 'Please select a role'
@@ -221,9 +216,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  SizedBox(height: screenHeight * 0.02),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -233,12 +226,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           Text('as ? '),
                         ],
                       ),
-                      const SizedBox(width: 30),
+                      SizedBox(width: screenWidth * 0.08),
                       const Icon(
                         Icons.arrow_forward_ios,
                         color: Colors.black,
                       ),
-                      const SizedBox(width: 30),
+                      SizedBox(width: screenWidth * 0.08),
                       GestureDetector(
                         onTap: () {
                           setState(() {
@@ -248,14 +241,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         child: Column(
                           children: [
                             CircleAvatar(
-                              backgroundColor: selectedRole == 'Student' ?  Color(0xFF4A90E2) : txtColor,
-                              radius: 20,
+                              backgroundColor: selectedRole == 'Student' ? Color(0xFF4A90E2) : txtColor,
+                              radius: screenWidth * 0.05,
                               child: const Icon(
                                 Icons.person,
                                 color: Colors.white,
                               ),
                             ),
-                            const SizedBox(height: 5),
+                            SizedBox(height: screenHeight * 0.005),
                             const Text(
                               'Student',
                               style: TextStyle(fontSize: 12),
@@ -263,7 +256,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ],
                         ),
                       ),
-                      const SizedBox(width: 20),
+                      SizedBox(width: screenWidth * 0.05),
                       // GestureDetector(
                       //   onTap: () {
                       //     setState(() {
@@ -274,13 +267,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       //     children: [
                       //       CircleAvatar(
                       //         backgroundColor: selectedRole == 'Teacher' ? Color(0xFF4A90E2) : txtColor,
-                      //         radius: 20,
+                      //         radius: screenWidth * 0.05,
                       //         child: const Icon(
                       //           Icons.school,
                       //           color: Colors.white,
                       //         ),
                       //       ),
-                      //       const SizedBox(height: 5),
+                      //       SizedBox(height: screenHeight * 0.005),
                       //       const Text(
                       //         'Teacher',
                       //         style: TextStyle(fontSize: 12),
@@ -290,52 +283,47 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       // ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  SizedBox(height: screenHeight * 0.02),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 18),
+                    padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF4A90E2),
-                        minimumSize: const Size(350, 60), // Set the button size directly
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ), // Button color
-                      // padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                      textStyle: const TextStyle(fontSize: 18),
+                        backgroundColor: Color(0xFF4A90E2),
+                        minimumSize: Size(screenWidth * 0.9, screenHeight * 0.08), // Set the button size directly
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ), // Button color
+                        textStyle: const TextStyle(fontSize: 18),
                       ),
                       onPressed: () {
-                      if (_formKey.currentState!.validate() && selectedRole != null) {
-                        setState(() {
-                        email = emailController.text;
-                        password = passwordController.text;
-                        });
-                        registration();
-                      } else if (selectedRole == null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: const Text(
-                          'Please select a role',
-                          style: TextStyle(color: Colors.white, fontSize: 20),
-                          ),
-                          backgroundColor: txtColor,
-                        ),
-                        );
-                      }
+                        if (_formKey.currentState!.validate() && selectedRole != null) {
+                          setState(() {
+                            email = emailController.text;
+                            password = passwordController.text;
+                          });
+                          registration();
+                        } else if (selectedRole == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: const Text(
+                                'Please select a role',
+                                style: TextStyle(color: Colors.white, fontSize: 20),
+                              ),
+                              backgroundColor: txtColor,
+                            ),
+                          );
+                        }
                       },
-                        child: const Text(
+                      child: const Text(
                         'Sign up',
                         style: TextStyle(
                           fontSize: 29, // Increase font size
                           color: Colors.white, // Set text color to white
                         ),
-                        ),
+                      ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  SizedBox(height: screenHeight * 0.01),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -349,7 +337,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         },
                         child: Text(
                           'Login',
-                          style: TextStyle(color: Color(0xFF4A90E2),),
+                          style: TextStyle(color: Color(0xFF4A90E2)),
                         ),
                       ),
                     ],

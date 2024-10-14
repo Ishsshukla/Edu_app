@@ -47,25 +47,33 @@ class _SplashState extends State<SplashScreen2> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final padding = size.height * 0.05;
+    final imageHeight = size.height * 0.3;
+    final textWidth = size.width * 0.8;
+    final buttonHeight = size.height * 0.1;
+
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, 48), // Add padding here
+        padding: EdgeInsets.fromLTRB(0, 0, 0, padding), // Add padding here
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/Group 123.png'),
-            const SizedBox(height: 56),
-            const SizedBox(
-              width: 200, // Set the desired width
+            Image.asset(
+              'assets/Group 123.png',
+              height: imageHeight,
+            ),
+            SizedBox(height: padding),
+            SizedBox(
+              width: textWidth, // Set the desired width
               child: Text(
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras netus mauris pulvinar suspendisse. Et sit ac lacus in rhoncus.',
-                style: TextStyle(fontSize: 20),
-                overflow:
-                    TextOverflow.ellipsis, // Truncate the text with ellipsis
+                style: TextStyle(fontSize: size.width * 0.05),
+                overflow: TextOverflow.ellipsis, // Truncate the text with ellipsis
                 maxLines: 2, // Limit the text to 2 lines
               ),
             ),
-            const SizedBox(height: 86), // Add desired height here
+            SizedBox(height: padding), // Add desired height here
             CustomButton(
                 text: "Let's Start Your Journey",
                 color: txtColor,

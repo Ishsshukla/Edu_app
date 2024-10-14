@@ -15,25 +15,14 @@ class CoursePageStudent extends StatefulWidget {
 
 class _CoursePageStudentState extends State<CoursePageStudent> with SingleTickerProviderStateMixin {
   late TabController _tabController;
-
-  // Sample data for All Courses and My Courses
-  // List<Map<String, String?>> allCourses = [
-  //   {'img': 'assets/CoursePreview.png', 'name': 'Introduction to Algebra'},
-  //   {'img': 'assets/CoursePreview.png', 'name': 'Geometry Basics'},
-  //   {'img': 'assets/CoursePreview.png', 'name': 'Trigonometry'},
-  //   {'img': 'assets/CoursePreview.png', 'name': 'Calculus'},
-  // ];
-
-  // List<Map<String, String>> chapters = [
-  //   {'img': 'assets/CoursePreview.png', 'name': 'Introduction to Algebra'},
-  //   {'img': 'assets/CoursePreview.png', 'name': 'Trigonometry'},
-  // ];
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  List<Map<String, dynamic>> chapters = [];
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-     fetchCourses(); 
+    fetchCourses();
   }
 
   @override
@@ -42,36 +31,11 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
     super.dispose();
   }
 
-  // Navigation to Course Description for All Courses
-  void _navigateToCourseDescription(String courseName) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        // builder: (context) =>  CourseDescriptionpage(courseData: {'description': 'coursedescr'}), // Ensure you have this page for course description
-        builder: (context) =>  CourseDescriptionpage(), 
-      ),
-    );
-  }
-
-  // Navigation to Chapters for My Courses
-  // void _navigateToChapters(String? courseName) {
-  //   Navigator.push(
-  //     context,
-  //     MaterialPageRoute(
-  //       // builder: (context) =>  EnrolledCourseDescriptionPage(), // Ensure you have this page for chapters
-  //     ),
-  //   );
-  // }
-    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  List<Map<String, dynamic>> chapters = [
-  ];
- // Fetch courses from Firestore
   Future<void> fetchCourses() async {
     try {
       QuerySnapshot snapshot = await _firestore.collection('course_content').get();
-         List<Map<String, dynamic>> fetchedCourses = snapshot.docs.map((doc) {
+      List<Map<String, dynamic>> fetchedCourses = snapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        // print(data);
         return {
           'img': 'assets/CoursePreview.png',
           'name': data.containsKey('courseName') ? data['courseName'] : 'Unknown Course',
@@ -81,23 +45,17 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
 
       setState(() {
         chapters = fetchedCourses;
-        // print("Courses fetched successfully=${chapters}");
       });
-      // print("Courses fetched successfully=${chapters}");
-    } 
-    catch (e) {
-      // print("Error fetching courses: $e");
+    } catch (e) {
+      // Handle error
     }
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-   
-  // }
-
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -130,7 +88,7 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
           // All Courses Tab
           SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
+              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
               child: Column(
                 children: chapters.map((course) {
                   return crstxtforstudent(
@@ -138,9 +96,8 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
                     course['name'] ?? 'No Name', // Handle null course name
                     'coursedescr', // Your course description route
                     context,
-                    // onTap: () {
-                    //   _navigateToCourseDescription(course['coursedescr'] ?? 'No Name'); // Navigate to course description
-                    // },
+                    screenWidth,
+                    screenHeight,
                   );
                 }).toList(),
               ),
@@ -149,18 +106,18 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
           // My Courses Tab
           SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
+              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
               child: Column(
-                children: 
-            chapters.map((chapter) {
-              return crstxtforstudentData(
-                chapter['img']!,
-                chapter['name']!,
-                context,
-                chapter,
-              
-              );
-            }).toList()
+                children: chapters.map((chapter) {
+                  return crstxtforstudentData(
+                    chapter['img']!,
+                    chapter['name']!,
+                    context,
+                    chapter,
+                    screenWidth,
+                    screenHeight,
+                  );
+                }).toList(),
               ),
             ),
           ),
@@ -170,71 +127,144 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
   }
 }
 
-
-Widget crstxtforstudentData(
+Widget crstxtforstudent(
   String img,
   String text,
+  String route,
   BuildContext context,
-  Map<String, dynamic> courseData, // Passing the course data to the widget
+  double screenWidth,
+  double screenHeight,
 ) {
   return Padding(
-    padding: const EdgeInsets.fromLTRB(20, 20, 20, 15), // Consistent padding
+    padding: EdgeInsets.fromLTRB(screenWidth * 0.05, screenHeight * 0.02, screenWidth * 0.05, screenHeight * 0.015),
     child: Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(15), // Increased border radius for a smoother look
+        borderRadius: BorderRadius.circular(screenWidth * 0.04),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.3), // Softer shadow for a modern look
+            color: Colors.grey.withOpacity(0.3),
             spreadRadius: 2,
             blurRadius: 8,
-            offset: const Offset(0, 4), // Adds more depth
+            offset: const Offset(0, 4),
           ),
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 10, 10, 7), // Padding inside the container for a clean layout
+        padding: EdgeInsets.fromLTRB(screenWidth * 0.025, screenHeight * 0.01, screenWidth * 0.025, screenHeight * 0.007),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center, // Center the items vertically
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Image Section
-            Image.asset(img, scale: 12),
-            const SizedBox(width: 15), // Space between image and text
-
-            // Text and Button Section
+            Image.asset(img, scale: screenWidth * 0.03),
+            SizedBox(width: screenWidth * 0.04),
             Expanded(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start, // Align text to the left
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     text,
-                    style: const TextStyle(
-                      fontSize: 18, // Larger font for course title
+                    style: TextStyle(
+                      fontSize: screenWidth * 0.045,
                       color: Colors.black,
-                      fontWeight: FontWeight.w500, // Medium weight for emphasis
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const SizedBox(height: 10),
-                   ElevatedButton(
+                  SizedBox(height: screenHeight * 0.01),
+                  ElevatedButton(
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => enrolledcrspage( courseData: courseData), // Passing courseData
+                          builder: (context) => CourseDescriptionpage(),
                         ),
                       );
                     },
                     style: ElevatedButton.styleFrom(
                       elevation: 3,
-                      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-                      backgroundColor: const Color(0xFF4A90E2), // Custom button color
+                      padding: EdgeInsets.symmetric(vertical: screenHeight * 0.015, horizontal: screenWidth * 0.06),
+                      backgroundColor: const Color(0xFF4A90E2),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8), // Rounded corners for the button
+                        borderRadius: BorderRadius.circular(screenWidth * 0.02),
                       ),
                     ),
-                    child: const Text(
+                    child: Text(
                       'View Course',
-                      style: TextStyle(fontSize: 16, color: Colors.white), // White text color
+                      style: TextStyle(fontSize: screenWidth * 0.04, color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+Widget crstxtforstudentData(
+  String img,
+  String text,
+  BuildContext context,
+  Map<String, dynamic> courseData,
+  double screenWidth,
+  double screenHeight,
+) {
+  return Padding(
+    padding: EdgeInsets.fromLTRB(screenWidth * 0.05, screenHeight * 0.02, screenWidth * 0.05, screenHeight * 0.015),
+    child: Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(screenWidth * 0.04),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.3),
+            spreadRadius: 2,
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(screenWidth * 0.025, screenHeight * 0.01, screenWidth * 0.025, screenHeight * 0.007),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(img, scale: screenWidth * 0.03),
+            SizedBox(width: screenWidth * 0.04),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    text,
+                    style: TextStyle(
+                      fontSize: screenWidth * 0.045,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  SizedBox(height: screenHeight * 0.01),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => enrolledcrspage(courseData: courseData),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      elevation: 3,
+                      padding: EdgeInsets.symmetric(vertical: screenHeight * 0.015, horizontal: screenWidth * 0.06),
+                      backgroundColor: const Color(0xFF4A90E2),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(screenWidth * 0.02),
+                      ),
+                    ),
+                    child: Text(
+                      'View Course',
+                      style: TextStyle(fontSize: screenWidth * 0.04, color: Colors.white),
                     ),
                   ),
                 ],
