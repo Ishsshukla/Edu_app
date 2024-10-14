@@ -417,7 +417,6 @@ class _PrflpageState extends State<Prflpage> {
         setState(() {
           setState(() {
             userfirstnamecontroller.text = userDoc['name'] ?? '';
-            // userlastnamecontroller.text = userDoc['Last Name'] ?? '';
             useremailcontroller.text = userDoc['email'] ?? '';
             userphncontroller.text = userDoc['phoneNo'] ?? '';
           });
@@ -439,13 +438,11 @@ class _PrflpageState extends State<Prflpage> {
       print('Error fetching user data: $e');
     }
   }
-  
 
   Future<void> uploadData(String userId) async {
     if (_formKey.currentState!.validate()) {
       Map<String, dynamic> uploaddata = {
         'name': userfirstnamecontroller.text,
-        // 'Last Name': userlastnamecontroller.text,
         'email': useremailcontroller.text,
         'phoneNO': userphncontroller.text,
       };
@@ -543,7 +540,6 @@ class _PrflpageState extends State<Prflpage> {
                     return null;
                   },
                 ),
-              
                 const SizedBox(height: 20),
                 buildEditableField(
                   context,
@@ -659,19 +655,53 @@ class _PrflpageState extends State<Prflpage> {
     );
   }
 
-  Widget buildEditableField(BuildContext context, String labelText,
-      TextEditingController controller, bool isEditing, VoidCallback onEditTap,
-      {required IconData icon, String? Function(String?)? validator}) {
+  // Widget buildEditableField(BuildContext context, String labelText,
+  //     TextEditingController controller, bool isEditing, VoidCallback onEditTap,
+  //     {required IconData icon, String? Function(String?)? validator}) {
+  //   return TextFormField(
+  //     controller: controller,
+  //     enabled: isEditing,
+  //     decoration: InputDecoration(
+  //       labelText: labelText,
+  //       suffixIcon: IconButton(
+  //         icon: Icon(isEditing ? Icons.save : Icons.edit),
+  //         onPressed: onEditTap,
+  //       ),
+  //       prefixIcon: Icon(icon),
+  //     ),
+  //     validator: validator,
+  //   );
+  // }
+  Widget buildEditableField(
+    BuildContext context,
+    String labelText,
+    TextEditingController controller,
+    bool isEditing,
+    VoidCallback onEditTap, {
+    required IconData icon,
+    String? Function(String?)? validator,
+  }) {
     return TextFormField(
       controller: controller,
-      enabled: isEditing,
+      style: TextStyle(color: Colors.black),
+      enabled: isEditing, // Toggle between editable and non-editable
       decoration: InputDecoration(
         labelText: labelText,
-        suffixIcon: IconButton(
-          icon: Icon(isEditing ? Icons.save : Icons.edit),
-          onPressed: onEditTap,
+
+        // suffixIcon: IconButton(
+        //   icon: Icon(isEditing
+        //       ? Icons.save
+        //       : Icons.edit), // Toggle icon between edit and save
+        //   onPressed: () {
+        //     setState(() {
+        //       onEditTap(); // Call the onEditTap function to toggle the editing state
+        //     });
+        //   },
+        // ),
+        prefixIcon: Icon(
+          icon,
+          color: Colors.black,
         ),
-        prefixIcon: Icon(icon),
       ),
       validator: validator,
     );

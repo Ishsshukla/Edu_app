@@ -3,11 +3,14 @@ import 'package:edu_app/students_screens/screens/crs_description.dart';
 import 'package:edu_app/students_screens/screens/enrolled_course/chapters.dart';
 import 'package:edu_app/students_screens/screens/enrolled_course/description_enrooled.dart';
 import 'package:edu_app/students_screens/screens/enrolled_course/enrollled_crs.dart';
+import 'package:edu_app/students_screens/screens/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:edu_app/components/coursesbuy.dart'; // Import your existing components
 
 class CoursePageStudent extends StatefulWidget {
-  const CoursePageStudent({super.key});
+  final String docIdUser;
+
+  const CoursePageStudent({super.key, required this.docIdUser});
 
   @override
   State<CoursePageStudent> createState() => _CoursePageStudentState();
@@ -165,6 +168,10 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
             ),
           ),
         ],
+      ),
+       bottomNavigationBar: Nav(
+        initialIndex: 0,
+        docIdUser: widget.docIdUser,
       ),
     );
   }
