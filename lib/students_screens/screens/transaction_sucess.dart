@@ -1,11 +1,13 @@
 // ignore_for_file: sort_child_properties_last
 
 import 'package:edu_app/components/button.dart';
+import 'package:edu_app/students_screens/screens/allcrs.dart';
 import 'package:edu_app/students_screens/screens/enrolled_course/enrollled_crs.dart';
 import 'package:flutter/material.dart';
 
 class transactionpage extends StatefulWidget {
-  const transactionpage({super.key});
+  final String userIdDoc;
+  const transactionpage({super.key,required this.userIdDoc});
 
   @override
   State<transactionpage> createState() => _transactionpageState();
@@ -56,7 +58,9 @@ class _transactionpageState extends State<transactionpage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => enrolledcrspage(courseData: {},),
+                          builder: (context) => CoursePageStudent(
+                            docIdUser: widget.userIdDoc,
+                          ),
                         ),
                       );
                     },

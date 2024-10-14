@@ -5,6 +5,8 @@ import 'package:edu_app/students_screens/screens/payment_method.dart';
 import 'package:flutter/material.dart';
 
 class Reviewpage extends StatefulWidget {
+  final String docIdUser;
+  const Reviewpage({super.key, required this.docIdUser});
   @override
   State<Reviewpage> createState() => _ReviewState();
 }
@@ -321,7 +323,7 @@ class _ReviewState extends State<Reviewpage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const PayMethodPage(),
+                              builder: (context) => PayMethodPage(docIdUser: widget.docIdUser,),
                             ),
                           );
                         },

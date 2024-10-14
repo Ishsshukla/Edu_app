@@ -120,39 +120,39 @@ class _PrflpageState extends State<Prflpage> {
                   ),
                 ],
                 ),
-                Row(
+              Row(
                 children: [
                   Padding(
-                  padding: EdgeInsets.fromLTRB(
-                    MediaQuery.of(context).size.width * 0.05,
-                    0,
-                    MediaQuery.of(context).size.width * 0.05,
-                    0,
-                  ),
-                  child: Column(
-                    children: [
-                    prflTxtEdit(
-                      Icons.near_me_rounded, 'Name', userName, context),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.02,
+                    padding: const EdgeInsets.fromLTRB(0.0, 0, 0, 0),
+                    child: Column(
+                      children: [
+                        prflTxtEdit(
+                            Icons.near_me_rounded, 'Name', userName, context),
+                        const SizedBox(
+                          height: 0,
+                        ),
+                        prflTxtEdit(Icons.email, 'Email', email, context),
+                        const SizedBox(
+                          height: 0,
+                        ),
+                        // prflTxtEdit(Icons.lock_open_outlined, 'Password',
+                        //     '52535454436', context),
+                        // const SizedBox(
+                        //   height: 0,
+                        // ),
+                        prflTxtEdit(Icons.phone_android, 'Phone Number',
+                            "$phoneNo", context),
+                        const SizedBox(
+                          height: 0,
+                        ),
+                      ],
                     ),
-                    prflTxtEdit(Icons.email, 'Email', email, context),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.02,
-                    ),
-                    prflTxtEdit(Icons.phone_android, 'Phone Number',
-                      "$phoneNo", context),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.02,
-                    ),
-                    ],
                   ),
-                  ),
-                  SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.02,
+                  const SizedBox(
+                    width: 10,
                   ),
                 ],
-                ),
+              ),
               SizedBox(height: screenHeight * 0.03),
               CustomButton(
                   text: 'Log Out',

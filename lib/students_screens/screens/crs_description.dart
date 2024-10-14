@@ -5,15 +5,15 @@ import 'package:edu_app/students_screens/screens/review.dart';
 import 'package:flutter/material.dart';
 
 class CourseDescriptionpage extends StatefulWidget {
+  final String docIdUser;
   // final Map<String, dynamic> courseData; // Data for the selected course
 
-  // const CourseDescriptionpage({super.key, required this.courseData});
+  const CourseDescriptionpage({super.key, required this.docIdUser});
   @override
   State<CourseDescriptionpage> createState() => _CourseDescriptionState();
 }
 
 class _CourseDescriptionState extends State<CourseDescriptionpage> {
-  
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -127,7 +127,8 @@ class _CourseDescriptionState extends State<CourseDescriptionpage> {
                             ),
                             const Text(
                               '1h 35m',
-                              style: TextStyle(color: Colors.black, fontSize: 17),
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 17),
                             ),
                             SizedBox(
                               width: screenWidth * .2,
@@ -142,7 +143,8 @@ class _CourseDescriptionState extends State<CourseDescriptionpage> {
                             ),
                             const Text(
                               '4.5  Star',
-                              style: TextStyle(color: Colors.black, fontSize: 17),
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 17),
                             )
                           ],
                         ),
@@ -161,7 +163,8 @@ class _CourseDescriptionState extends State<CourseDescriptionpage> {
                             ),
                             const Text(
                               'Notes',
-                              style: TextStyle(color: Colors.black, fontSize: 17),
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 17),
                             ),
                             SizedBox(
                               width: screenWidth * .239,
@@ -176,7 +179,8 @@ class _CourseDescriptionState extends State<CourseDescriptionpage> {
                             ),
                             const Text(
                               '350 Reviews',
-                              style: TextStyle(color: Colors.black, fontSize: 17),
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 17),
                             )
                           ],
                         ),
@@ -219,7 +223,7 @@ class _CourseDescriptionState extends State<CourseDescriptionpage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => Reviewpage(),
+                                    builder: (context) => Reviewpage(docIdUser: widget.docIdUser,),
                                   ),
                                 );
                               },

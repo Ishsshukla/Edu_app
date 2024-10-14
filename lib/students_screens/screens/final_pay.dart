@@ -1,4 +1,3 @@
-// ignore_for_file: use_key_in_widget_constructors, unused_local_variable, sort_child_properties_last
 
 import 'package:edu_app/components/const.dart';
 import 'package:edu_app/components/review_componemt.dart';
@@ -6,6 +5,9 @@ import 'package:edu_app/students_screens/screens/transaction_sucess.dart';
 import 'package:flutter/material.dart';
 
 class Finalpaypage extends StatefulWidget {
+  final String docIdUser;
+
+  const Finalpaypage({super.key, required this.docIdUser});
   @override
   State<Finalpaypage> createState() => _FinalpayState();
 }
@@ -198,7 +200,7 @@ class _FinalpayState extends State<Finalpaypage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const transactionpage(),
+                              builder: (context) =>  transactionpage(userIdDoc: widget.docIdUser,),
                             ),
                           );
                         },

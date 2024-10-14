@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:file_picker/file_picker.dart'; // Import file_picker package
@@ -26,8 +25,7 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
       TextEditingController(); // For teacher's notes
   final List<File> _pickedPdfFiles = [];
   final List<File> _pickedImageFiles = [];
-  
-  
+
   bool _isLoading = false; // To track the loading state
 
   String courseName = '';
@@ -36,7 +34,7 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
   String notes = '';
   List<String> pdfUrls = [];
   List<String> imageUrls = [];
-  String? documentId; 
+  String? documentId;
 
   @override
   void initState() {
@@ -58,7 +56,7 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
           .get();
 
       if (snapshot.docs.isNotEmpty) {
-          var doc = snapshot.docs.first;
+        var doc = snapshot.docs.first;
         var data = doc.data() as Map<String, dynamic>;
         setState(() {
           courseName = data['courseName'] ?? 'Unknown Course';
@@ -66,7 +64,7 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
           youtubeLink = data['youtubeLink'] ?? 'No YouTube Link';
           pdfUrls = List<String>.from(data['pdfUrls'] ?? []);
           imageUrls = List<String>.from(data['imageUrls'] ?? []);
-          notes = data['notes'] ?? 'No Notes'; 
+          notes = data['notes'] ?? 'No Notes';
           documentId = doc.id;
         });
 
@@ -74,7 +72,7 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
         _courseNameController.text = courseName;
         _lessonNameController.text = lessonName;
         _youtubeLinkController.text = youtubeLink;
-        _notesController.text = notes; 
+        _notesController.text = notes;
       } else {
         print("No matching course content found.");
       }
@@ -83,47 +81,47 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
     }
   }
 
-Future<void> _launchYoutubeLink() async {
-  String url = _youtubeLinkController.text.trim(); // Trim any extra spaces
+  Future<void> _launchYoutubeLink() async {
+    String url = _youtubeLinkController.text.trim(); // Trim any extra spaces
 
-  if (url.isEmpty) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Please enter a YouTube link')),
-    );
-    return;
-  }
+    if (url.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter a YouTube link')),
+      );
+      return;
+    }
 
-  // Ensure the URL is a valid YouTube link
-  if (!url.startsWith('http://') && !url.startsWith('https://')) {
-    url = 'https://$url'; // Add https if it's missing
-  }
+    // Ensure the URL is a valid YouTube link
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      url = 'https://$url'; // Add https if it's missing
+    }
 
-  // Check if the URL is a valid YouTube URL
-  if (!url.contains('youtube.com') && !url.contains('youtu.be')) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Please enter a valid YouTube link')),
-    );
-    return;
-  }
+    // Check if the URL is a valid YouTube URL
+    if (!url.contains('youtube.com') && !url.contains('youtu.be')) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter a valid YouTube link')),
+      );
+      return;
+    }
 
-  final Uri? uri = Uri.tryParse(url);
-  if (uri != null) {
-    // Launch the URL and set to open in an external browser
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    final Uri? uri = Uri.tryParse(url);
+    if (uri != null) {
+      // Launch the URL and set to open in an external browser
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri, mode: LaunchMode.externalApplication);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Could not launch YouTube URL')),
+        );
+      }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Could not launch YouTube URL')),
+        const SnackBar(content: Text('Invalid URL format')),
       );
     }
-  } else {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Invalid URL format')),
-    );
   }
-}
 
- Future<void> _pickPdfFiles() async {
+  Future<void> _pickPdfFiles() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['pdf'],
@@ -197,8 +195,13 @@ Future<void> _launchYoutubeLink() async {
     }
   }
 
-  Future<void> _uploadCourseData(String courseName, String lessonName,
-      String youtubeLink, List<String> pdfUrls, List<String> imageUrls, String notes) async {
+  Future<void> _uploadCourseData(
+      String courseName,
+      String lessonName,
+      String youtubeLink,
+      List<String> pdfUrls,
+      List<String> imageUrls,
+      String notes) async {
     try {
       await FirebaseFirestore.instance.collection('course_content').add({
         'courseName': courseName,
@@ -206,50 +209,51 @@ Future<void> _launchYoutubeLink() async {
         'youtubeLink': youtubeLink,
         'pdfUrls': pdfUrls,
         'imageUrls': imageUrls,
-        'notes': notes,  // Save notes to Firestore
+        'notes': notes, // Save notes to Firestore
         'timestamp': FieldValue.serverTimestamp(),
       });
     } catch (e) {
       print('Error uploading course data: $e');
     }
   }
+
   Future<void> _saveChanges() async {
-  setState(() {
-    _isLoading = true; // Start loading
-  });
-  try {
-    List<String> updatedPdfUrls = [...pdfUrls]; // Keep the old ones
-    List<String> updatedImageUrls = [...imageUrls]; // Keep the old ones
-
-    // Upload new PDFs and add their URLs to the list
-    await _uploadPdfFiles(updatedPdfUrls);
-
-    // Upload new images and add their URLs to the list
-    await _uploadImageFiles(updatedImageUrls);
-
-    // Update the course document in Firestore
-    await _updateCourseData(
-      _courseNameController.text,
-      _lessonNameController.text,
-      _youtubeLinkController.text,
-      updatedPdfUrls,
-      updatedImageUrls,
-      _notesController.text,
-    );
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Changes saved successfully!')),
-    );
-  } catch (e) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Error saving changes')),
-    );
-  } finally {
     setState(() {
-      _isLoading = false; // Stop loading after process completion
+      _isLoading = true; // Start loading
     });
+    try {
+      List<String> updatedPdfUrls = [...pdfUrls]; // Keep the old ones
+      List<String> updatedImageUrls = [...imageUrls]; // Keep the old ones
+
+      // Upload new PDFs and add their URLs to the list
+      await _uploadPdfFiles(updatedPdfUrls);
+
+      // Upload new images and add their URLs to the list
+      await _uploadImageFiles(updatedImageUrls);
+
+      // Update the course document in Firestore
+      await _updateCourseData(
+        _courseNameController.text,
+        _lessonNameController.text,
+        _youtubeLinkController.text,
+        updatedPdfUrls,
+        updatedImageUrls,
+        _notesController.text,
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Changes saved successfully!')),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Error saving changes')),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false; // Stop loading after process completion
+      });
+    }
   }
-}
 
   void _deletePdf(int index) {
     setState(() {
@@ -278,14 +282,15 @@ Future<void> _launchYoutubeLink() async {
       );
     }
   }
+
   void _launchPdf(String pdfPath) async {
-  final result = await OpenFile.open(pdfPath);
-  if (result.message != 'null') {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(result.message)),
-    );
+    final result = await OpenFile.open(pdfPath);
+    if (result.message != 'null') {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(result.message)),
+      );
+    }
   }
-}
 
   void removeImage(int index) {
     setState(() {
@@ -322,7 +327,7 @@ Future<void> _launchYoutubeLink() async {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Chapter Name',
+                const Text('Course Name',
                     style:
                         TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
@@ -334,8 +339,7 @@ Future<void> _launchYoutubeLink() async {
                   ),
                 ),
                 const SizedBox(height: 20),
-
-                const Text('Topic Name',
+                const Text('Chapter Name',
                     style:
                         TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
@@ -347,7 +351,6 @@ Future<void> _launchYoutubeLink() async {
                   ),
                 ),
                 const SizedBox(height: 20),
-
                 const Text('Class Link (YouTube)',
                     style:
                         TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
@@ -365,7 +368,6 @@ Future<void> _launchYoutubeLink() async {
                   child: const Text('Open YouTube Link'),
                 ),
                 const SizedBox(height: 20),
-
                 const Text('Teacher Notes',
                     style:
                         TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
@@ -378,7 +380,6 @@ Future<void> _launchYoutubeLink() async {
                   ),
                 ),
                 const SizedBox(height: 20),
-
                 const Text('Upload PDF Files',
                     style:
                         TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
@@ -389,7 +390,6 @@ Future<void> _launchYoutubeLink() async {
                   label: const Text('Pick PDFs'),
                 ),
                 const SizedBox(height: 10),
-                
                 ListView.builder(
                   shrinkWrap: true,
                   itemCount: _pickedPdfFiles.length,
@@ -419,7 +419,7 @@ Future<void> _launchYoutubeLink() async {
                           IconButton(
                             icon: const Icon(Icons.download),
                             onPressed: () async {
-                               _launchPdf(_pickedPdfFiles[index].path);
+                              _launchPdf(_pickedPdfFiles[index].path);
                               // await launchUrl(Uri.file(_pickedPdfFiles[index]
                               //     .path)); // Open/download PDF
                             },
@@ -430,7 +430,6 @@ Future<void> _launchYoutubeLink() async {
                   },
                 ),
                 const SizedBox(height: 20),
-
                 const Text('Upload Image Files',
                     style:
                         TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
@@ -441,7 +440,6 @@ Future<void> _launchYoutubeLink() async {
                   label: const Text('Pick Images'),
                 ),
                 const SizedBox(height: 10),
-               
                 GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -485,8 +483,6 @@ Future<void> _launchYoutubeLink() async {
                   },
                 ),
                 const SizedBox(height: 20),
-
-               
                 if (pdfUrls.isNotEmpty) ...[
                   const Text(
                     "Uploaded PDFs:",
@@ -534,8 +530,6 @@ Future<void> _launchYoutubeLink() async {
                     },
                   ),
                 ],
-
-               
                 if (imageUrls.isNotEmpty) ...[
                   const Text(
                     "Uploaded Images:",
@@ -583,8 +577,6 @@ Future<void> _launchYoutubeLink() async {
                     },
                   ),
                 ]
-
-             
               ],
             ),
           ),

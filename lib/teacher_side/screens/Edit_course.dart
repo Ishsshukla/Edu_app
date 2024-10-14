@@ -28,20 +28,26 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
   @override
   void initState() {
     super.initState();
-    _descriptionController = TextEditingController(text: widget.courseData['description']);
-    _courseInfoController = TextEditingController(text: widget.courseData['name']);
+    _descriptionController =
+        TextEditingController(text: widget.courseData['description']);
+    _courseInfoController =
+        TextEditingController(text: widget.courseData['name']);
   }
 
   // Function to toggle between editable and non-editable mode
   void _toggleEditSave() async {
     if (_isEditable) {
       // Save the changes when toggling to non-editable mode
-      await _firestore.collection('course_content').doc(widget.courseData['docId']).update({
+      await _firestore
+          .collection('course_content')
+          .doc(widget.courseData['docId'])
+          .update({
         'description': _descriptionController.text,
         'courseName': _courseInfoController.text,
       });
 
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Description updated successfully!')));
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Description updated successfully!')));
     }
 
     // Toggle the editable state
@@ -62,13 +68,16 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    String docId = widget.courseData['docId'];  // Store the document ID
-    String courseName = widget.courseData['name'] ?? 'Course Name Not Available';
-    String courseDescription = widget.courseData['description'] ?? 'Description not available'; // Modify as per your data structure
+    String docId = widget.courseData['docId']; // Store the document ID
+    String courseName =
+        widget.courseData['name'] ?? 'Course Name Not Available';
+    String courseDescription = widget.courseData['description'] ??
+        'Description not available'; // Modify as per your data structure
     String courseImage = widget.courseData['img'] ?? 'assets/CoursePreview.png';
     return Scaffold(
       backgroundColor: Colors.white,
-      resizeToAvoidBottomInset: true,  // This ensures the layout resizes when the keyboard shows up
+      resizeToAvoidBottomInset:
+          true, // This ensures the layout resizes when the keyboard shows up
       body: SafeArea(
         child: GestureDetector(
           onTap: () {
@@ -76,7 +85,8 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
             _courseInfoFocusNode.unfocus();
             _descriptionFocusNode.unfocus();
           },
-          child: SingleChildScrollView(  // This allows the screen to scroll when the keyboard appears
+          child: SingleChildScrollView(
+            // This allows the screen to scroll when the keyboard appears
             child: Column(
               children: [
                 // Image Section
@@ -91,7 +101,8 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
 
                 // Container for Course Info and Description with Transform
                 Transform.translate(
-                  offset: Offset(0, -screenHeight * 0.04), // Keeps the original transform
+                  offset: Offset(
+                      0, -screenHeight * 0.04), // Keeps the original transform
                   child: Container(
                     decoration: const BoxDecoration(
                       color: Colors.white,
@@ -112,11 +123,15 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               ),
-                              Spacer(),
-                              ElevatedButton.icon(
-                                onPressed: _toggleEditSave,
-                                icon: Icon(_isEditable ? Icons.save : Icons.edit),
-                                label: Text(_isEditable ? 'Save' : 'Edit'),
+                              const Spacer(),
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: ElevatedButton.icon(
+                                  onPressed: _toggleEditSave,
+                                  icon: Icon(
+                                      _isEditable ? Icons.save : Icons.edit),
+                                  label: Text(_isEditable ? 'Save' : 'Edit'),
+                                ),
                               ),
                             ],
                           ),
@@ -124,12 +139,19 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
                           TextField(
                             controller: _courseInfoController,
                             maxLines: 1,
-                            enabled: _isEditable, // Control whether the text field is editable or not
+                            enabled:
+                                _isEditable, // Control whether the text field is editable or not
+                            style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
+                              label: Text(
+                                'Course Name',
+                                style: TextStyle(color: Colors.black),
+                              ),
                               hintText: 'Write here',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(color: Colors.grey),
+                                borderSide:
+                                    const BorderSide(color: Colors.grey),
                               ),
                               contentPadding: EdgeInsets.all(screenWidth * 0.025), // Adjusted content padding
                             ),
@@ -138,12 +160,20 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
                           TextField(
                             controller: _descriptionController,
                             maxLines: 2,
-                            enabled: _isEditable, // Control whether the text field is editable or not
+                            enabled: _isEditable,
+                            style: TextStyle(
+                                color: Colors
+                                    .black), // Control whether the text field is editable or not
                             decoration: InputDecoration(
+                              label: Text(
+                                'Course Description',
+                                style: TextStyle(color: Colors.black),
+                              ),
                               hintText: 'Write the course description here',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(color: Colors.grey),
+                                borderSide:
+                                    const BorderSide(color: Colors.grey),
                               ),
                               contentPadding: EdgeInsets.all(screenWidth * 0.025),
                             ),
@@ -237,7 +267,8 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ChapterPageTeacher(courseName: courseName, docId: docId),
+                    builder: (context) => ChapterPageTeacher(
+                        courseName: courseName, docId: docId),
                   ),
                 );
               },

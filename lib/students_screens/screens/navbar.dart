@@ -40,7 +40,7 @@ class _NavState extends State<Nav> {
       case 1:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const CoursePageStudent()),
+          MaterialPageRoute(builder: (context) =>  CoursePageStudent(docIdUser: widget.docIdUser,)),
         );
         break;
       case 2:

@@ -5,7 +5,8 @@ import 'package:edu_app/students_screens/screens/final_pay.dart';
 import 'package:flutter/material.dart';
 
 class PayMethodPage extends StatefulWidget {
-  const PayMethodPage({super.key});
+  final String docIdUser;
+  const PayMethodPage({super.key, required this.docIdUser});
 
   @override
   State<PayMethodPage> createState() => _PayMethodState();
@@ -219,7 +220,7 @@ class _PayMethodState extends State<PayMethodPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Finalpaypage(),
+                            builder: (context) => Finalpaypage(docIdUser: '',),
                           ),
                         );
                       } else {
