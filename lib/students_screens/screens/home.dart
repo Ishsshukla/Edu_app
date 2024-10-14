@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edu_app/components/const.dart';
 import 'package:edu_app/models/new_page_model.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,8 @@ import 'user_notifier.dart';
 import 'navbar.dart';
 
 class Homepage extends StatefulWidget {
-  const Homepage({super.key});
+  final String docIdUser;
+  const Homepage({super.key, required this.docIdUser});
 
   @override
   _HomepageState createState() => _HomepageState();
@@ -19,16 +21,18 @@ class _HomepageState extends State<Homepage> {
   late PageController _pageController;
   late Timer _timer;
   int _currentPage = 0;
+  TextEditingController _controller = TextEditingController();
+  String? userName; // To store the user's name
+  bool isLoading = true; // To show loading state while fetching data
 
   @override
   void initState() {
     super.initState();
-
-    // Initialize the page controller in the initState
+    _fetchUserData(); // Fetch user data when the page is initialized
     _pageController = PageController(initialPage: _currentPage);
 
     // Set up the timer to change the page every 3 seconds
-    _timer = Timer.periodic(Duration(seconds: 3), (Timer timer) {
+    _timer = Timer.periodic(Duration(seconds: 4), (Timer timer) {
       if (_currentPage < 2) {
         _currentPage++;
       } else {
@@ -42,6 +46,36 @@ class _HomepageState extends State<Homepage> {
         curve: Curves.easeInOut,
       );
     });
+  }
+
+  // Function to fetch user data from Firestore
+  Future<void> _fetchUserData() async {
+    try {
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.docIdUser)
+          .get();
+      print(userDoc);
+      // Check if the document exists and get the 'name' field
+      if (userDoc.exists) {
+        setState(() {
+          userName = userDoc['name'];
+          print("username==${userName}"); // Get the name from the document
+          isLoading = false;
+        });
+      } else {
+        setState(() {
+          userName = 'User not found';
+          isLoading = false;
+        });
+      }
+    } catch (e) {
+      setState(() {
+        userName = 'Error fetching user';
+        isLoading = false;
+      });
+      print('Error fetching user data: $e');
+    }
   }
 
   @override
@@ -62,8 +96,11 @@ class _HomepageState extends State<Homepage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(
-          'Hiii  ${userNotifier.firstName}  ${userNotifier.lastName}',
+        automaticallyImplyLeading: false, // Remove the back button
+        title: isLoading 
+        ? const CircularProgressIndicator()
+        : Text( 
+          userName != null ? "Hi, $userName": "Hi",
           style: const TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.white,
@@ -145,7 +182,7 @@ class _HomepageState extends State<Homepage> {
           ),
         ),
       ),
-      bottomNavigationBar: const Nav(initialIndex: 0,docIdUser: ,),
+      bottomNavigationBar:  Nav(initialIndex: 0,docIdUser: widget.docIdUser),
     );
   }
 

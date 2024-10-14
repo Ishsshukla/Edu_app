@@ -57,8 +57,8 @@ class MyApp extends StatelessWidget {
       create: (context) => UserNotifier(),
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/profile',
-        // initialRoute: '/otp_varification',
+        // initialRoute: '/login',
+        initialRoute: '/homepage',
 
         getPages: [
           GetPage(name: '/upi_screen', page: () => const UpiScreen()),
@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/paysucess', page: () => const Paysucesspage()),
           GetPage(name: '/optionpage', page: () => const OptionPage()),
           GetPage(name: '/courseoptionpage', page: () => const courseoptionPage()),
-          // GetPage(name: '/homepage', page: () => const Homepage()),
+          GetPage(name: '/homepage', page: () => const Homepage(docIdUser: '',)),
           // GetPage(name: '/profile', page: () => const Prflpage()),
           GetPage(name: '/congo', page: () => const Congopage()),
           GetPage(name: '/transaction_sucess', page: () => const transactionpage()),
@@ -85,7 +85,7 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/privacy', page: () => const PrivacyPage()),
           GetPage(name: '/news', page: () => const Newspage()),
           GetPage(name: '/courseoption', page: () =>  const CoursePageStudent()),
-          // GetPage(name: '/enrolledcrspage', page: () => enrolledcrspage()),
+          GetPage(name: '/enrolledcrspage', page: () => enrolledcrspage(courseData: {},)),
           GetPage(name: '/login', page: () => const LoginScreen()),
           GetPage(name: '/signup', page: () => const SignUpScreen()),
           // GetPage(name: '/splash2', page: () => const SplashScreen2()),

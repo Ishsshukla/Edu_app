@@ -205,7 +205,7 @@ class _PayMethodState extends State<PayMethodPage> {
 
                 // Divider and continue button
                 const Divider(color: Colors.grey),
-                const SizedBox(height: 10),
+                const SizedBox(height: 30),
                 Row(
                   children: [
                     // Total price text
@@ -214,21 +214,21 @@ class _PayMethodState extends State<PayMethodPage> {
                         Text(
                           'Total Price :  ',
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 20,
                             color: Colors.black,
                           ),
                         ),
                         Text(
                           '  RS 12000 only',
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(width: 34),
+                    const SizedBox(width: 24),
 
                     // Continue button
                     ElevatedButton(

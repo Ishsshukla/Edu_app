@@ -141,11 +141,9 @@ class _FinalpayState extends State<Finalpaypage> {
                     ],
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  
                   Row(
                     children: [
                       Column(
@@ -209,7 +207,7 @@ class _FinalpayState extends State<Finalpaypage> {
                           style: TextStyle(color: Colors.white, fontSize: 23),
                         ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: txtColor,
+                          backgroundColor: Color(0xFF4A90E2),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),

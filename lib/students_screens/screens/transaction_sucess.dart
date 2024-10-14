@@ -53,12 +53,12 @@ class _transactionpageState extends State<transactionpage> {
                     color: const Color(0xFF4A90E2),
                     textColor: Colors.white,
                     function: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => enrolledcrspage(),
-                      //   ),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => enrolledcrspage(courseData: {},),
+                        ),
+                      );
                     },
                   ),
                 ),
