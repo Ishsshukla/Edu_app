@@ -77,7 +77,7 @@ class _HomepageState extends State<teachHomepage> {
               ),
             ),
             SizedBox(
-              width: screenWidth * 0.18,
+              width: screenWidth * 0.1,
             ),
             Icon(
               Icons.notifications_rounded,

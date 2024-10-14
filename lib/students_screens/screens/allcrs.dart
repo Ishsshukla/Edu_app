@@ -162,7 +162,7 @@ class _CoursePageStudentState extends State<CoursePageStudent>
         ],
       ),
       bottomNavigationBar: Nav(
-        initialIndex: 0,
+        initialIndex: 1,
         docIdUser: widget.docIdUser,
       ),
     );
