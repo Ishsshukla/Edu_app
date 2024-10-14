@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: '/login',
-        // initialRoute: '/otp_varification',
+        // initialRoute: '/homepage',
 
         getPages: [
           GetPage(name: '/upi_screen', page: () => const UpiScreen()),
@@ -77,11 +77,14 @@ class MyApp extends StatelessWidget {
           // GetPage(name: '/profile', page: () => const Prflpage()),
           GetPage(name: '/congo', page: () => const Congopage()),
           GetPage(
-              name: '/transaction_sucess', page: () => const transactionpage()),
-          GetPage(name: '/review', page: () => Reviewpage()),
-          GetPage(name: '/paymethod', page: () => const PayMethodPage()),
-          GetPage(name: '/finalpay', page: () => Finalpaypage()),
-          GetPage(name: '/coursedescr', page: () => CourseDescriptionpage()),
+              name: '/transaction_sucess',
+              page: () => const transactionpage(
+                    userIdDoc: '',
+                  )),
+          // GetPage(name: '/review', page: () => Reviewpage()),
+          // GetPage(name: '/paymethod', page: () => const PayMethodPage()),
+          // GetPage(name: '/finalpay', page: () => Finalpaypage()),
+          // GetPage(name: '/coursedescr', page: () => CourseDescriptionpage()),
           // GetPage(name: '/chapterstudent', page: () => const ChapterPageStudent()),
           // GetPage(name: '/viewchapterstudent', page: () => const ViewChapterStudent()),
           // GetPage(name: '/ EnrolledCourseDescriptionPage', page: () =>  EnrolledCourseDescriptionPage()),

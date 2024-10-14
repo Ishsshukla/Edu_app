@@ -5,6 +5,8 @@ import 'package:edu_app/students_screens/screens/payment_method.dart';
 import 'package:flutter/material.dart';
 
 class Reviewpage extends StatefulWidget {
+  final String docIdUser;
+  const Reviewpage({super.key, required this.docIdUser});
   @override
   State<Reviewpage> createState() => _ReviewState();
 }
@@ -240,6 +242,7 @@ class _ReviewState extends State<Reviewpage> {
                     children: [
                       Column(
                         children: [
+                          const SizedBox(height: 15),
                           txt('Have a Coupon Code ?', context),
                           Padding(
                             padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -301,6 +304,7 @@ class _ReviewState extends State<Reviewpage> {
                       ),
                     ],
                   ),
+                  const SizedBox(height: 10),
                   const Divider(
                     color: Colors.grey,
                   ),
@@ -321,7 +325,7 @@ class _ReviewState extends State<Reviewpage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const PayMethodPage(),
+                              builder: (context) => PayMethodPage(docIdUser: widget.docIdUser,),
                             ),
                           );
                         },

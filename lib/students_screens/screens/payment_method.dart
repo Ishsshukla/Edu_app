@@ -5,7 +5,8 @@ import 'package:edu_app/students_screens/screens/final_pay.dart';
 import 'package:flutter/material.dart';
 
 class PayMethodPage extends StatefulWidget {
-  const PayMethodPage({super.key});
+  final String docIdUser;
+  const PayMethodPage({super.key, required this.docIdUser});
 
   @override
   State<PayMethodPage> createState() => _PayMethodState();
@@ -113,10 +114,12 @@ class _PayMethodState extends State<PayMethodPage> {
                     width: double.infinity,
                     height: 60,
                     decoration: BoxDecoration(
-                      color: isSelected1 ? const Color(0xFF4A90E2) : Colors.white,
+                      color:
+                          isSelected1 ? const Color(0xFF4A90E2) : Colors.white,
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
-                        color: isSelected1 ? const Color(0xFF4A90E2) : Colors.grey,
+                        color:
+                            isSelected1 ? const Color(0xFF4A90E2) : Colors.grey,
                         width: 2,
                       ),
                     ),
@@ -125,8 +128,9 @@ class _PayMethodState extends State<PayMethodPage> {
                         Padding(
                           padding: const EdgeInsets.all(10),
                           child: CircleAvatar(
-                            backgroundColor:
-                                isSelected1 ? const Color(0xFF4A90E2) : Colors.grey,
+                            backgroundColor: isSelected1
+                                ? const Color(0xFF4A90E2)
+                                : Colors.grey,
                             child: isSelected1
                                 ? const Icon(Icons.check, color: Colors.white)
                                 : null,
@@ -164,10 +168,12 @@ class _PayMethodState extends State<PayMethodPage> {
                     width: double.infinity,
                     height: 60,
                     decoration: BoxDecoration(
-                      color: isSelected2 ? const Color(0xFF4A90E2) : Colors.white,
+                      color:
+                          isSelected2 ? const Color(0xFF4A90E2) : Colors.white,
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
-                        color: isSelected2 ? const Color(0xFF4A90E2) : Colors.grey,
+                        color:
+                            isSelected2 ? const Color(0xFF4A90E2) : Colors.grey,
                         width: 2,
                       ),
                     ),
@@ -176,8 +182,9 @@ class _PayMethodState extends State<PayMethodPage> {
                         Padding(
                           padding: const EdgeInsets.all(10),
                           child: CircleAvatar(
-                            backgroundColor:
-                                isSelected2 ? const Color(0xFF4A90E2) : Colors.grey,
+                            backgroundColor: isSelected2
+                                ? const Color(0xFF4A90E2)
+                                : Colors.grey,
                             child: isSelected2
                                 ? const Icon(Icons.check, color: Colors.white)
                                 : null,
@@ -205,7 +212,7 @@ class _PayMethodState extends State<PayMethodPage> {
 
                 // Divider and continue button
                 const Divider(color: Colors.grey),
-                const SizedBox(height: 10),
+                const SizedBox(height: 30),
                 Row(
                   children: [
                     // Total price text
@@ -214,21 +221,21 @@ class _PayMethodState extends State<PayMethodPage> {
                         Text(
                           'Total Price :  ',
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 20,
                             color: Colors.black,
                           ),
                         ),
                         Text(
                           '  RS 12000 only',
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(width: 34),
+                    const SizedBox(width: 24),
 
                     // Continue button
                     ElevatedButton(
@@ -237,7 +244,7 @@ class _PayMethodState extends State<PayMethodPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => Finalpaypage(),
+                              builder: (context) => Finalpaypage(docIdUser: widget.docIdUser,),
                             ),
                           );
                         } else {
@@ -246,7 +253,8 @@ class _PayMethodState extends State<PayMethodPage> {
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 title: const Text('Error'),
-                                content: const Text('Please select a payment method.'),
+                                content: const Text(
+                                    'Please select a payment method.'),
                                 actions: [
                                   TextButton(
                                     onPressed: () {

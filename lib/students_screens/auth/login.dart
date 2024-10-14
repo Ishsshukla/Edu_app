@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:edu_app/components/const.dart';
 import 'package:edu_app/screens/authentication/phnhomr.dart';
 import 'package:edu_app/students_screens/screens/class_options.dart';
 import 'package:edu_app/students_screens/screens/home.dart';
@@ -9,6 +10,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../firebase_services/database.dart';
 import '../widgets/round_button.dart';
@@ -31,7 +33,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<void> userLogin() async {
@@ -133,6 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
   //   }
   // }
 
+  // Function to handle Google sign-in
   Future<UserCredential> _signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
     if (googleUser == null) {
@@ -142,8 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
     }
 
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
+    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
     final AuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
@@ -174,35 +175,35 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text(
-                  'Welcome to ',
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
+                Image.asset(
+                  'assets/Screenshot 2024-10-13 141015.png', // Ensure the path is correct
+                  height: 100,
+                  width: 100,
                 ),
-                const Text(
-                  'EduApp',
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-                const SizedBox(height: 60),
-                const Align(
+                const SizedBox(height: 20),
+                Align(
                   alignment: Alignment.center,
                   child: Text(
-                    'Login',
-                    style: TextStyle(
+                    'Welcome to SCF ',
+                    style: GoogleFonts.roboto(
                       fontSize: 30,
-                      fontWeight: FontWeight.w400,
+                      fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    ' Academy',
+                    style: GoogleFonts.roboto(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 60),
                 Form(
                   key: _formKey,
                   child: Column(
@@ -210,16 +211,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextFormField(
                         keyboardType: TextInputType.emailAddress,
                         controller: emailController,
-                        decoration: const InputDecoration(
-                          hintText: 'Email',
-                          prefixIcon: Icon(Icons.email),
+                        decoration: InputDecoration(
+                          hintText: 'Enter Your Email',
+                          prefixIcon: const Icon(Icons.email, color: Colors.black, size: 30.0),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Enter your email';
                           }
-                          if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                              .hasMatch(value)) {
+                          if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
                             return 'Enter a valid email';
                           }
                           return null;
@@ -231,13 +235,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         controller: passwordController,
                         obscureText: _obscureText,
                         decoration: InputDecoration(
-                          hintText: 'Password',
-                          prefixIcon: const Icon(Icons.lock_open),
+                          hintText: ' Enter Password',
+                          prefixIcon: const Icon(Icons.lock_open, color: Colors.black, size: 30.0),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
                           suffixIcon: IconButton(
                             icon: Icon(
-                              _obscureText
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
+                              _obscureText ? Icons.visibility : Icons.visibility_off,
                             ),
                             onPressed: () {
                               setState(() {
@@ -259,38 +264,55 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 50),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text("Forgot Password?"),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ForgotPassword()),
-                        );
-                      },
-                      child: const Text('Reset Password',
-                          style: TextStyle(color: Colors.black)),
-                    ),
-                  ],
-                ),
-                GestureDetector(
-                  child: RoundButton(
-                    title: 'Login',
-                    ontap: () {
-                      if (_formKey.currentState!.validate()) {
-                        setState(() {
-                          email = emailController.text;
-                          password = passwordController.text;
-                        });
-                        userLogin();
-                      }
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const ForgotPassword()),
+                      );
                     },
+                    child: const Text('Forgot Password?', style: TextStyle(color: Colors.black)),
                   ),
                 ),
+                const SizedBox(height: 70),
+                GestureDetector(
+  child: ElevatedButton(
+    onPressed: loading
+        ? null
+        : () {
+            if (_formKey.currentState!.validate()) {
+              setState(() {
+                email = emailController.text;
+                password = passwordController.text;
+                loading = true; // Start loading
+              });
+              userLogin();
+            }
+          },
+    style: ElevatedButton.styleFrom(
+      backgroundColor: const Color(0xFF4A90E2), // Set the button color
+      minimumSize: const Size(350, 60), // Set the button size directly
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
+    ),
+    child: loading
+        ? const CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+          )
+        : const Text(
+            'Login',
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.w700,
+              color: Colors.white,
+            ),
+          ),
+  ),
+),
+
                 const SizedBox(height: 5),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -300,12 +322,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => const SignUpScreen()),
+                          MaterialPageRoute(builder: (context) => const SignUpScreen()),
                         );
                       },
-                      child: const Text('Sign up',
-                          style: TextStyle(color: Colors.black)),
+                      child: const Text(
+                        'Sign up',
+                        style: TextStyle(
+                          color: Color(0xFF4A90E2), // Changed to blue to look clickable
+                          decoration: TextDecoration.underline, // Underline to indicate clickability
+                          fontWeight: FontWeight.bold, // Bold to make it more prominent
+                        ),
+                      ),
                     ),
                   ],
                 ),

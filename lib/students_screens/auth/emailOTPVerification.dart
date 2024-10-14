@@ -235,13 +235,18 @@
 //     );
 //   }
 // }
+
+
 import 'dart:math';
+import 'package:edu_app/components/const.dart' as components;
+import 'package:edu_app/constants/constants.dart';
 import 'package:edu_app/students_screens/screens/splash.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 
@@ -293,8 +298,7 @@ class _OTPVerificationEmailState extends State<OTPVerificationEmail> {
     generatedOtp = generateOtp(); // Generate the OTP
 
     // Use a package like 'mailer' to send OTP via email
-    final smtpServer = gmail('sandeep70802475@gmail.com',
-        'viho rqjw sree syzk'); // Set up SMTP server with Gmail
+    final smtpServer = gmail('sandeep70802475@gmail.com', 'viho rqjw sree syzk'); // Set up SMTP server with Gmail
 
     final message = Message()
       ..from = Address('sandeep70802475@gmail.com', 'Rahul')
@@ -309,9 +313,8 @@ class _OTPVerificationEmailState extends State<OTPVerificationEmail> {
       await _firestore.collection('otp_varification').doc(widget.email).set({
         'otp': generatedOtp,
         'createdAt': FieldValue.serverTimestamp(),
-        'expiresAt': DateTime.now()
-            .add(Duration(minutes: 5)),
-            'verified': false, // OTP expiry time (5 minutes)
+        'expiresAt': DateTime.now().add(Duration(minutes: 5)),
+        'verified': false, // OTP expiry time (5 minutes)
       });
       setState(() {
         isOtpSent = true;
@@ -387,44 +390,148 @@ class _OTPVerificationEmailState extends State<OTPVerificationEmail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('OTP Verification'),
+        elevation: 0,
+        title: Text(
+          "Verify Email",
+          style: GoogleFonts.poppins(
+            color: Colors.white,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: const Color(0xFF4A90E2),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            if (isOtpSent)
-              Column(
-                children: [
-                  TextField(
-                    controller: otpController,
-                    decoration: InputDecoration(
-                      labelText: 'Enter OTP',
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // const SizedBox(height: 10),
+              // Add a playful illustration above the OTP section
+                // Center(
+                Image.asset(
+                  'assets/DALL·E 2024-10-13 13.45.50 - A professional and visually engaging illustration for verifying email, designed for students, in a blue theme. The image features a dynamic, minimalis.webp', // Placeholder for email verification image
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: 250, // Adjust the height as needed
+                ),
+                // ),
+              const SizedBox(height: 40),
+                Padding(
+                padding: const EdgeInsets.fromLTRB(20, 2  , 20, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                  Text(
+                    "Enter your OTP",
+                    style: GoogleFonts.lato(
+                      color:  Colors.black,
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
                     ),
-                    keyboardType: TextInputType.number,
                   ),
-                  SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: loading ? null : verifyOtp,
-                    child: loading
-                        ? CircularProgressIndicator()
-                        : Text('Verify OTP'),
+                  const SizedBox(height: 16),
+                  Text(
+                    "A verification code has been sent to your email ${widget.email}. Please enter the code below to verify your email address.",
+                    style: GoogleFonts.poppins(
+                    color: components.textColor.withOpacity(0.9),
+                    fontSize: 16,
+                    ),
                   ),
-                ],
-              ),
-            if (!isOtpSent && !loading)
-              ElevatedButton(
-                onPressed: sendOtpToEmail,
-                child: Text('Resend OTP'),
-              ),
-            if (loading)
-              Center(
-                child: CircularProgressIndicator(),
-              ),
-          ],
+                  const SizedBox(height: 40),
+                  if (isOtpSent)
+                    Column(
+                    children: [
+                        TextField(
+                        controller: otpController,
+                        keyboardType: TextInputType.number,
+                        style: GoogleFonts.poppins(fontSize: 18),
+                        decoration: InputDecoration(
+                        labelText: 'OTP Code',
+                        labelStyle: GoogleFonts.poppins(color: Colors.black),
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(color: Colors.black54), // Rectangular border
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: 18, horizontal: 20),
+                        // suffixIcon: Icon(
+                        //   Icons.lock_outline,
+                        //   color: Colors.black54,
+                        // ),
+                        ),
+                        ),
+                      const SizedBox(height: 24),
+                      ElevatedButton(
+                      onPressed: loading ? null : verifyOtp,
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: const Color(0xFF4A90E2),
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        minimumSize: const Size.fromHeight(48),
+                        shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        ),
+                        shadowColor: Colors.blueAccent,
+                        elevation: 5,
+                      ),
+                      child: loading
+                        ? const CircularProgressIndicator(
+                          valueColor:
+                            AlwaysStoppedAnimation<Color>(Colors.white),
+                          )
+                        : Text(
+                          'Verify OTP',
+                          style: GoogleFonts.poppins(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          ),
+                      ),
+                    ],
+                    ),
+                  ],
+                ),
+                ),
+              if (!isOtpSent && !loading)
+                ElevatedButton(
+                  onPressed: sendOtpToEmail,
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: const Color(0xFF4A90E2),
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    minimumSize: const Size.fromHeight(48),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    shadowColor: Colors.blueAccent,
+                    elevation: 5,
+                  ),
+                  child: Text(
+                    'Resend OTP',
+                    style: GoogleFonts.poppins(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              if (loading)
+                const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              const SizedBox(height: 30),
+            ],
+          ),
         ),
       ),
     );
   }
 }
+
+

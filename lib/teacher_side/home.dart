@@ -76,7 +76,7 @@ class _HomepageState extends State<teachHomepage> {
 
             // txt('what you want to learn today', context),
             SizedBox(
-              width: 68,
+              width: 28,
             ),
             Icon(
               Icons.notifications_rounded,

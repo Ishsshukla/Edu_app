@@ -16,27 +16,15 @@ class CoursePageStudent extends StatefulWidget {
   State<CoursePageStudent> createState() => _CoursePageStudentState();
 }
 
-class _CoursePageStudentState extends State<CoursePageStudent> with SingleTickerProviderStateMixin {
+class _CoursePageStudentState extends State<CoursePageStudent>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
-
-  // Sample data for All Courses and My Courses
-  // List<Map<String, String?>> allCourses = [
-  //   {'img': 'assets/CoursePreview.png', 'name': 'Introduction to Algebra'},
-  //   {'img': 'assets/CoursePreview.png', 'name': 'Geometry Basics'},
-  //   {'img': 'assets/CoursePreview.png', 'name': 'Trigonometry'},
-  //   {'img': 'assets/CoursePreview.png', 'name': 'Calculus'},
-  // ];
-
-  // List<Map<String, String>> chapters = [
-  //   {'img': 'assets/CoursePreview.png', 'name': 'Introduction to Algebra'},
-  //   {'img': 'assets/CoursePreview.png', 'name': 'Trigonometry'},
-  // ];
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-     fetchCourses(); 
+    fetchCourses();
   }
 
   @override
@@ -51,7 +39,9 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
       context,
       MaterialPageRoute(
         // builder: (context) =>  CourseDescriptionpage(courseData: {'description': 'coursedescr'}), // Ensure you have this page for course description
-        builder: (context) =>  CourseDescriptionpage(), 
+        builder: (context) => CourseDescriptionpage(
+          docIdUser: widget.docIdUser,
+        ),
       ),
     );
   }
@@ -65,20 +55,24 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
   //     ),
   //   );
   // }
-    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  List<Map<String, dynamic>> chapters = [
-  ];
- // Fetch courses from Firestore
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  List<Map<String, dynamic>> chapters = [];
+  // Fetch courses from Firestore
   Future<void> fetchCourses() async {
     try {
-      QuerySnapshot snapshot = await _firestore.collection('course_content').get();
-         List<Map<String, dynamic>> fetchedCourses = snapshot.docs.map((doc) {
+      QuerySnapshot snapshot =
+          await _firestore.collection('course_content').get();
+      List<Map<String, dynamic>> fetchedCourses = snapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
         // print(data);
         return {
           'img': 'assets/CoursePreview.png',
-          'name': data.containsKey('courseName') ? data['courseName'] : 'Unknown Course',
-          'description': data.containsKey('description') ? data['description'] : 'No description available',
+          'name': data.containsKey('courseName')
+              ? data['courseName']
+              : 'Unknown Course',
+          'description': data.containsKey('description')
+              ? data['description']
+              : 'No description available',
         };
       }).toList();
 
@@ -87,8 +81,7 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
         // print("Courses fetched successfully=${chapters}");
       });
       // print("Courses fetched successfully=${chapters}");
-    } 
-    catch (e) {
+    } catch (e) {
       // print("Error fetching courses: $e");
     }
   }
@@ -96,7 +89,7 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
   // @override
   // void initState() {
   //   super.initState();
-   
+
   // }
 
   @override
@@ -136,11 +129,13 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
               padding: const EdgeInsets.symmetric(vertical: 20),
               child: Column(
                 children: chapters.map((course) {
-                  return crstxtforstudent(
-                    course['img'] ?? 'assets/default.png', // Provide a default value if null
+                  return crstxtforstudentDataBuy(
+                    course['img'] ??
+                        'assets/default.png', // Provide a default value if null
                     course['name'] ?? 'No Name', // Handle null course name
-                    'coursedescr', // Your course description route
+                    // Your course description route
                     context,
+                    widget.docIdUser,
                     // onTap: () {
                     //   _navigateToCourseDescription(course['coursedescr'] ?? 'No Name'); // Navigate to course description
                     // },
@@ -154,29 +149,25 @@ class _CoursePageStudentState extends State<CoursePageStudent> with SingleTicker
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),
               child: Column(
-                children: 
-            chapters.map((chapter) {
-              return crstxtforstudentData(
-                chapter['img']!,
-                chapter['name']!,
-                context,
-                chapter,
-              
-              );
-            }).toList()
-              ),
+                  children: chapters.map((chapter) {
+                return crstxtforstudentData(
+                  chapter['img']!,
+                  chapter['name']!,
+                  context,
+                  chapter,
+                );
+              }).toList()),
             ),
           ),
         ],
       ),
-       bottomNavigationBar: Nav(
+      bottomNavigationBar: Nav(
         initialIndex: 0,
         docIdUser: widget.docIdUser,
       ),
     );
   }
 }
-
 
 Widget crstxtforstudentData(
   String img,
@@ -189,10 +180,12 @@ Widget crstxtforstudentData(
     child: Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(15), // Increased border radius for a smoother look
+        borderRadius: BorderRadius.circular(
+            15), // Increased border radius for a smoother look
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.3), // Softer shadow for a modern look
+            color:
+                Colors.grey.withOpacity(0.3), // Softer shadow for a modern look
             spreadRadius: 2,
             blurRadius: 8,
             offset: const Offset(0, 4), // Adds more depth
@@ -200,9 +193,11 @@ Widget crstxtforstudentData(
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 10, 10, 7), // Padding inside the container for a clean layout
+        padding: const EdgeInsets.fromLTRB(
+            10, 10, 10, 7), // Padding inside the container for a clean layout
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center, // Center the items vertically
+          crossAxisAlignment:
+              CrossAxisAlignment.center, // Center the items vertically
           children: [
             // Image Section
             Image.asset(img, scale: 12),
@@ -211,7 +206,8 @@ Widget crstxtforstudentData(
             // Text and Button Section
             Expanded(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start, // Align text to the left
+                crossAxisAlignment:
+                    CrossAxisAlignment.start, // Align text to the left
                 children: [
                   Text(
                     text,
@@ -222,26 +218,117 @@ Widget crstxtforstudentData(
                     ),
                   ),
                   const SizedBox(height: 10),
-                   ElevatedButton(
+                  ElevatedButton(
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => enrolledcrspage( courseData: courseData), // Passing courseData
+                          builder: (context) => enrolledcrspage(
+                              courseData: courseData), // Passing courseData
                         ),
                       );
                     },
                     style: ElevatedButton.styleFrom(
                       elevation: 3,
-                      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-                      backgroundColor: const Color(0xFF4A90E2), // Custom button color
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 12, horizontal: 24),
+                      backgroundColor:
+                          const Color(0xFF4A90E2), // Custom button color
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8), // Rounded corners for the button
+                        borderRadius: BorderRadius.circular(
+                            8), // Rounded corners for the button
                       ),
                     ),
                     child: const Text(
                       'View Course',
-                      style: TextStyle(fontSize: 16, color: Colors.white), // White text color
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white), // White text color
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+Widget crstxtforstudentDataBuy(
+    String img, String text, BuildContext context, String docIdUser
+    // Map<String, dynamic> courseData, // Passing the course data to the widget
+    ) {
+  return Padding(
+    padding: const EdgeInsets.fromLTRB(20, 20, 20, 15), // Consistent padding
+    child: Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(
+            15), // Increased border radius for a smoother look
+        boxShadow: [
+          BoxShadow(
+            color:
+                Colors.grey.withOpacity(0.3), // Softer shadow for a modern look
+            spreadRadius: 2,
+            blurRadius: 8,
+            offset: const Offset(0, 4), // Adds more depth
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(
+            10, 10, 10, 7), // Padding inside the container for a clean layout
+        child: Row(
+          crossAxisAlignment:
+              CrossAxisAlignment.center, // Center the items vertically
+          children: [
+            // Image Section
+            Image.asset(img, scale: 12),
+            const SizedBox(width: 15), // Space between image and text
+
+            // Text and Button Section
+            Expanded(
+              child: Column(
+                crossAxisAlignment:
+                    CrossAxisAlignment.start, // Align text to the left
+                children: [
+                  Text(
+                    text,
+                    style: const TextStyle(
+                      fontSize: 18, // Larger font for course title
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500, // Medium weight for emphasis
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CourseDescriptionpage(
+                              docIdUser: docIdUser), // Passing courseData
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      elevation: 3,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 12, horizontal: 24),
+                      backgroundColor:
+                          const Color(0xFF4A90E2), // Custom button color
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            8), // Rounded corners for the button
+                      ),
+                    ),
+                    child: const Text(
+                      'View Course',
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white), // White text color
                     ),
                   ),
                 ],

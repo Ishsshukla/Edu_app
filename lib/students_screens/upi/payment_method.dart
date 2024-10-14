@@ -235,12 +235,12 @@ class _PayMethodState extends State<PayMethodPage> {
                     ElevatedButton(
                       onPressed: () {
                         if (isSelected1 || isSelected2) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Finalpaypage(),
-                            ),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => Finalpaypage(),
+                          //   ),
+                          // );
                         } else {
                           showDialog(
                             context: context,

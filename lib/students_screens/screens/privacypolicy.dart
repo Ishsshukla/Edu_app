@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class PrivacyPage extends StatefulWidget {
-  const PrivacyPage({super.key}); // Add named 'key' parameter to the constructor
+  const PrivacyPage(
+      {super.key}); // Add named 'key' parameter to the constructor
 
   @override
   State<PrivacyPage> createState() => _PrivacyState();

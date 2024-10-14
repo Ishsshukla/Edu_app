@@ -3,7 +3,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edu_app/components/button.dart';
 import 'package:edu_app/components/profie_text_edit.dart';
+// import 'package:edu_app/screens/authentication/login_screen.dart';
 import 'package:edu_app/screens/navbar.dart';
+import 'package:edu_app/students_screens/auth/login.dart';
+import 'package:edu_app/students_screens/screens/privacypolicy.dart';
 import 'package:edu_app/teacher_side/navbar.dart';
 import 'package:flutter/material.dart';
 
@@ -17,15 +20,13 @@ class Prflpage extends StatefulWidget {
 class _PrflpageState extends State<Prflpage> {
   int? phoneNo;
   String? email;
-  // String? password;
-
-  String? userName; // To store the user's name
+  String? userName;
   bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    _fetchUserData(); // Fetch user data when the page is initialized
+    _fetchUserData();
   }
 
   // Function to fetch user data from Firestore
@@ -66,98 +67,154 @@ class _PrflpageState extends State<Prflpage> {
     // final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(100.0, 10, 0, 20),
-                    child: Column(
+      body: isLoading // Show loader if data is still loading
+          ? Center(
+              child: CircularProgressIndicator(), // Loader
+            )
+          : SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Row(
+                      // mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const SizedBox(
-                          height: 35,
-                        ),
-                        Image.asset(
-                          'assets/profile.png',
-                          scale: 4.5,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Text(
-                          'ishii',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 17, 1, 1),
-                            letterSpacing: 1.0,
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'poppins',
-                          ),
-                        ),
-                        const Text(
-                          '@ishi2048',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 17, 1, 1),
-                            letterSpacing: 1.0,
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                            fontFamily: 'poppins',
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0.0, 10, 0, 20),
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 35,
+                              ),
+                              Image.asset(
+                                'assets/profile.png',
+                                scale: 4.5,
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                '$userName',
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 17, 1, 1),
+                                  letterSpacing: 1.0,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'poppins',
+                                ),
+                              ),
+                              Text(
+                                '$email',
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 17, 1, 1),
+                                  letterSpacing: 1.0,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  fontFamily: 'poppins',
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0.0, 0, 0, 0),
-                    child: Column(
+                    Row(
                       children: [
-                        prflTxtEdit(
-                            Icons.near_me_rounded, 'Name', userName, context),
-                        const SizedBox(
-                          height: 0,
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0.0, 0, 0, 0),
+                          child: Column(
+                            children: [
+                              prflTxtEdit(Icons.near_me_rounded, 'Name',
+                                  userName, context),
+                              const SizedBox(
+                                height: 0,
+                              ),
+                              prflTxtEdit(Icons.email, 'Email', email, context),
+                              const SizedBox(
+                                height: 0,
+                              ),
+                              // prflTxtEdit(Icons.lock_open_outlined, 'Password',
+                              //     '52535454436', context),
+                              // const SizedBox(
+                              //   height: 0,
+                              // ),
+                              prflTxtEdit(Icons.phone_android, 'Phone Number',
+                                  "$phoneNo", context),
+                              const SizedBox(
+                                height: 0,
+                              ),
+                            ],
+                          ),
                         ),
-                        prflTxtEdit(Icons.email, 'Email', email, context),
                         const SizedBox(
-                          height: 0,
-                        ),
-                        // prflTxtEdit(Icons.lock_open_outlined, 'Password',
-                        //     '52535454436', context),
-                        // const SizedBox(
-                        //   height: 0,
-                        // ),
-                        prflTxtEdit(Icons.phone_android, 'Phone Number',
-                            "$phoneNo", context),
-                        const SizedBox(
-                          height: 0,
+                          width: 10,
                         ),
                       ],
                     ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                ],
+                    // SizedBox(height: screenHeight * 0.03),
+                    // const SizedBox(height: 40),
+                    const SizedBox(height: 40),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.security_rounded,
+                            color: Color(0xFF4A90E2), size: 32),
+                        const SizedBox(width: 16),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const PrivacyPage(),
+                              ),
+                            );
+                          },
+                          child: const Text(
+                            'Privacy Policy',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Color(0xFF4A90E2),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 40),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // Perform logout logic here
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const LoginScreen()),
+                            (route) => false,
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF4A90E2),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 32, vertical: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                        ),
+                        child: const Text(
+                          'Logout',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              SizedBox(height: screenHeight * 0.03),
-              CustomButton(
-                  text: 'Log Out',
-                  color: Colors.blue.shade700,
-                  textColor: Colors.white,
-                  function: () {})
-            ],
-          ),
-        ),
-      ),
+            ),
       bottomNavigationBar:
           NavTeacher(initialIndex: 2, docidUser: widget.docidUser),
     );
