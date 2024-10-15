@@ -217,43 +217,44 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
     }
   }
 
-  Future<void> _saveChanges() async {
+ Future<void> _saveChanges() async {
+  setState(() {
+    _isLoading = true; // Start loading
+  });
+  try {
+    List<String> updatedPdfUrls = [...pdfUrls]; // Keep the old ones
+    List<String> updatedImageUrls = [...imageUrls]; // Keep the old ones
+
+    // Upload new PDFs and add their URLs to the list
+    await _uploadPdfFiles(updatedPdfUrls);
+
+    // Upload new images and add their URLs to the list
+    await _uploadImageFiles(updatedImageUrls);
+
+    // Update the course document in Firestore
+    await _updateCourseData(
+      _courseNameController.text,
+      _lessonNameController.text,
+      _youtubeLinkController.text,
+      updatedPdfUrls,
+      updatedImageUrls,
+      _notesController.text,
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Changes saved successfully!')),
+    );
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Error saving changes')),
+    );
+  } finally {
     setState(() {
-      _isLoading = true; // Start loading
+      _isLoading = false; // Stop loading after process completion
     });
-    try {
-      List<String> updatedPdfUrls = [...pdfUrls]; // Keep the old ones
-      List<String> updatedImageUrls = [...imageUrls]; // Keep the old ones
-
-      // Upload new PDFs and add their URLs to the list
-      await _uploadPdfFiles(updatedPdfUrls);
-
-      // Upload new images and add their URLs to the list
-      await _uploadImageFiles(updatedImageUrls);
-
-      // Update the course document in Firestore
-      await _updateCourseData(
-        _courseNameController.text,
-        _lessonNameController.text,
-        _youtubeLinkController.text,
-        updatedPdfUrls,
-        updatedImageUrls,
-        _notesController.text,
-      );
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Changes saved successfully!')),
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Error saving changes')),
-      );
-    } finally {
-      setState(() {
-        _isLoading = false; // Stop loading after process completion
-      });
-    }
   }
+}
+
 
   void _deletePdf(int index) {
     setState(() {
@@ -307,6 +308,7 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
         appBar: AppBar(
           title: const Text(
             "Edit Chapter",
@@ -327,9 +329,9 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Course Name',
+                const Text('Course ',
                     style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
                 TextField(
                   controller: _courseNameController,
@@ -339,9 +341,9 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                const Text('Chapter Name',
+                const Text('Chapter ',
                     style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
                 TextField(
                   controller: _lessonNameController,
@@ -353,189 +355,267 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
                 const SizedBox(height: 20),
                 const Text('Class Link (YouTube)',
                     style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 8),
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                
+                const SizedBox(height: 10),
                 TextField(
                   controller: _youtubeLinkController,
-                  decoration: const InputDecoration(
-                    hintText: 'Enter YouTube Link',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                  hintText: 'Enter YouTube Link',
+                  border: OutlineInputBorder(),
+                  suffixIcon: IconButton(
+                    icon: const Icon(Icons.play_circle_fill, color: Colors.red),
+                    onPressed: _launchYoutubeLink,
+                  ),
                   ),
                 ),
-                const SizedBox(height: 10),
-                TextButton(
-                  onPressed: _launchYoutubeLink,
-                  child: const Text('Open YouTube Link'),
-                ),
+               
                 const SizedBox(height: 20),
-                const Text('Teacher Notes',
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 8),
-                TextField(
-                  controller: _notesController,
-                  decoration: const InputDecoration(
-                    hintText: 'Enter Notes Here',
-                    border: OutlineInputBorder(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                    const Text('Upload PDFs',
+                      style: TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 8),
+                    ElevatedButton.icon(
+                      onPressed: _pickPdfFiles,
+                      icon: const Icon(Icons.picture_as_pdf,
+                        color: Colors.white),
+                      label: const Text('Pick PDFs',
+                        style: TextStyle(color: Colors.white)),
+                      style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF4A90E2), // Button color
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10), // Rounded corners
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 12,
+                        horizontal: 20), // Padding inside the button
+                      ),
+                    ),
+                    ],
                   ),
-                ),
-                const SizedBox(height: 20),
-                const Text('Upload PDF Files',
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 8),
-                ElevatedButton.icon(
-                  onPressed: _pickPdfFiles,
-                  icon: const Icon(Icons.picture_as_pdf),
-                  label: const Text('Pick PDFs'),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                    const Text('Upload Images',
+                      style: TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 8),
+                    ElevatedButton.icon(
+                      onPressed: _pickImageFiles,
+                      icon: const Icon(Icons.image, color: Colors.white),
+                      label: const Text('Pick Images',
+                        style: TextStyle(color: Colors.white)),
+                      style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF4A90E2), // Button color
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10), // Rounded corners
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 12,
+                        horizontal: 20), // Padding inside the button
+                      ),
+                    ),
+                    ],
+                  ),
+                  ],
                 ),
                 const SizedBox(height: 10),
                 ListView.builder(
                   shrinkWrap: true,
                   itemCount: _pickedPdfFiles.length,
                   itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(_pickedPdfFiles[index].path.split('/').last),
+                  return ListTile(
+                    title: Text(_pickedPdfFiles[index].path.split('/').last),
 
-                      // On tapping the entire tile, you can make the download function trigger
-                      onTap: () async {
-                        await launchUrl(Uri.file(_pickedPdfFiles[index]
-                            .path)); // Download or open the PDF
-                      },
+                    // On tapping the entire tile, you can make the download function trigger
+                    onTap: () async {
+                    await launchUrl(Uri.file(_pickedPdfFiles[index]
+                      .path)); // Download or open the PDF
+                    },
 
-                      // Adding both delete and download buttons to the right
-                      trailing: Row(
-                        mainAxisSize:
-                            MainAxisSize.min, // Keep the row minimal in size
-                        children: [
-                          // Delete Button
-                          IconButton(
-                            icon: const Icon(Icons.delete, color: Colors.red),
-                            onPressed: () =>
-                                _deletePdf(index), // Call the delete function
-                          ),
-
-                          // Download Button
-                          IconButton(
-                            icon: const Icon(Icons.download),
-                            onPressed: () async {
-                              _launchPdf(_pickedPdfFiles[index].path);
-                              // await launchUrl(Uri.file(_pickedPdfFiles[index]
-                              //     .path)); // Open/download PDF
-                            },
-                          ),
-                        ],
+                    // Adding both delete and download buttons to the right
+                    trailing: Row(
+                    mainAxisSize:
+                      MainAxisSize.min, // Keep the row minimal in size
+                    children: [
+                      // Delete Button
+                      IconButton(
+                      icon: const Icon(Icons.delete, color: Colors.red),
+                      onPressed: () =>
+                        _deletePdf(index), // Call the delete function
                       ),
-                    );
+
+                      // Download Button
+                      IconButton(
+                      icon: const Icon(Icons.download),
+                      onPressed: () async {
+                        _launchPdf(_pickedPdfFiles[index].path);
+                        // await launchUrl(Uri.file(_pickedPdfFiles[index]
+                        //     .path)); // Open/download PDF
+                      },
+                      ),
+                    ],
+                    ),
+                  );
                   },
                 ),
                 const SizedBox(height: 20),
-                const Text('Upload Image Files',
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 8),
-                ElevatedButton.icon(
-                  onPressed: _pickImageFiles,
-                  icon: const Icon(Icons.image),
-                  label: const Text('Pick Images'),
-                ),
-                const SizedBox(height: 10),
                 GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, // Number of images in a row
-                    childAspectRatio: 1.0, // To make the grid square
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
+                  crossAxisCount: 2, // Number of images in a row
+                  childAspectRatio: 1.0, // To make the grid square
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
                   ),
                   itemCount: _pickedImageFiles.length,
                   itemBuilder: (context, index) {
-                    return Stack(
-                      children: [
-                        // The image itself
-                        Positioned.fill(
-                          child: GestureDetector(
-                            onTap: () async {
-                              await launchUrl(Uri.file(_pickedImageFiles[index]
-                                  .path)); // Open the image
-                            },
-                            child: Image.file(
-                              _pickedImageFiles[
-                                  index], // Display the picked image
-                              fit: BoxFit
-                                  .cover, // Ensure the image fits within the grid tile
-                            ),
-                          ),
-                        ),
-                        // Delete button in the top-right corner
-                        Positioned(
-                          top: 5,
-                          right: 5,
-                          child: IconButton(
-                            icon: const Icon(Icons.delete, color: Colors.red),
-                            onPressed: () =>
-                                _deleteImage(index), // Call the delete function
-                          ),
-                        ),
-                      ],
-                    );
+                  return Stack(
+                    children: [
+                    // The image itself
+                    Positioned.fill(
+                      child: GestureDetector(
+                      onTap: () async {
+                        await launchUrl(Uri.file(_pickedImageFiles[index]
+                          .path)); // Open the image
+                      },
+                      child: Image.file(
+                        _pickedImageFiles[
+                          index], // Display the picked image
+                        fit: BoxFit
+                          .cover, // Ensure the image fits within the grid tile
+                      ),
+                      ),
+                    ),
+                    // Delete button in the top-right corner
+                    Positioned(
+                      top: 5,
+                      right: 5,
+                      child: IconButton(
+                      icon: const Icon(Icons.delete, color: Colors.red),
+                      onPressed: () =>
+                        _deleteImage(index), // Call the delete function
+                      ),
+                    ),
+                    ],
+                  );
                   },
                 ),
                 const SizedBox(height: 20),
                 if (pdfUrls.isNotEmpty) ...[
-                  const Text(
-                    "Uploaded PDFs:",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                    decoration: BoxDecoration(
+                    color: Colors.blue.shade50,
+                    border: Border.all(color: Colors.blue.shade200),
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                      color: Colors.blue.shade100.withOpacity(0),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: const Offset(0, 3),
+                      ),
+                    ],
+                    ),
+                    child: Row(
+                    children: [
+                      const Icon(Icons.picture_as_pdf, color: Colors.blue),
+                      const SizedBox(width: 10),
+                      const Text(
+                      "Uploaded PDFs:",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue,
+                      ),
+                      ),
+                    ],
+                    ),
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 15),
                   ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: pdfUrls.length,
                     itemBuilder: (context, index) {
-                      return Card(
+                        return Card(
+                        elevation: 3,
+                        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                         child: ListTile(
-                          leading: const Icon(Icons.picture_as_pdf),
-                          title: Text('PDF File ${index + 1}'),
-
-                          // Make the entire tile clickable for downloading
+                          leading: const Icon(Icons.picture_as_pdf, color: Colors.redAccent),
+                          title: Text(
+                            pdfUrls[index].split('/').last.replaceAll('pdfs%2F', '').split('.pdf').first.replaceAll('%', '_').substring(0, 20),
+                          style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black87),
+                          ),
                           onTap: () async {
-                            await launchUrl(Uri.parse(pdfUrls[index]));
+                          await launchUrl(Uri.parse(pdfUrls[index]));
                           },
-
-                          // Adding a delete button to the right of the tile
                           trailing: Row(
-                            mainAxisSize: MainAxisSize
-                                .min, // Make the row as small as possible
-                            children: [
-                              IconButton(
-                                icon:
-                                    const Icon(Icons.delete, color: Colors.red),
-                                onPressed: () {
-                                  removePdf(
-                                      index); // Call the removePdf function
-                                },
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                            icon: const Icon(Icons.delete, color: Colors.red),
+                            onPressed: () {
+                              removePdf(index);
+                            },
+                            ),
+                            IconButton(
+                            icon: const Icon(Icons.download, color: Colors.blue),
+                            onPressed: () async {
+                              await launchUrl(Uri.parse(pdfUrls[index]));
+                            },
+                            ),
+                          ],
+                          ),
+                        ),
+                        );
+                    },
+                  ),
+                ],
+                SizedBox(height: 25,),
+                if (imageUrls.isNotEmpty) ...[
+                        Container(
+                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                          decoration: BoxDecoration(
+                            color: Colors.blue.shade50,
+                            border: Border.all(color: Colors.blue.shade200),
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.blue.shade100.withOpacity(0),
+                                spreadRadius: 2,
+                                blurRadius: 5,
+                                offset: const Offset(0, 3),
                               ),
-                              IconButton(
-                                icon: const Icon(Icons.download),
-                                onPressed: () async {
-                                  await launchUrl(Uri.parse(pdfUrls[index]));
-                                },
+                            ],
+                          ),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.image, color: Colors.blue),
+                              const SizedBox(width: 10),
+                              const Text(
+                                "Uploaded Images:",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue,
+                                ),
                               ),
                             ],
                           ),
                         ),
-                      );
-                    },
-                  ),
-                ],
-                if (imageUrls.isNotEmpty) ...[
-                  const Text(
-                    "Uploaded Images:",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 15),
                   GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
@@ -582,28 +662,39 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
           ),
         ),
         bottomNavigationBar: BottomAppBar(
-          color: Colors.white,
-          child: Padding(
-            padding: const EdgeInsets.all(0), // Adjust padding as needed
-            child: ElevatedButton(
-              onPressed: _saveChanges, // Call save changes function
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                    vertical: 5), // Padding inside the button
-                backgroundColor: const Color(
-                    0xFF4A90E2), // Blue color similar to the one in the image
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10), // Rounded corners
-                ),
+  color: Colors.white,
+  child: Padding(
+    padding: const EdgeInsets.all(0), // Adjust padding as needed
+    child: ElevatedButton(
+      onPressed: _isLoading
+          ? null // Disable the button while loading
+          : _saveChanges, // Call save changes function when not loading
+      style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(
+            vertical: 5), // Padding inside the button
+        backgroundColor: const Color(0xFF4A90E2), // Blue color
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10), // Rounded corners
+        ),
+      ),
+      child: _isLoading
+          ? const SizedBox(
+              height: 24,
+              width: 24,
+              child: CircularProgressIndicator(
+                color: Colors.white, // Loader color
+                strokeWidth: 2.0, // Thinner loader
               ),
-              child: const Text(
-                'Save Changes', // Button text
-                style:
-                    TextStyle(fontSize: 23, color: Colors.white), // Text style
-              ),
+            )
+          : const Text(
+              'Save Changes', // Button text when not loading
+              style: TextStyle(fontSize: 23, color: Colors.white),
             ),
-          ),
-        ));
+    ),
+  ),
+),
+
+        );
   }
 }
 // ...........................................................................

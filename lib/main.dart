@@ -29,7 +29,7 @@ import 'package:edu_app/students_screens/upi/upi_screen.dart';
 import 'package:edu_app/teacher_side/home.dart';
 import 'package:edu_app/teacher_side/screens/Edit_course.dart';
 import 'package:edu_app/teacher_side/screens/chapter_screen.dart';
-import 'package:edu_app/teacher_side/screens/contenteditcourse.dart';
+import 'package:edu_app/teacher_side/screens/Edit_chapter.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
