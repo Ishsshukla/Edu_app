@@ -26,7 +26,7 @@ class _FinalpayState extends State<Finalpaypage> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(paddingHorizontal, paddingVertical, paddingHorizontal, 0),
+              padding: EdgeInsets.fromLTRB(paddingHorizontal, paddingVertical,0, 0),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -193,7 +193,7 @@ class _FinalpayState extends State<Finalpaypage> {
                         ],
                       ),
                       SizedBox(
-                        width: screenWidth * 0.1,
+                        width: screenWidth * 0.09,
                       ),
                       ElevatedButton(
                         onPressed: () {

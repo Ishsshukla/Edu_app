@@ -10,7 +10,7 @@ Widget reivewtxt(
 ) {
   return SingleChildScrollView(
     child: Padding(
-      padding: const EdgeInsets.only(left: 0, right: 0, top: 10, bottom: 0),
+      padding: const EdgeInsets.only(left:0, right: 0, top: 10, bottom: 0),
       child: Column(
         children: [
           Image.asset(img, scale: 2.5),
