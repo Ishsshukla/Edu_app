@@ -390,71 +390,148 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance; // Initialize Firestore instance
 
+  // void registration() async {
+  //   if (selectedRole != null) {
+  //     setState(() {
+  //       loading = true; // Show loader when registration starts
+  //     });
+  //     try {
+  //       UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+  //         email: email,
+  //         password: password,
+  //       );
+
+  //       // Save additional user data to Firestore
+  //       await _firestore.collection('users').doc(userCredential.user!.uid).set({
+  //         'email': email,
+  //         'role': selectedRole,
+  //         'createdAt': Timestamp.now(),
+  //         'name': name,
+  //         'phoneNo': phone,
+  //       });
+
+  //       if (mounted) {
+  //         ScaffoldMessenger.of(context).showSnackBar(
+  //           SnackBar(
+  //             content: const Text(
+  //               'Registration Successful',
+  //               style: TextStyle(color: Colors.white, fontSize: 20),
+  //             ),
+  //             backgroundColor: txtColor,
+  //           ),
+  //         );
+  //       }
+
+  //       if (selectedRole == 'Student') {
+  //          Navigator.push(
+  //           context, MaterialPageRoute(builder: (context) => OTPVerificationEmail(email: email)));
+  //       }
+  //       else{
+  //          Navigator.push(
+  //           context, MaterialPageRoute(builder: (context) => teachHomepage(docidUser: '',)));
+  //       }
+  //     } on FirebaseAuthException catch (e) {
+  //       String errorMsg = '';
+  //       if (e.code == 'weak-password') {
+  //         errorMsg = 'The password provided is too weak.';
+  //       } else if (e.code == 'email-already-in-use') {
+  //         errorMsg = 'The account already exists for that email.';
+  //       }
+  //       if (mounted) {
+  //         ScaffoldMessenger.of(context).showSnackBar(
+  //           SnackBar(
+  //             content: Text(
+  //               errorMsg,
+  //               style: const TextStyle(color: Colors.white, fontSize: 20),
+  //             ),
+  //             backgroundColor: txtColor,
+  //           ),
+  //         );
+  //       }
+  //     } finally {
+  //       setState(() {
+  //         loading = false; // Hide loader after registration is complete
+  //       });
+  //     }
+  //   }
+  // }
+
   void registration() async {
-    if (selectedRole != null) {
-      setState(() {
-        loading = true; // Show loader when registration starts
+  if (selectedRole != null) {
+    setState(() {
+      loading = true; // Show loader when registration starts
+    });
+
+    // Extract values from TextEditingController here to ensure the latest values
+    name = nameController.text.trim();
+    phone = phoneController.text.trim();
+    email = emailController.text.trim();
+    password = passwordController.text.trim();
+
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      // Save additional user data to Firestore
+      await _firestore.collection('users').doc(userCredential.user!.uid).set({
+        'email': email,
+        'role': selectedRole,
+        'createdAt': Timestamp.now(),
+        'name': name,            // Save name
+        'phoneNo': phone,        // Save phone number
       });
-      try {
-        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: email,
-          password: password,
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text(
+              'Registration Successful',
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            backgroundColor: txtColor,
+          ),
         );
-
-        // Save additional user data to Firestore
-        await _firestore.collection('users').doc(userCredential.user!.uid).set({
-          'email': email,
-          'role': selectedRole,
-          'createdAt': Timestamp.now(),
-          'name': name,
-          'phoneNo': phone,
-        });
-
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: const Text(
-                'Registration Successful',
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-              backgroundColor: txtColor,
-            ),
-          );
-        }
-
-        if (selectedRole == 'Student') {
-           Navigator.push(
-            context, MaterialPageRoute(builder: (context) => OTPVerificationEmail(email: email)));
-        }
-        else{
-           Navigator.push(
-            context, MaterialPageRoute(builder: (context) => teachHomepage(docidUser: '',)));
-        }
-      } on FirebaseAuthException catch (e) {
-        String errorMsg = '';
-        if (e.code == 'weak-password') {
-          errorMsg = 'The password provided is too weak.';
-        } else if (e.code == 'email-already-in-use') {
-          errorMsg = 'The account already exists for that email.';
-        }
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                errorMsg,
-                style: const TextStyle(color: Colors.white, fontSize: 20),
-              ),
-              backgroundColor: txtColor,
-            ),
-          );
-        }
-      } finally {
-        setState(() {
-          loading = false; // Hide loader after registration is complete
-        });
       }
+
+      if (selectedRole == 'Student') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => OTPVerificationEmail(email: email)),
+        );
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => teachHomepage(docidUser: '')),
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      String errorMsg = '';
+      if (e.code == 'weak-password') {
+        errorMsg = 'The password provided is too weak.';
+      } else if (e.code == 'email-already-in-use') {
+        errorMsg = 'The account already exists for that email.';
+      }
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              errorMsg,
+              style: const TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            backgroundColor: txtColor,
+          ),
+        );
+      }
+    } finally {
+      setState(() {
+        loading = false; // Hide loader after registration is complete
+      });
     }
   }
+}
+
 
   @override
   void dispose() {

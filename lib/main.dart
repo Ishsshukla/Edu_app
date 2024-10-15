@@ -72,7 +72,8 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/paysucess', page: () => const Paysucesspage()),
           // GetPage(name: '/optionpage', page: () => const OptionPage()),
           // GetPage(
-          //     name: '/courseoptionpage', page: () => const courseoptionPage()),
+          //     name: '/courseoptionpage', page: () => const courseoptionPage()
+          //     ),
           // GetPage(name: '/homepage', page: () => const Homepage()),
           // GetPage(name: '/profile', page: () => const Prflpage()),
           GetPage(name: '/congo', page: () => const Congopage()),

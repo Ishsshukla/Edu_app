@@ -14,12 +14,12 @@ class SplashScreen2 extends StatefulWidget {
 }
 
 class _SplashState extends State<SplashScreen2> {
-  SplashServices splashScreen = SplashServices();
+  // SplashServices splashScreen = SplashServices();
   String docId = '';
   @override
   void initState() {
     super.initState();
-    splashScreen.isLogin(context);
+    // splashScreen.isLogin(context);
     fetchUserDocId(widget.email);
   }
 
@@ -35,6 +35,7 @@ class _SplashState extends State<SplashScreen2> {
         // If the document is found, get the document ID
         setState(() {
           docId = querySnapshot.docs.first.id;
+          print("Document ID: $docId");
         });
       } else {
         // Handle case where no document is found
