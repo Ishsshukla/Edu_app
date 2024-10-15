@@ -127,7 +127,7 @@ class NavBarItem extends StatelessWidget {
             Text(
               label,
               style: TextStyle(
-                  fontSize: 15, color: txtColor), // Ensure the text is blue
+                  fontSize: 15, color: Color(0xFF4A90E2),), // Ensure the text is blue
             ),
         ],
       ),
