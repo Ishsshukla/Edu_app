@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/category_quiz', page: () => QuizCategoryScreen()),
           GetPage(name: '/welcm_quiz', page: () => WelcomeScreen()),
           GetPage(name: '/paysucess', page: () => const Paysucesspage()),
-          GetPage(name: '/optionpage', page: () => const OptionPage()),
+          // GetPage(name: '/optionpage', page: () => const OptionPage()),
           GetPage(
               name: '/courseoptionpage', page: () => const courseoptionPage()),
           // GetPage(name: '/homepage', page: () => const Homepage()),

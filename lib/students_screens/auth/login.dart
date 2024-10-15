@@ -17,7 +17,7 @@ import '../widgets/round_button.dart';
 import 'forgot_pw.dart';
 import 'signup.dart';
 import 'package:edu_app/students_screens/screens/profile.dart';
-
+import 'package:edu_app/students_screens/auth/emailOTPVerification.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -88,7 +88,23 @@ class _LoginScreenState extends State<LoginScreen> {
           }
         } else {
           // OTP is not verified
-          throw Exception('OTP is not verified. Please verify your OTP.');
+          if (role == 'Student') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => OTPVerificationEmail(email: email)),
+        );
+      }
+          // Navigator.pushReplacement(
+          //     context,
+          //     MaterialPageRoute(
+          //       builder: (context) =>
+          //           teachHomepage(docidUser: docIdUser,), // Replace with teacher home screen widget
+          //     ),
+          //   );
+          ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Verify your Email')),
+      );
+          // throw Exception('OTP is not verified. Please verify your OTP.');
         }
       } else {
         throw Exception('User role not found');
