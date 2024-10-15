@@ -236,7 +236,6 @@
 //   }
 // }
 
-
 import 'dart:math';
 import 'package:edu_app/components/const.dart' as components;
 import 'package:edu_app/constants/constants.dart';
@@ -389,6 +388,10 @@ class _OTPVerificationEmailState extends State<OTPVerificationEmail> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final screenHeight = mediaQuery.size.height;
+    final screenWidth = mediaQuery.size.width;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -406,107 +409,98 @@ class _OTPVerificationEmailState extends State<OTPVerificationEmail> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 0),
+          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // const SizedBox(height: 10),
-              // Add a playful illustration above the OTP section
-                // Center(
-                Image.asset(
-                  'assets/DALL·E 2024-10-13 13.45.50 - A professional and visually engaging illustration for verifying email, designed for students, in a blue theme. The image features a dynamic, minimalis.webp', // Placeholder for email verification image
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                  height: 250, // Adjust the height as needed
-                ),
-                // ),
-              const SizedBox(height: 40),
-                Padding(
-                padding: const EdgeInsets.fromLTRB(20, 2  , 20, 0),
+              Image.asset(
+                'assets/DALL·E 2024-10-13 13.45.50 - A professional and visually engaging illustration for verifying email, designed for students, in a blue theme. The image features a dynamic, minimalis.webp', // Placeholder for email verification image
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: screenHeight * 0.3, // Adjust the height as needed
+              ),
+              SizedBox(height: screenHeight * 0.05),
+              Padding(
+                padding: EdgeInsets.fromLTRB(screenWidth * 0.05, 0, screenWidth * 0.05, 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                  Text(
-                    "Enter your OTP",
-                    style: GoogleFonts.lato(
-                      color:  Colors.black,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    "A verification code has been sent to your email ${widget.email}. Please enter the code below to verify your email address.",
-                    style: GoogleFonts.poppins(
-                    color: components.textColor.withOpacity(0.9),
-                    fontSize: 16,
-                    ),
-                  ),
-                  const SizedBox(height: 40),
-                  if (isOtpSent)
-                    Column(
-                    children: [
-                        TextField(
-                        controller: otpController,
-                        keyboardType: TextInputType.number,
-                        style: GoogleFonts.poppins(fontSize: 18),
-                        decoration: InputDecoration(
-                        labelText: 'OTP Code',
-                        labelStyle: GoogleFonts.poppins(color: Colors.black),
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: Colors.black54), // Rectangular border
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                          vertical: 18, horizontal: 20),
-                        // suffixIcon: Icon(
-                        //   Icons.lock_outline,
-                        //   color: Colors.black54,
-                        // ),
-                        ),
-                        ),
-                      const SizedBox(height: 24),
-                      ElevatedButton(
-                      onPressed: loading ? null : verifyOtp,
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: const Color(0xFF4A90E2),
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        minimumSize: const Size.fromHeight(48),
-                        shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        ),
-                        shadowColor: Colors.blueAccent,
-                        elevation: 5,
+                    Text(
+                      "Enter your OTP",
+                      style: GoogleFonts.lato(
+                        color: Colors.black,
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
                       ),
-                      child: loading
-                        ? const CircularProgressIndicator(
-                          valueColor:
-                            AlwaysStoppedAnimation<Color>(Colors.white),
-                          )
-                        : Text(
-                          'Verify OTP',
-                          style: GoogleFonts.poppins(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          ),
-                      ),
-                    ],
                     ),
+                    SizedBox(height: screenHeight * 0.02),
+                    Text(
+                      "A verification code has been sent to your email ${widget.email}. Please enter the code below to verify your email address.",
+                      style: GoogleFonts.poppins(
+                        color: components.textColor.withOpacity(0.9),
+                        fontSize: 16,
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.05),
+                    if (isOtpSent)
+                      Column(
+                        children: [
+                          TextField(
+                            controller: otpController,
+                            keyboardType: TextInputType.number,
+                            style: GoogleFonts.poppins(fontSize: 18),
+                            decoration: InputDecoration(
+                              labelText: 'OTP Code',
+                              labelStyle: GoogleFonts.poppins(color: Colors.black),
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: BorderSide(color: Colors.black54), // Rectangular border
+                              ),
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: screenHeight * 0.02, horizontal: screenWidth * 0.05),
+                            ),
+                          ),
+                          SizedBox(height: screenHeight * 0.03),
+                          ElevatedButton(
+                            onPressed: loading ? null : verifyOtp,
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.white,
+                              backgroundColor: const Color(0xFF4A90E2),
+                              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
+                              minimumSize: Size.fromHeight(screenHeight * 0.06),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              shadowColor: Colors.blueAccent,
+                              elevation: 5,
+                            ),
+                            child: loading
+                                ? const CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                  )
+                                : Text(
+                                    'Verify OTP',
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                          ),
+                        ],
+                      ),
                   ],
                 ),
-                ),
+              ),
               if (!isOtpSent && !loading)
                 ElevatedButton(
                   onPressed: sendOtpToEmail,
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
                     backgroundColor: const Color(0xFF4A90E2),
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    minimumSize: const Size.fromHeight(48),
+                    padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
+                    minimumSize: Size.fromHeight(screenHeight * 0.06),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -525,7 +519,7 @@ class _OTPVerificationEmailState extends State<OTPVerificationEmail> {
                 const Center(
                   child: CircularProgressIndicator(),
                 ),
-              const SizedBox(height: 30),
+              SizedBox(height: screenHeight * 0.05),
             ],
           ),
         ),

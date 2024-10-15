@@ -22,15 +22,15 @@ class _ReviewState extends State<Reviewpage> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
+              padding: EdgeInsets.fromLTRB(screenWidth * 0.08, screenHeight * 0.01, screenWidth * 0.08, 0),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Column(
                     children: [
-                      const SizedBox(
-                        height: 25,
+                      SizedBox(
+                        height: screenHeight * 0.03,
                       ),
                       reivewtxt(
                         'assets/review.png',
@@ -40,17 +40,16 @@ class _ReviewState extends State<Reviewpage> {
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 60, 0, 0),
+                    padding: EdgeInsets.fromLTRB(0, screenHeight * 0.07, 0, 0),
                     child: Image.asset(
                       'assets/Line 7.png',
                       scale: 1.3,
                     ),
                   ),
-
                   Column(
                     children: [
-                      const SizedBox(
-                        height: 25,
+                      SizedBox(
+                        height: screenHeight * 0.03,
                       ),
                       reivewtxt(
                         'assets/payment.png',
@@ -60,7 +59,7 @@ class _ReviewState extends State<Reviewpage> {
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 60, 0, 0),
+                    padding: EdgeInsets.fromLTRB(0, screenHeight * 0.07, 0, 0),
                     child: Image.asset(
                       'assets/Line 7.png',
                       scale: 1.4,
@@ -68,8 +67,8 @@ class _ReviewState extends State<Reviewpage> {
                   ),
                   Column(
                     children: [
-                      const SizedBox(
-                        height: 25,
+                      SizedBox(
+                        height: screenHeight * 0.03,
                       ),
                       reivewtxt(
                         'assets/payment2.png',
@@ -78,19 +77,18 @@ class _ReviewState extends State<Reviewpage> {
                       ),
                     ],
                   ),
-                  //
                 ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(25.0, 0, 18, 0),
+              padding: EdgeInsets.fromLTRB(screenWidth * 0.07, 0, screenWidth * 0.05, 0),
               child: Column(
                 children: [
                   const Divider(
                     color: Colors.black,
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: screenHeight * 0.01,
                   ),
                   const Align(
                     alignment: Alignment.centerLeft,
@@ -101,8 +99,8 @@ class _ReviewState extends State<Reviewpage> {
                           fontWeight: FontWeight.bold,
                         )),
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: screenHeight * 0.01,
                   ),
                   Row(
                     children: [
@@ -132,8 +130,8 @@ class _ReviewState extends State<Reviewpage> {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: screenHeight * 0.01,
                   ),
                   Row(
                     children: [
@@ -151,8 +149,8 @@ class _ReviewState extends State<Reviewpage> {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: screenHeight * 0.01,
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -160,8 +158,8 @@ class _ReviewState extends State<Reviewpage> {
                       txt('Including', context),
                     ],
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: screenHeight * 0.01,
                   ),
                   Row(
                     children: [
@@ -201,8 +199,8 @@ class _ReviewState extends State<Reviewpage> {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 14,
+                  SizedBox(
+                    height: screenHeight * 0.02,
                   ),
                   Row(
                     children: [
@@ -217,8 +215,8 @@ class _ReviewState extends State<Reviewpage> {
                               )),
                         ],
                       ),
-                      const SizedBox(
-                        width: 10,
+                      SizedBox(
+                        width: screenWidth * 0.03,
                       ),
                       Expanded(
                         child: Column(
@@ -235,22 +233,22 @@ class _ReviewState extends State<Reviewpage> {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 14,
+                  SizedBox(
+                    height: screenHeight * 0.02,
                   ),
                   Row(
                     children: [
                       Column(
                         children: [
-                          const SizedBox(height: 15),
+                          SizedBox(height: screenHeight * 0.02),
                           txt('Have a Coupon Code ?', context),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                            padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                             child: Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 6, 0, 22),
+                              padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, screenHeight * 0.03),
                               child: SizedBox(
-                                height: 80,
-                                width: 200, // Set the desired width here
+                                height: screenHeight * 0.1,
+                                width: screenWidth * 0.5, // Set the desired width here
                                 child: TextFormField(
                                   decoration: InputDecoration(
                                     hintText: 'Enter coupon',
@@ -276,14 +274,14 @@ class _ReviewState extends State<Reviewpage> {
                           )
                         ],
                       ),
-                      const SizedBox(width: 25),
+                      SizedBox(width: screenWidth * 0.07),
                       Expanded(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(
-                              height: 19,
+                            SizedBox(
+                              height: screenHeight * 0.02,
                             ),
                             ElevatedButton(
                               onPressed: () {},
@@ -304,11 +302,11 @@ class _ReviewState extends State<Reviewpage> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: screenHeight * 0.01),
                   const Divider(
                     color: Colors.grey,
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: screenHeight * 0.01),
                   Row(
                     children: [
                       Column(
@@ -317,8 +315,8 @@ class _ReviewState extends State<Reviewpage> {
                           txt('  RS 12000 only', context),
                         ],
                       ),
-                      const SizedBox(
-                        width: 40,
+                      SizedBox(
+                        width: screenWidth * 0.1,
                       ),
                       ElevatedButton(
                         onPressed: () {

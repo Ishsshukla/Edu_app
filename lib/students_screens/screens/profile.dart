@@ -373,7 +373,6 @@ import 'user_notifier.dart';
 //     );
 //   }
 // }
-
 class Prflpage extends StatefulWidget {
   final String docIdUser;
   const Prflpage({super.key, required this.docIdUser});
@@ -476,16 +475,21 @@ class _PrflpageState extends State<Prflpage> {
         child: Form(
           key: _formKey,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(16, 40, 16, 0),
+            padding: EdgeInsets.fromLTRB(
+              screenWidth * 0.04, // 4% of screen width
+              screenHeight * 0.05, // 5% of screen height
+              screenWidth * 0.04, // 4% of screen width
+              0,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                const SizedBox(height: 45),
+                SizedBox(height: screenHeight * 0.05), // 5% of screen height
                 Stack(
                   alignment: Alignment.center,
                   children: [
                     CircleAvatar(
-                      radius: 50,
+                      radius: screenWidth * 0.13, // 13% of screen width
                       backgroundColor: Colors.grey[300],
                       backgroundImage: const AssetImage('assets/profile.png'),
                     ),
@@ -496,29 +500,29 @@ class _PrflpageState extends State<Prflpage> {
                         onTap: () {
                           // Functionality to update profile image can be added here
                         },
-                        child: const CircleAvatar(
-                          radius: 18,
-                          backgroundColor: Color(0xFF4A90E2),
+                        child: CircleAvatar(
+                          radius: screenWidth * 0.05, // 5% of screen width
+                          backgroundColor: const Color(0xFF4A90E2),
                           child: Icon(
                             Icons.edit,
                             color: Colors.white,
-                            size: 18,
+                            size: screenWidth * 0.05, // 5% of screen width
                           ),
                         ),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: screenHeight * 0.02), // 2% of screen height
                 Text(
                   '${userfirstnamecontroller.text} ${userlastnamecontroller.text}',
-                  style: const TextStyle(
-                    fontSize: 22,
+                  style: TextStyle(
+                    fontSize: screenWidth * 0.06, // 6% of screen width
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF4A90E2),
+                    color: const Color(0xFF4A90E2),
                   ),
                 ),
-                const SizedBox(height: 24),
+                SizedBox(height: screenHeight * 0.03), // 3% of screen height
                 buildEditableField(
                   context,
                   "Your Name",
@@ -540,7 +544,8 @@ class _PrflpageState extends State<Prflpage> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 20),
+              
+                SizedBox(height: screenHeight * 0.02), // 2% of screen height
                 buildEditableField(
                   context,
                   "Email",
@@ -566,7 +571,7 @@ class _PrflpageState extends State<Prflpage> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: screenHeight * 0.02), // 2% of screen height
                 buildEditableField(
                   context,
                   "Phone Number",
@@ -588,13 +593,13 @@ class _PrflpageState extends State<Prflpage> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 40),
+                SizedBox(height: screenHeight * 0.05), // 5% of screen height
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.security_rounded,
-                        color: Color(0xFF4A90E2), size: 32),
-                    const SizedBox(width: 16),
+                    Icon(Icons.security_rounded,
+                        color: const Color(0xFF4A90E2), size: screenWidth * 0.08), // 8% of screen width
+                    SizedBox(width: screenWidth * 0.04), // 4% of screen width
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -604,18 +609,18 @@ class _PrflpageState extends State<Prflpage> {
                           ),
                         );
                       },
-                      child: const Text(
+                      child: Text(
                         'Privacy Policy',
                         style: TextStyle(
-                          fontSize: 18,
-                          color: Color(0xFF4A90E2),
+                          fontSize: screenWidth * 0.045, // 4.5% of screen width
+                          color: const Color(0xFF4A90E2),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 40),
+                SizedBox(height: screenHeight * 0.05), // 5% of screen height
                 Center(
                   child: ElevatedButton(
                     onPressed: () {
@@ -629,16 +634,17 @@ class _PrflpageState extends State<Prflpage> {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF4A90E2),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 32, vertical: 16),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: screenWidth * 0.08, // 8% of screen width
+                          vertical: screenHeight * 0.02), // 2% of screen height
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25),
                       ),
                     ),
-                    child: const Text(
+                    child: Text(
                       'Logout',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: screenWidth * 0.045, // 4.5% of screen width
                         color: Colors.white,
                       ),
                     ),

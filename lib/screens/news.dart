@@ -12,6 +12,10 @@ class Newspage extends StatefulWidget {
 class _NewspageState extends State<Newspage> {
   @override
   Widget build(BuildContext context) {
+    // Get the screen width and height
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Latest News'),
@@ -20,13 +24,20 @@ class _NewspageState extends State<Newspage> {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
+          padding: EdgeInsets.fromLTRB(screenWidth * 0.08, screenHeight * 0.02, screenWidth * 0.08, 0),
           child: Container(
             child: Column(
               children: [
                 Row(
-                  children: [Image.asset('assets/Group287.png'), const Text('dgfdg')],
-                )
+                  children: [
+                    Image.asset(
+                      'assets/Group287.png',
+                      width: screenWidth * 0.3, // Adjust the width based on screen size
+                    ),
+                    const SizedBox(width: 10), // Add some spacing between the image and text
+                    const Text('dgfdg'),
+                  ],
+                ),
               ],
               // crossAxisAlignment: CrossAxisAlignment.stretch,
             ),

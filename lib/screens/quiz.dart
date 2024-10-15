@@ -23,6 +23,9 @@ class _QuizPageState extends State<QuizPage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -34,6 +37,7 @@ class _QuizPageState extends State<QuizPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
+              width: screenWidth * 0.9,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
@@ -48,7 +52,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: screenHeight * 0.02),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -66,34 +70,34 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: screenHeight * 0.02),
             Image.asset('assets/quw.png', scale: 5),
-            const SizedBox(height: 35),
+            SizedBox(height: screenHeight * 0.05),
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
               child: Row(
                 children: [
-                  _buildAnswerButton(0, 'Answer 1'),
-                  const SizedBox(width: 20),
-                  _buildAnswerButton(1, 'Answer 2'),
+                  _buildAnswerButton(0, 'Answer 1', screenWidth),
+                  SizedBox(width: screenWidth * 0.05),
+                  _buildAnswerButton(1, 'Answer 2', screenWidth),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: screenHeight * 0.02),
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
               child: Row(
                 children: [
-                  _buildAnswerButton(2, 'Answer 3'),
-                  const SizedBox(width: 20),
-                  _buildAnswerButton(3, 'Answer 4'),
+                  _buildAnswerButton(2, 'Answer 3', screenWidth),
+                  SizedBox(width: screenWidth * 0.05),
+                  _buildAnswerButton(3, 'Answer 4', screenWidth),
                 ],
               ),
             ),
-            const SizedBox(height: 50),
+            SizedBox(height: screenHeight * 0.05),
             SizedBox(
-              width: MediaQuery.of(context).size.width * .9,
-              height: 65,
+              width: screenWidth * 0.9,
+              height: screenHeight * 0.08,
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -121,7 +125,7 @@ class _QuizPageState extends State<QuizPage> {
     );
   }
 
-  Widget _buildAnswerButton(int index, String text) {
+  Widget _buildAnswerButton(int index, String text, double screenWidth) {
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -134,7 +138,7 @@ class _QuizPageState extends State<QuizPage> {
         });
       },
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.4,
+        width: screenWidth * 0.4,
         height: 75,
         decoration: BoxDecoration(
           color: selectedList[index] ? txtColor : Colors.white,

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
-// import 'package:password_field_validator/password_field_validator.dart';
 import 'package:edu_app/components/custom_button.dart';
 import 'package:edu_app/constants/constants.dart';
 import 'package:edu_app/controllers/auth_controllers.dart';
-// import 'package:edu_app/screens/home_screen.dart/home_screen.dart';
 
 class CreateAccountScreen extends StatefulWidget {
   const CreateAccountScreen({super.key});
@@ -68,24 +66,27 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   @override
   Widget build(BuildContext context) {
     bool isChecked = true;
+    final size = MediaQuery.of(context).size;
+    final padding = size.width * 0.05;
+
     return Scaffold(
       backgroundColor: backgroundColor,
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.symmetric(horizontal: padding),
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 100,
+              SizedBox(
+                height: size.height * 0.1,
               ),
               Text(
                 "Create an Account",
                 style: headingH1,
               ),
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: size.height * 0.01,
               ),
               Text(
                 "We are happy to welcome you to this platform",
@@ -94,8 +95,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     fontSize: 18,
                     fontWeight: FontWeight.normal),
               ),
-              const SizedBox(
-                height: 50,
+              SizedBox(
+                height: size.height * 0.05,
               ),
               Text(
                 "Full Name",
@@ -117,11 +118,11 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: size.height * 0.02,
               ),
               Text(
-                "Email Adress",
+                "Email Address",
                 style: GoogleFonts.dmSans(
                     color: Colors.black,
                     fontSize: 14,
@@ -140,8 +141,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: size.height * 0.02,
               ),
               Text(
                 "Password",
@@ -173,22 +174,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   ),
                 ),
               ),
-              // Padding(
-              //   padding: const EdgeInsets.all(15),
-              //   child: PasswordFieldValidator(
-              //     minLength: 8,
-              //     uppercaseCharCount: 1,
-              //     lowercaseCharCount: 1,
-              //     numericCharCount: 0,
-              //     specialCharCount: 1,
-              //     defaultColor: Colors.black,
-              //     successColor: Colors.green,
-              //     failureColor: Colors.red,
-              //     controller: passwordController,
-              //   ),
-              // ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: size.height * 0.02,
               ),
               Row(
                 children: [
@@ -226,8 +213,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   );
                 },
               ),
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: size.height * 0.01,
               ),
               Row(
                 children: <Widget>[
@@ -248,8 +235,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: size.height * 0.01,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -275,7 +262,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        padding: EdgeInsets.symmetric(
+            vertical: size.height * 0.01, horizontal: padding),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -318,7 +306,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
         ),
         child: Container(
           padding: const EdgeInsets.all(15),
-          // decoration: BoxDecoration(color: Colors.blue),
           child: Image.asset(
             path,
             fit: BoxFit.contain,

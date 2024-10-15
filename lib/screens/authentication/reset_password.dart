@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-
 class ResetPassword extends StatefulWidget {
   const ResetPassword({super.key});
 
@@ -15,41 +14,44 @@ class ResetPassword extends StatefulWidget {
 class _ResetPasswordState extends State<ResetPassword> {
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBar(),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: screenHeight * 0.02,
               ),
               Text(
                 "Please enter new password",
-                style: headingH1,
+                style: headingH1.copyWith(fontSize: screenWidth * 0.06),
               ),
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: screenHeight * 0.01,
               ),
               Text(
                 "At least one capital letter and Latin alphabet",
                 style: GoogleFonts.dmSans(
                     color: textColor,
-                    fontSize: 18,
+                    fontSize: screenWidth * 0.045,
                     fontWeight: FontWeight.normal),
               ),
-              const SizedBox(
-                height: 50,
+              SizedBox(
+                height: screenHeight * 0.05,
               ),
               Text(
                 "Password",
                 style: GoogleFonts.dmSans(
                     color: Colors.black,
-                    fontSize: 14,
+                    fontSize: screenWidth * 0.035,
                     fontWeight: FontWeight.bold),
               ),
               TextField(
@@ -62,6 +64,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                   hintText: "Password",
                   hintStyle: GoogleFonts.dmSans(
                     color: Colors.grey.shade500,
+                    fontSize: screenWidth * 0.04,
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -69,14 +72,14 @@ class _ResetPasswordState extends State<ResetPassword> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: screenHeight * 0.02,
               ),
               Text(
                 "Confirm Password",
                 style: GoogleFonts.dmSans(
                     color: Colors.black,
-                    fontSize: 14,
+                    fontSize: screenWidth * 0.035,
                     fontWeight: FontWeight.bold),
               ),
               TextField(
@@ -89,6 +92,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                   hintText: "Re-enter Password",
                   hintStyle: GoogleFonts.dmSans(
                     color: Colors.grey.shade500,
+                    fontSize: screenWidth * 0.04,
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -96,8 +100,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 30,
+              SizedBox(
+                height: screenHeight * 0.03,
               ),
               CustomButton(
                 text: "Continue",

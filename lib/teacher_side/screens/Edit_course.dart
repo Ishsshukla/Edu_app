@@ -112,7 +112,7 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
                       ),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(28.0, 40, 28, 0),
+                      padding: EdgeInsets.fromLTRB(screenWidth * 0.07, screenHeight * 0.05, screenWidth * 0.07, 0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -153,8 +153,7 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
                                 borderSide:
                                     const BorderSide(color: Colors.grey),
                               ),
-                              contentPadding: const EdgeInsets.all(
-                                  10), // Adjusted content padding
+                              contentPadding: EdgeInsets.all(screenWidth * 0.025), // Adjusted content padding
                             ),
                           ),
                           const SizedBox(height: 16),
@@ -176,7 +175,7 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
                                 borderSide:
                                     const BorderSide(color: Colors.grey),
                               ),
-                              contentPadding: const EdgeInsets.all(10),
+                              contentPadding: EdgeInsets.all(screenWidth * 0.025),
                             ),
                           ),
                           const SizedBox(height: 20),
@@ -187,63 +186,66 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
-                          const SizedBox(height: 12),
+                            SizedBox(height: screenHeight * 0.015),
 
                           // Row for time and rating
-                          Row(
+                            Row(
                             children: [
-                              const Icon(
-                                Icons.timelapse,
-                                size: 30,
-                                color: blueColor,
+                              Icon(
+                              Icons.timelapse,
+                              size: screenWidth * 0.08, // Adjusted size
+                              color: blueColor,
                               ),
-                              const SizedBox(width: 8),
-                              const Text('1h 35m',
-                                  style: TextStyle(fontSize: 16)),
-                              const Spacer(),
-                              const Icon(
-                                Icons.star,
-                                size: 30,
-                                color: blueColor,
+                              SizedBox(width: screenWidth * 0.02), // Adjusted spacing
+                              Text(
+                              '1h 35m',
+                              style: TextStyle(fontSize: screenWidth * 0.04), // Adjusted font size
                               ),
-                              const SizedBox(width: 8),
-                              const Padding(
-                                padding: EdgeInsets.fromLTRB(0, 0, 42, 0),
-                                child: Text(
-                                  '4.5 Star',
-                                  style: TextStyle(fontSize: 16),
-                                ),
+                              Spacer(),
+                              Icon(
+                              Icons.star,
+                              size: screenWidth * 0.08, // Adjusted size
+                              color: blueColor,
+                              ),
+                              SizedBox(width: screenWidth * 0.02), // Adjusted spacing
+                              Padding(
+                              padding: EdgeInsets.fromLTRB(0, 0, screenWidth * 0.1, 0), // Adjusted padding
+                              child: Text(
+                                '4.5 Star',
+                                style: TextStyle(fontSize: screenWidth * 0.04), // Adjusted font size
+                              ),
                               ),
                             ],
-                          ),
-                          const SizedBox(height: 16),
+                            ),
+                            const SizedBox(height: 16),
 
-                          // Row for notes and reviews
-                          Row(
+                            // Row for notes and reviews
+                            Row(
                             children: [
-                              const Icon(
-                                Icons.book,
-                                size: 30,
-                                color: blueColor,
+                              Icon(
+                              Icons.book,
+                              size: screenWidth * 0.08, // Adjusted size
+                              color: blueColor,
                               ),
-                              const SizedBox(width: 8),
-                              const Text(
-                                'Notes',
-                                style: TextStyle(fontSize: 16),
+                              SizedBox(width: screenWidth * 0.02), // Adjusted spacing
+                              Text(
+                              'Notes',
+                              style: TextStyle(fontSize: screenWidth * 0.04), // Adjusted font size
                               ),
-                              const Spacer(),
-                              const Icon(
-                                Icons.message,
-                                size: 30,
-                                color: blueColor,
+                              Spacer(),
+                              Icon(
+                              Icons.message,
+                              size: screenWidth * 0.08, // Adjusted size
+                              color: blueColor,
                               ),
-                              const SizedBox(width: 8),
-                              const Text(
-                                '350 Reviews',
-                                style: TextStyle(fontSize: 16),
+                              SizedBox(width: screenWidth * 0.02), // Adjusted spacing
+                              Text(
+                              '350 Reviews',
+                              style: TextStyle(fontSize: screenWidth * 0.04), // Adjusted font size
                               ),
                             ],
-                          ),
+                            ),
+                          
                         ],
                       ),
                     ),
@@ -280,7 +282,7 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                minimumSize: const Size(500, 60), // Increased button size
+                minimumSize: Size(screenWidth * 0.9, screenHeight * 0.08), // Adjusted button size
               ),
             ),
           ),

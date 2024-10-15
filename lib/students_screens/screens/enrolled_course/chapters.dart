@@ -58,6 +58,9 @@ class _ChapterPageStudentState extends State<ChapterPageStudent> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -76,7 +79,7 @@ class _ChapterPageStudentState extends State<ChapterPageStudent> {
       backgroundColor: const Color(0xFFF5F5F5),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20),
+          padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
           child: Column(
             children: chapters.isNotEmpty
                 ? chapters.map<Widget>((chapter) {
@@ -85,6 +88,7 @@ class _ChapterPageStudentState extends State<ChapterPageStudent> {
                       chapter['lessonName'] ?? 'Unnamed Chapter',
                       context,
                       chapter,
+                      screenWidth,
                     );
                   }).toList()
                 : [
@@ -102,9 +106,15 @@ Widget crstxtforstudentDataChapter(
   String text,
   BuildContext context,
   Map<String, dynamic> courseData,
+  double screenWidth,
 ) {
   return Padding(
-    padding: const EdgeInsets.fromLTRB(20, 20, 20, 15),
+    padding: EdgeInsets.fromLTRB(
+      screenWidth * 0.05,
+      screenWidth * 0.05,
+      screenWidth * 0.05,
+      screenWidth * 0.03,
+    ),
     child: Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -119,47 +129,57 @@ Widget crstxtforstudentDataChapter(
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 10, 10, 7),
+        padding: EdgeInsets.fromLTRB(
+          screenWidth * 0.03,
+          screenWidth * 0.03,
+          screenWidth * 0.03,
+          screenWidth * 0.02,
+        ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(img, scale: 12),
-            const SizedBox(width: 15),
+            Image.asset(img, scale: screenWidth * 0.03),
+            SizedBox(width: screenWidth * 0.04),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     text,
-                    style: const TextStyle(
-                      fontSize: 18,
+                    style: TextStyle(
+                      fontSize: screenWidth * 0.045,
                       color: Colors.black,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: screenWidth * 0.03),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              ViewChapterStudent(courseData: courseData,),
+                              ViewChapterStudent(courseData: courseData),
                         ),
                       );
                     },
                     style: ElevatedButton.styleFrom(
                       elevation: 3,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 12, horizontal: 24),
+                      padding: EdgeInsets.symmetric(
+                        vertical: screenWidth * 0.03,
+                        horizontal: screenWidth * 0.06,
+                      ),
                       backgroundColor: const Color(0xFF4A90E2),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    child: const Text(
+                    child: Text(
                       'View Chapter',
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+                      style: TextStyle(
+                        fontSize: screenWidth * 0.04,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ],

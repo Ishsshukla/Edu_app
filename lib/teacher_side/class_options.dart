@@ -15,14 +15,17 @@ class _OptionPageState extends State<teacherOptionPage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           children: [
             crcl('Select the class you studying in', context),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(28, 0, 0, 0),
+            Padding(
+              padding: EdgeInsets.fromLTRB(screenWidth * 0.07, 0, 0, 0),
               child: Column(
                 children: [
                   Row(
@@ -32,20 +35,20 @@ class _OptionPageState extends State<teacherOptionPage> {
                           Text(
                             'Category',
                             style: TextStyle(
-                              fontSize: 24,
+                              fontSize: screenWidth * 0.06,
                             ),
                           ),
                         ],
                       ),
                       SizedBox(
-                        width: 120,
+                        width: screenWidth * 0.3,
                       ),
                       Column(
                         children: [
                           Text(
                             'Class',
                             style: TextStyle(
-                              fontSize: 24,
+                              fontSize: screenWidth * 0.06,
                             ),
                           ),
                         ],
@@ -53,7 +56,7 @@ class _OptionPageState extends State<teacherOptionPage> {
                     ],
                   ),
                   SizedBox(
-                    height: 40,
+                    height: screenHeight * 0.05,
                   ),
                   Row(
                     children: [
@@ -62,27 +65,26 @@ class _OptionPageState extends State<teacherOptionPage> {
                           Text(
                             'Category',
                             style: TextStyle(
-                              fontSize: 24,
+                              fontSize: screenWidth * 0.06,
                             ),
                           ),
                         ],
                       ),
                       SizedBox(
-                        width: 120,
+                        width: screenWidth * 0.3,
                       ),
                       Column(
                         children: [
                           Text(
                             'Class',
                             style: TextStyle(
-                              fontSize: 24,
+                              fontSize: screenWidth * 0.06,
                             ),
                           ),
                         ],
                       )
                     ],
                   ),
-                  
                 ],
               ),
             ),
@@ -101,10 +103,13 @@ class _OptionPageState extends State<teacherOptionPage> {
   }
 
   Widget buildButton(String text, BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     bool isSelected = selectedButton == text;
+
     return Container(
-      height: 70, // Add desired height here
-      width: 340, // Add desired width here
+      height: screenHeight * 0.1, // Adjust height based on screen height
+      width: screenWidth * 0.9, // Adjust width based on screen width
       decoration: BoxDecoration(
         border: Border.all(
           color: isSelected ? txtColor : Colors.grey,
@@ -117,23 +122,13 @@ class _OptionPageState extends State<teacherOptionPage> {
           setState(() {
             selectedButton = text;
           });
-          // Add your desired action on click here (e.g., print message)
           print('Selected: $text');
         },
-        style: const ButtonStyle(
-          // foregroundColor: WidgetStateProperty.resolveWith<Color>(
-          //   (Set<WidgetState> states) {
-          //     if (states.contains(WidgetState.hovered)) {
-          //       return txtColor;
-          //     }
-          //     return Colors.black;
-          //   },
-          // ),
-        ),
+        style: const ButtonStyle(),
         child: Text(
           text,
           style: TextStyle(
-            fontSize: 24,
+            fontSize: screenWidth * 0.06,
             color: isSelected ? txtColor : Colors.black,
           ),
         ),

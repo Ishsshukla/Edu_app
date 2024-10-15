@@ -56,6 +56,9 @@ class _HomepageState extends State<teachHomepage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -68,30 +71,27 @@ class _HomepageState extends State<teachHomepage> {
               style: TextStyle(
                 color: Color.fromARGB(255, 17, 1, 1),
                 letterSpacing: 1.0,
-                fontSize: 26,
+                fontSize: screenWidth * 0.065,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'poppins',
               ),
             ),
-
-            // txt('what you want to learn today', context),
             SizedBox(
-              width: 28,
+              width: screenWidth * 0.1,
             ),
             Icon(
               Icons.notifications_rounded,
               color: Colors.grey,
-              size: 35,
+              size: screenWidth * 0.09,
             ),
           ],
         ),
         backgroundColor: Colors.white,
         elevation: 0.0,
       ),
-
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
           child: Column(
             children: [
               Row(
@@ -99,8 +99,8 @@ class _HomepageState extends State<teachHomepage> {
                   txt2(' What do you want to Teach today ?', context),
                 ],
               ),
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: screenHeight * 0.01,
               ),
               Row(
                 children: [
@@ -118,87 +118,24 @@ class _HomepageState extends State<teachHomepage> {
                   ),
                 ],
               ),
-
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: screenHeight * 0.01,
               ),
-              // txt('what you want to learn today', context),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    // txt('what you want to learn today', context),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.shade300.withOpacity(1),
-                            spreadRadius: 1.5,
-                            blurRadius: 7,
-                            offset: const Offset(0, 0),
-                            blurStyle: BlurStyle.inner,
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        children: [
-                          Image.asset('assets/Mask Group.png', scale: 3.5),
-                          txt2('General Science', context),
-                        ],
-                      ),
+                    buildCategoryCard('assets/Mask Group.png', 'General Science', screenWidth),
+                    SizedBox(
+                      width: screenWidth * 0.05,
                     ),
-                    const SizedBox(
-                      width: 20,
+                    buildCategoryCard('assets/Mask Group2.png', 'Current Affairs', screenWidth),
+                    SizedBox(
+                      width: screenWidth * 0.05,
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.shade300.withOpacity(1),
-                            spreadRadius: 1.5,
-                            blurRadius: 7,
-                            offset: const Offset(0, 0),
-                            blurStyle: BlurStyle.inner,
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        children: [
-                          Image.asset('assets/Mask Group2.png', scale: 3.5),
-                          txt2('Current Affairs ', context),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.shade300.withOpacity(1),
-                            spreadRadius: 1.5,
-                            blurRadius: 7,
-                            offset: const Offset(0, 0),
-                            blurStyle: BlurStyle.inner,
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        children: [
-                          Image.asset('assets/Mask Group2.png', scale: 3.5),
-                          txt2('Current Affairs ', context),
-                        ],
-                      ),
-                    ),
+                    buildCategoryCard('assets/Mask Group2.png', 'Current Affairs', screenWidth),
                   ],
                 ),
               ),
@@ -214,8 +151,6 @@ class _HomepageState extends State<teachHomepage> {
                             builder: (context) => (const Newspage())),
                       );
                     },
-                    // Add your desired functionality here
-
                     child: txt('  See all', context),
                   ),
                 ],
@@ -228,7 +163,30 @@ class _HomepageState extends State<teachHomepage> {
         initialIndex: 0,
         docidUser: widget.docidUser,
       ),
-      // bottomNavigationBar: NavTeacher(initialIndex: 0),
+    );
+  }
+
+  Widget buildCategoryCard(String imagePath, String title, double screenWidth) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.shade300.withOpacity(1),
+            spreadRadius: 1.5,
+            blurRadius: 7,
+            offset: const Offset(0, 0),
+            blurStyle: BlurStyle.inner,
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Image.asset(imagePath, scale: 3.5),
+          txt2(title, context),
+        ],
+      ),
     );
   }
 }

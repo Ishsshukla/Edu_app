@@ -22,14 +22,18 @@ class _CourseFailPageState extends State<CourseFailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final screenHeight = mediaQuery.size.height;
+    final screenWidth = mediaQuery.size.width;
+
     return Scaffold(
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 150),
+            SizedBox(height: screenHeight * 0.2),
             Image.asset('assets/crsfail.png', scale: 5),
-            const SizedBox(height: 35),
+            SizedBox(height: screenHeight * 0.05),
             const Text('Oooops!  Sorry',
                 style: TextStyle(
                     fontSize: 28,
@@ -37,20 +41,20 @@ class _CourseFailPageState extends State<CourseFailPage> {
                     letterSpacing: 1.0,
                     fontWeight: FontWeight.normal,
                     fontFamily: 'poppins')),
-            const SizedBox(height: 20),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(20, 20, 10, 0),
-              child: Text(
+            SizedBox(height: screenHeight * 0.03),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+              child: const Text(
                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Habitasse dolor etiam sed ante donec quis sapien?'),
             ),
-            const SizedBox(height: 70),
+            SizedBox(height: screenHeight * 0.1),
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
               child: Column(
                 children: [
-                  _buildAnswerButton(0, 'Try Again'),
-                  const SizedBox(height: 30),
-                  _buildAnswerButton(1, 'Back to Home'),
+                  _buildAnswerButton(0, 'Try Again', screenWidth),
+                  SizedBox(height: screenHeight * 0.04),
+                  _buildAnswerButton(1, 'Back to Home', screenWidth),
                 ],
               ),
             ),
@@ -60,7 +64,7 @@ class _CourseFailPageState extends State<CourseFailPage> {
     );
   }
 
-  Widget _buildAnswerButton(int index, String text) {
+  Widget _buildAnswerButton(int index, String text, double screenWidth) {
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -73,7 +77,7 @@ class _CourseFailPageState extends State<CourseFailPage> {
         });
       },
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.9,
+        width: screenWidth * 0.9,
         height: 75,
         decoration: BoxDecoration(
           color: selectedList[index] ? txtColor : Colors.white,

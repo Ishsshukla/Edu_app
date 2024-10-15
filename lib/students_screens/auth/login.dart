@@ -28,7 +28,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   String email = "", password = "";
   bool loading = false;
-  // String docIdUser = '';
   bool _obscureText = true;
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
@@ -40,39 +39,33 @@ class _LoginScreenState extends State<LoginScreen> {
       loading = true;
     });
     try {
-      // Authenticate the user
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      // Fetch user data from Firestore (user's role)
       DocumentSnapshot userDoc = await FirebaseFirestore.instance
           .collection('users')
           .doc(userCredential.user?.uid)
           .get();
 
-      // Check if the user document exists and contains the 'role' field
       if (userDoc.exists && userDoc.data() != null) {
         String docIdUser = userDoc.id;
         String role = userDoc['role'];
 
-        // Fetch OTP verification status from 'otp_verification' collection
         DocumentSnapshot otpDoc = await FirebaseFirestore.instance
             .collection('otp_varification')
-            .doc(email) // Using email as the document ID
+            .doc(email)
             .get();
 
-        // Check if OTP is verified
         if (otpDoc.exists && otpDoc['verified'] == true) {
-          // If OTP is verified, navigate based on role
           if (role == 'Student') {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                 builder: (context) => Homepage(
                   docIdUser: docIdUser,
-                ), // Replace with student home screen widget
+                ),
               ),
             );
           } else if (role == 'Teacher') {
@@ -80,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
               context,
               MaterialPageRoute(
                 builder: (context) =>
-                    teachHomepage(docidUser: docIdUser,), // Replace with teacher home screen widget
+                    teachHomepage(docidUser: docIdUser,),
               ),
             );
           } else {
@@ -132,25 +125,6 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  // void handleGoogleBtnClick() async {
-  //   try {
-  //     await GoogleSignIn().signOut();
-  //     UserCredential userCredential = await _signInWithGoogle();
-  //     log('\nUser : ${userCredential.user}');
-  //     log('\nuser: ${userCredential.additionalUserInfo}');
-
-  //     Navigator.pushReplacement(
-  //       context,
-  //       MaterialPageRoute(builder: (_) => const SplashScreen()),
-  //     );
-  //   } catch (e) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text('Failed to sign in with Google: $e')),
-  //     );
-  //   }
-  // }
-
-  // Function to handle Google sign-in
   Future<UserCredential> _signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
     if (googleUser == null) {
@@ -178,6 +152,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return WillPopScope(
       onWillPop: () async {
         SystemNavigator.pop();
@@ -186,23 +162,28 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Scaffold(
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 80, 20, 0),
+            padding: EdgeInsets.fromLTRB(
+              size.width * 0.05,
+              size.height * 0.1,
+              size.width * 0.05,
+              0,
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset(
-                  'assets/Screenshot 2024-10-13 141015.png', // Ensure the path is correct
-                  height: 100,
-                  width: 100,
+                  'assets/Screenshot 2024-10-13 141015.png',
+                  height: size.height * 0.1,
+                  width: size.width * 0.2,
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: size.height * 0.02),
                 Align(
                   alignment: Alignment.center,
                   child: Text(
                     'Welcome to SCF ',
                     style: GoogleFonts.roboto(
-                      fontSize: 30,
+                      fontSize: size.width * 0.08,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
@@ -213,13 +194,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Text(
                     ' Academy',
                     style: GoogleFonts.roboto(
-                      fontSize: 30,
+                      fontSize: size.width * 0.08,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                   ),
                 ),
-                const SizedBox(height: 60),
+                SizedBox(height: size.height * 0.06),
                 Form(
                   key: _formKey,
                   child: Column(
@@ -233,7 +214,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-                          contentPadding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+                          contentPadding: EdgeInsets.symmetric(
+                            vertical: size.height * 0.02,
+                            horizontal: size.width * 0.02,
+                          ),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -245,7 +229,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           return null;
                         },
                       ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: size.height * 0.01),
                       TextFormField(
                         keyboardType: TextInputType.text,
                         controller: passwordController,
@@ -292,44 +276,43 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: const Text('Forgot Password?', style: TextStyle(color: Colors.black)),
                   ),
                 ),
-                const SizedBox(height: 70),
+                SizedBox(height: size.height * 0.07),
                 GestureDetector(
-  child: ElevatedButton(
-    onPressed: loading
-        ? null
-        : () {
-            if (_formKey.currentState!.validate()) {
-              setState(() {
-                email = emailController.text;
-                password = passwordController.text;
-                loading = true; // Start loading
-              });
-              userLogin();
-            }
-          },
-    style: ElevatedButton.styleFrom(
-      backgroundColor: const Color(0xFF4A90E2), // Set the button color
-      minimumSize: const Size(350, 60), // Set the button size directly
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-      ),
-    ),
-    child: loading
-        ? const CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-          )
-        : const Text(
-            'Login',
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.w700,
-              color: Colors.white,
-            ),
-          ),
-  ),
-),
-
-                const SizedBox(height: 5),
+                  child: ElevatedButton(
+                    onPressed: loading
+                        ? null
+                        : () {
+                            if (_formKey.currentState!.validate()) {
+                              setState(() {
+                                email = emailController.text;
+                                password = passwordController.text;
+                                loading = true;
+                              });
+                              userLogin();
+                            }
+                          },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF4A90E2),
+                      minimumSize: Size(size.width * 0.9, size.height * 0.08),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                    child: loading
+                        ? const CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                          )
+                        : const Text(
+                            'Login',
+                            style: TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                            ),
+                          ),
+                  ),
+                ),
+                SizedBox(height: size.height * 0.01),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -344,24 +327,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: const Text(
                         'Sign up',
                         style: TextStyle(
-                          color: Color(0xFF4A90E2), // Changed to blue to look clickable
-                          decoration: TextDecoration.underline, // Underline to indicate clickability
-                          fontWeight: FontWeight.bold, // Bold to make it more prominent
+                          color: Color(0xFF4A90E2),
+                          decoration: TextDecoration.underline,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ],
                 ),
-                // const SizedBox(height: 30),
-                // InkWell(
-                //   onTap: handleGoogleBtnClick,
-                //   child: Container(
-                //     height: 50,
-                //     decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.circular(50),
-                //     ),
-                //   ),
-                // ),
               ],
             ),
           ),
