@@ -132,8 +132,23 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
                                 child: ElevatedButton.icon(
                                   onPressed: _toggleEditSave,
                                   icon: Icon(
-                                      _isEditable ? Icons.save : Icons.edit),
-                                  label: Text(_isEditable ? 'Save' : 'Edit'),
+                                  _isEditable ? Icons.save : Icons.edit,
+                                  color: Colors.white,
+                                  ),
+                                  label: Text(
+                                  _isEditable ? 'Save' : 'Edit',
+                                  style: TextStyle(color: Colors.white),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                  backgroundColor: blueColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 16,
+                                    vertical: 8,
+                                  ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -197,9 +212,9 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
                           Row(
                             children: [
                               Icon(
-                                Icons.timelapse,
-                                size: screenWidth * 0.08, // Adjusted size
-                                color: blueColor,
+                              Icons.timelapse,
+                              size: screenWidth * 0.08, // Adjusted size
+                              color: Color(0xFF4A90E2),
                               ),
                               SizedBox(
                                   width:
@@ -212,9 +227,9 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
                               ),
                               Spacer(),
                               Icon(
-                                Icons.star,
-                                size: screenWidth * 0.08, // Adjusted size
-                                color: blueColor,
+                              Icons.star,
+                              size: screenWidth * 0.08, // Adjusted size
+                              color:  Color(0xFF4A90E2),
                               ),
                               SizedBox(
                                   width:
@@ -237,9 +252,9 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
                           Row(
                             children: [
                               Icon(
-                                Icons.book,
-                                size: screenWidth * 0.08, // Adjusted size
-                                color: blueColor,
+                              Icons.book,
+                              size: screenWidth * 0.08, // Adjusted size
+                              color:  Color(0xFF4A90E2),
                               ),
                               SizedBox(
                                   width:
@@ -252,9 +267,9 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
                               ),
                               Spacer(),
                               Icon(
-                                Icons.message,
-                                size: screenWidth * 0.08, // Adjusted size
-                                color: blueColor,
+                              Icons.message,
+                              size: screenWidth * 0.08, // Adjusted size
+                              color:  Color(0xFF4A90E2),
                               ),
                               SizedBox(
                                   width:
@@ -300,7 +315,7 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
                     color: Colors.white, fontSize: 26), // Increased font size
               ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF4A90E2),
+                backgroundColor:  Color(0xFF4A90E2),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),

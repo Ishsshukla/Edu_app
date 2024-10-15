@@ -48,7 +48,7 @@ class _NavTeacherState extends State<NavTeacher> {
       case 2:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Prflpage(docidUser: widget.docidUser,)),
+          MaterialPageRoute(builder: (context) => PrflpageT(docIdUser: widget.docidUser,)),
         );
         break;
     }

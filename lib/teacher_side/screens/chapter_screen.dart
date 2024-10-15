@@ -338,22 +338,42 @@ class _ChapterPageTeacherState extends State<ChapterPageTeacher> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Add New Chapter'),
-          content: TextField(
-            onChanged: (value) {
-              newChapterName = value;
-            },
-            decoration: const InputDecoration(
-              labelText: 'Chapter Name',
-              hintText: 'Enter the name of the chapter',
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          title: const Text(
+            'Add New Chapter',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.blueAccent,
             ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                onChanged: (value) {
+                  newChapterName = value;
+                },
+                decoration: InputDecoration(
+                  labelText: 'Chapter Name',
+                  hintText: 'Enter the name of the chapter',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+            ],
           ),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: const Text('Cancel'),
+              child: const Text(
+                'Cancel',
+                style: TextStyle(color: Colors.black),
+              ),
             ),
             ElevatedButton(
               onPressed: () {
@@ -362,7 +382,16 @@ class _ChapterPageTeacherState extends State<ChapterPageTeacher> {
                   Navigator.pop(context); // Close the dialog
                 }
               },
-              child: const Text('Add'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+                child: const Text(
+                'Add',
+                style: TextStyle(color: Colors.white),
+                ),
             ),
           ],
         );
@@ -411,9 +440,14 @@ class _ChapterPageTeacherState extends State<ChapterPageTeacher> {
                 ),
               ),
             ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: _showAddChapterDialog,
-        child: const Icon(Icons.add),
+        label: const Text(
+          'Add Chapter',
+          style: TextStyle(color: Colors.white),
+        ),
+        icon: const Icon(Icons.add, color: Colors.white),
+        backgroundColor: Colors.blueAccent,
       ),
     );
   }
