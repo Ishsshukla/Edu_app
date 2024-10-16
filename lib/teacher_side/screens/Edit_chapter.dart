@@ -39,35 +39,35 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
   @override
   void initState() {
     super.initState();
-    fetchCourses();
+    fetchChapters();
   }
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
-  Future<void> fetchCourses() async {
-
-    
+  Future<void> fetchChapters() async {
     try {
-      String selectedCourseName = widget.courseData['courseName'];
-      String selectedLessonName = widget.courseData['lessonName'];
+      String courseDocId = widget.courseData[
+          'courseId']; // The course document ID from the previous page
+      String chapterDocId = widget.courseData[
+          'docId']; // The chapter document ID from the previous page
 
-      QuerySnapshot snapshot = await _firestore
+      // Access the 'chapters' subcollection inside the specific course document
+      DocumentSnapshot chapterSnapshot = await _firestore
           .collection('course_content')
-          .where('courseName', isEqualTo: selectedCourseName)
-          .where('lessonName', isEqualTo: selectedLessonName)
+          .doc(courseDocId) // Referencing the course by its document ID
+          .collection('chapters') // Access the 'chapters' subcollection
+          .doc(chapterDocId) // Fetch the specific chapter by its document ID
           .get();
 
-      if (snapshot.docs.isNotEmpty) {
-        var doc = snapshot.docs.first;
-        var data = doc.data() as Map<String, dynamic>;
+      if (chapterSnapshot.exists) {
+        var data = chapterSnapshot.data() as Map<String, dynamic>;
+
         setState(() {
-          courseName = data['courseName'] ?? 'Unknown Course';
+          courseName = widget.courseData['name'] ?? 'Unknown Course';
           lessonName = data['lessonName'] ?? 'Unknown Lesson';
           youtubeLink = data['youtubeLink'] ?? 'No YouTube Link';
           pdfUrls = List<String>.from(data['pdfUrls'] ?? []);
           imageUrls = List<String>.from(data['imageUrls'] ?? []);
           notes = data['notes'] ?? 'No Notes';
-          documentId = doc.id;
         });
 
         // Initialize controllers with fetched data
@@ -76,12 +76,14 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
         _youtubeLinkController.text = youtubeLink;
         _notesController.text = notes;
       } else {
-        print("No matching course content found.");
+        print("No matching chapter found.");
       }
     } catch (e) {
-      print("Error fetching courses: $e");
+      print("Error fetching chapters: $e");
     }
   }
+
+
 
   Future<void> _launchYoutubeLink() async {
     String url = _youtubeLinkController.text.trim(); // Trim any extra spaces
@@ -166,14 +168,17 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
     }
   }
 
-  Future<void> _updateCourseData(
+
+  Future<void> _updateChapterData(
+      String courseDocId,
+      String chapterDocId,
       String courseName,
       String lessonName,
       String youtubeLink,
       List<String> pdfUrls,
       List<String> imageUrls,
       String notes) async {
-    if (documentId == null) {
+    if (courseDocId == null || chapterDocId == null) {
       print("Error: No document ID available for update.");
       return;
     }
@@ -181,43 +186,23 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
     try {
       await FirebaseFirestore.instance
           .collection('course_content')
-          .doc(documentId)
+          .doc(courseDocId) // Referencing the specific course
+          .collection('chapters') // Access the 'chapters' subcollection
+          .doc(chapterDocId) // Referencing the specific chapter
           .update({
         'courseName': courseName,
         'lessonName': lessonName,
         'youtubeLink': youtubeLink,
         'pdfUrls': pdfUrls,
         'imageUrls': imageUrls,
-        'notes': notes, // Update notes in Firestore
-        'timestamp': FieldValue
-            .serverTimestamp(), // Optional, to track the last update time
+        'notes': notes,
+        'timestamp': FieldValue.serverTimestamp(), // Track last update time
       });
     } catch (e) {
-      print('Error updating course data: $e');
+      print('Error updating chapter data: $e');
     }
   }
 
-  Future<void> _uploadCourseData(
-      String courseName,
-      String lessonName,
-      String youtubeLink,
-      List<String> pdfUrls,
-      List<String> imageUrls,
-      String notes) async {
-    try {
-      await FirebaseFirestore.instance.collection('course_content').add({
-        'courseName': courseName,
-        'lessonName': lessonName,
-        'youtubeLink': youtubeLink,
-        'pdfUrls': pdfUrls,
-        'imageUrls': imageUrls,
-        'notes': notes, // Save notes to Firestore
-        'timestamp': FieldValue.serverTimestamp(),
-      });
-    } catch (e) {
-      print('Error uploading course data: $e');
-    }
-  }
 
  Future<void> _saveChanges() async {
   setState(() {
@@ -234,7 +219,11 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
     await _uploadImageFiles(updatedImageUrls);
 
     // Update the course document in Firestore
-    await _updateCourseData(
+    await _updateChapterData(
+      widget.courseData[
+            'courseId'], // Pass the courseDocId from the previous page
+        widget.courseData[
+            'docId'], 
       _courseNameController.text,
       _lessonNameController.text,
       _youtubeLinkController.text,
@@ -254,6 +243,44 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
     setState(() {
       _isLoading = false; // Stop loading after process completion
     });
+    try {
+      List<String> updatedPdfUrls = [...pdfUrls]; // Keep the old ones
+      List<String> updatedImageUrls = [...imageUrls]; // Keep the old ones
+
+      // Upload new PDFs and add their URLs to the list
+      await _uploadPdfFiles(updatedPdfUrls);
+
+      // Upload new images and add their URLs to the list
+      await _uploadImageFiles(updatedImageUrls);
+
+      // Update the chapter document in the 'chapters' subcollection
+      await _updateChapterData(
+        widget.courseData[
+            'courseId'], // Pass the courseDocId from the previous page
+        widget.courseData[
+            'docId'], // Pass the chapterDocId from the previous page
+        _courseNameController.text, // Course name
+        _lessonNameController.text, // Lesson name
+        _youtubeLinkController.text, // YouTube link
+        updatedPdfUrls, // Updated PDF URLs
+        updatedImageUrls, // Updated image URLs
+        _notesController.text, 
+      );
+
+      // Show success message
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Changes saved successfully!')),
+      );
+    } catch (e) {
+      // Show error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Error saving changes')),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false; // Stop loading after process completion
+      });
+    }
   }
 }
 

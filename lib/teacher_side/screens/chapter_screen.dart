@@ -6,12 +6,12 @@ import 'package:edu_app/teacher_side/screens/Edit_chapter.dart';
 
 class ChapterPageTeacher extends StatefulWidget {
   final String courseName;
-  final String description;
+  final String docIdUser;
 
   const ChapterPageTeacher({
     super.key,
     required this.courseName,
-    required this.description,
+    required this.docIdUser,
   });
 
   @override
@@ -26,67 +26,77 @@ class _ChapterPageTeacherState extends State<ChapterPageTeacher> {
   @override
   void initState() {
     super.initState();
-    fetchCourses();
+    fetchChapters();
   }
 
-  // Fetch courses from Firestore
-  Future<void> fetchCourses() async {
+  
+  Future<void> fetchChapters() async {
     setState(() {
       isLoading = true; // Start loader while fetching data
     });
 
     try {
+      // Access the 'chapters' subcollection of the specific course document using the docId
       QuerySnapshot snapshot = await _firestore
           .collection('course_content')
-          .where('courseName', isEqualTo: widget.courseName)
-          .where('description', isEqualTo: widget.description)
+          .doc(widget.docIdUser) // Fetch the course by docId
+          .collection('chapters') // Access the 'chapters' subcollection
           .get();
 
-      List<Map<String, dynamic>> fetchedCourses = snapshot.docs.map((doc) {
+      // Map the fetched chapters
+      List<Map<String, dynamic>> fetchedChapters = snapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
 
         return {
-          'docId': doc.id,
-          'courseName': data['courseName'] ?? 'Unknown Course',
-          'img': 'assets/CoursePreview.png',
-          'lessonName': data['lessonName'] ?? 'Unknown Lesson',
+          'courseId':widget.docIdUser,
+          'docId': doc.id, // The document ID of the chapter
+          // 'chapterName': data['chapterName'] ?? 'Unknown Chapter',
+          // 'content': data['content'] ?? 'No content available',
+          'lessonName':
+              data['lessonName'] ?? 'Unknown Lesson', // If you store lessonName
         };
       }).toList();
 
       setState(() {
-        chapters = fetchedCourses;
+        chapters = fetchedChapters; // Set the fetched chapters in the state
+        isLoading = false; // Stop loader after fetching data
       });
     } catch (e) {
-      print("Error fetching courses: $e");
+      print("Error fetching chapters: $e");
+      setState(() {
+        isLoading = false; // Stop loader in case of error
+      });
     }
-
-    setState(() {
-      isLoading = false; // Stop loader after fetching data
-    });
   }
 
-  // Function to add a new chapter to Firestore
+ 
+
   Future<void> _addChapter(String chapterName) async {
     setState(() {
       isLoading = true; // Start loader while adding chapter
     });
 
     try {
-      await _firestore.collection('course_content').add({
-        'courseName': widget.courseName,
-        'description': widget.description,
-        'lessonName': chapterName,
-        'timestamp': FieldValue.serverTimestamp(),
+      // Access the specific course document and add the chapter to its 'chapters' subcollection
+      await _firestore
+          .collection('course_content')
+          .doc(widget.docIdUser) // Referencing the course by its document ID
+          .collection('chapters') // Access the 'chapters' subcollection
+          .add({
+        'lessonName': chapterName, // Chapter name to be added
+        'timestamp': FieldValue.serverTimestamp(), // Add timestamp for order
       });
 
       // Refetch the chapters after adding the new one
-      await fetchCourses();
+      await fetchChapters();
 
+      // Show success message after adding the chapter
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Chapter added successfully!')),
       );
     } catch (e) {
       print("Error adding chapter: $e");
+      // Show error message if something goes wrong
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Failed to add chapter.')),
       );
@@ -155,10 +165,10 @@ class _ChapterPageTeacherState extends State<ChapterPageTeacher> {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-                child: const Text(
+              child: const Text(
                 'Add',
                 style: TextStyle(color: Colors.white),
-                ),
+              ),
             ),
           ],
         );

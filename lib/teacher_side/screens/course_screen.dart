@@ -18,11 +18,11 @@ class _CoursePageTeacherState extends State<CoursePageTeacher> {
   bool _isLoading = false; // To manage loading state
   String searchQuery = ''; // Track search query
 
-  @override
-  void initState() {
-    super.initState();
-    fetchCourses(); // Directly call fetchCourses here
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   fetchCourses(); // Directly c call fetchCourses here
+  // }
 
   // Fetch courses from Firestore
   Future<void> fetchCourses() async {
@@ -61,30 +61,48 @@ class _CoursePageTeacherState extends State<CoursePageTeacher> {
         });
       }
     }
-  }
-
-  // Add a new course to Firestore
-  Future<void> _addCourse(String courseName) async {
-    setState(() {
-      _isLoading = true; // Show loader when saving the course
-    });
-
-    try {
-      await _firestore.collection('course_content').add({
-        'courseName': courseName, // Adding courseName to Firestore
-      });
-
-      // Fetch the updated course list after adding the new course
-      await fetchCourses();
-    } catch (e) {
-      print("Error adding course: $e");
       setState(() {
-        _isLoading = false; // Hide loader in case of error
+        _isLoading = false; // Hide loading spinner even on error
       });
     }
+  
+ 
+
+  @override
+  void initState() {
+    super.initState();
+    fetchCourses(); // Fetch courses on page load
   }
 
-  // Show dialog to add a new course
+  Future<void> _addCourse(String courseName) async {
+  setState(() {
+    _isLoading = true; // Show loader when saving the course
+  });
+
+  try {
+    // Step 1: Add the new course to the 'course_content' collection
+    DocumentReference courseRef = await _firestore.collection('course_content').add({
+      'courseName': courseName, // Adding courseName to Firestore
+      'description': 'No description yet', // You can update this field later
+    });
+
+    // Step 2: Create an empty subcollection 'chapters' for the new course
+    await courseRef.collection('chapters').add({
+      // 'chapterName': 'Introduction', // Initial chapter or placeholder chapter
+      // 'content': 'This is the introduction chapter', // Sample content
+    });
+
+    // Step 3: Fetch the updated course list after adding the new course
+    await fetchCourses();
+  } catch (e) {
+    print("Error adding course: $e");
+    setState(() {
+      _isLoading = false; // Hide loader in case of error
+    });
+  }
+}
+
+
   void _showAddCourseDialog() {
     String newCourseName = '';
 
@@ -203,9 +221,12 @@ class _CoursePageTeacherState extends State<CoursePageTeacher> {
         elevation: 0,
       ),
       backgroundColor: const Color(0xFFF5F5F5),
-      bottomNavigationBar: NavTeacher(initialIndex: 1, docidUser: widget.docidUser),
+      bottomNavigationBar:
+          NavTeacher(initialIndex: 1, docidUser: widget.docidUser),
       body: _isLoading
-          ? const Center(child: CircularProgressIndicator()) // Show loading spinner when fetching or saving data
+          ? const Center(
+              child:
+                  CircularProgressIndicator()) // Show loading spinner when fetching or saving data
           : SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
@@ -233,6 +254,7 @@ class _CoursePageTeacherState extends State<CoursePageTeacher> {
     );
   }
 }
+
 
 // Custom Search Delegate
 class CourseSearchDelegate extends SearchDelegate {
@@ -329,7 +351,8 @@ Widget crstxtforTeacherData(
   double screenWidth,
 ) {
   return Padding(
-    padding: EdgeInsets.fromLTRB(screenWidth * 0.05, screenWidth * 0.05, screenWidth * 0.05, screenWidth * 0.04),
+    padding: EdgeInsets.fromLTRB(screenWidth * 0.05, screenWidth * 0.05,
+        screenWidth * 0.05, screenWidth * 0.04),
     child: Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -344,8 +367,8 @@ Widget crstxtforTeacherData(
         ],
       ),
       child: Padding(
-        // Padding inside the container
-        padding: EdgeInsets.fromLTRB(screenWidth * 0.03, screenWidth * 0.03, screenWidth * 0.03, screenWidth * 0.02),
+        padding: EdgeInsets.fromLTRB(screenWidth * 0.03, screenWidth * 0.03,
+            screenWidth * 0.03, screenWidth * 0.02),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -373,14 +396,16 @@ Widget crstxtforTeacherData(
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => EditCourseDescriptionpage(courseData: courseData),
+                          builder: (context) =>
+                              EditCourseDescriptionpage(courseData: courseData),
                         ),
                       );
                     },
                     style: ElevatedButton.styleFrom(
                       elevation: 3,
-                      // Padding inside the button
-                      padding: EdgeInsets.symmetric(vertical: screenWidth * 0.03, horizontal: screenWidth * 0.06),
+                      padding: EdgeInsets.symmetric(
+                          vertical: screenWidth * 0.03,
+                          horizontal: screenWidth * 0.06),
                       backgroundColor: const Color(0xFF4A90E2),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -388,7 +413,8 @@ Widget crstxtforTeacherData(
                     ),
                     child: Text(
                       'View Course',
-                      style: TextStyle(fontSize: screenWidth * 0.04, color: Colors.white),
+                      style: TextStyle(
+                          fontSize: screenWidth * 0.04, color: Colors.white),
                     ),
                   ),
                 ],

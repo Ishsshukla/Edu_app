@@ -66,6 +66,7 @@ class _CoursePageStudentState extends State<CoursePageStudent>
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
         // print(data);
         return {
+          'docId': doc.id,
           'img': 'assets/CoursePreview.png',
           'name': data.containsKey('courseName')
               ? data['courseName']

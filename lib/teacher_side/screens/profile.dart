@@ -17,7 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:image_cropper/image_cropper.dart'; 
+// import 'package:image_cropper/image_cropper.dart'; 
 
 
 class PrflpageT extends StatefulWidget {
@@ -378,7 +378,6 @@ class _PrflpageState extends State<PrflpageT> {
     );
   }
 }
-
 
 
 
