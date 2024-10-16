@@ -27,7 +27,7 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
   final List<File> _pickedImageFiles = [];
 
   bool _isLoading = false; // To track the loading state
-
+  String searchQuery = ''; // Track search query
   String courseName = '';
   String lessonName = '';
   String youtubeLink = '';
@@ -45,6 +45,8 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<void> fetchCourses() async {
+
+    
     try {
       String selectedCourseName = widget.courseData['courseName'];
       String selectedLessonName = widget.courseData['lessonName'];
@@ -336,7 +338,7 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
                 TextField(
                   controller: _courseNameController,
                   decoration: const InputDecoration(
-                    hintText: 'Enter Class/Course Name',
+                    hintText: 'Edit Course Name',
                     border: OutlineInputBorder(),
                   ),
                 ),
@@ -348,7 +350,7 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
                 TextField(
                   controller: _lessonNameController,
                   decoration: const InputDecoration(
-                    hintText: 'Enter Lesson Name',
+                    hintText: 'Edit Chapter Name',
                     border: OutlineInputBorder(),
                   ),
                 ),
@@ -361,7 +363,7 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
                 TextField(
                   controller: _youtubeLinkController,
                   decoration: InputDecoration(
-                  hintText: 'Enter YouTube Link',
+                  hintText: 'Paste YouTube Link',
                   border: OutlineInputBorder(),
                   suffixIcon: IconButton(
                     icon: const Icon(Icons.play_circle_fill, color: Colors.red),
@@ -370,7 +372,7 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
                   ),
                 ),
                
-                const SizedBox(height: 20),
+                const SizedBox(height: 25),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -392,46 +394,46 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10), // Rounded corners
                       ),
-                      padding: const EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                         vertical: 12,
                         horizontal: 20), // Padding inside the button
+                        ),
                       ),
-                    ),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                    const Text('Upload Images',
-                      style: TextStyle(
+                      ],
+                      ),
+                      Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                      const Text('Upload Images',
+                        style: TextStyle(
                         fontSize: 20, fontWeight: FontWeight.bold)),
-                    const SizedBox(height: 8),
-                    ElevatedButton.icon(
-                      onPressed: _pickImageFiles,
-                      icon: const Icon(Icons.image, color: Colors.white),
-                      label: const Text('Pick Images',
+                      const SizedBox(height: 8),
+                      ElevatedButton.icon(
+                        onPressed: _pickImageFiles,
+                        icon: const Icon(Icons.image, color: Colors.white),
+                        label: const Text('Pick Images',
                         style: TextStyle(color: Colors.white)),
-                      style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF4A90E2), // Button color
-                      shape: RoundedRectangleBorder(
+                        style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF4A90E2), // Button color
+                        shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10), // Rounded corners
-                      ),
-                      padding: const EdgeInsets.symmetric(
+                        ),
+                        padding: const EdgeInsets.symmetric(
                         vertical: 12,
                         horizontal: 20), // Padding inside the button
+                        ),
                       ),
+                      ],
+                      ),
+                      ],
                     ),
-                    ],
-                  ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: _pickedPdfFiles.length,
-                  itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(_pickedPdfFiles[index].path.split('/').last),
+                    const SizedBox(height: 10),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: _pickedPdfFiles.length,
+                      itemBuilder: (context, index) {
+                      return ListTile(
+                      title: Text(_pickedPdfFiles[index].path.split('/').last.replaceAll(RegExp(r'\d'), '').substring(0, 21),),
 
                     // On tapping the entire tile, you can make the download function trigger
                     onTap: () async {
@@ -525,7 +527,7 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
                       ),
                     ],
                     ),
-                    child: Row(
+                    child:const  Row(
                     children: [
                       const Icon(Icons.picture_as_pdf, color: Colors.blue),
                       const SizedBox(width: 10),
@@ -548,12 +550,12 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
                     itemBuilder: (context, index) {
                         return Card(
                         elevation: 3,
-                        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: ListTile(
-                          leading: const Icon(Icons.picture_as_pdf, color: Colors.redAccent),
+                            leading: const Icon(Icons.picture_as_pdf, color: Colors.blueAccent),
                           title: Text(
                             pdfUrls[index].split('/').last.replaceAll('pdfs%2F', '').split('.pdf').first.replaceAll('%', '_').substring(0, 20),
                           style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black87),
@@ -561,6 +563,7 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
                           onTap: () async {
                           await launchUrl(Uri.parse(pdfUrls[index]));
                           },
+                        //  const  SizedBox(width: 10),
                           trailing: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -570,12 +573,12 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
                               removePdf(index);
                             },
                             ),
-                            IconButton(
-                            icon: const Icon(Icons.download, color: Colors.blue),
-                            onPressed: () async {
-                              await launchUrl(Uri.parse(pdfUrls[index]));
-                            },
-                            ),
+                            // IconButton(
+                            // icon: const Icon(Icons.download, color: Colors.blue),
+                            // onPressed: () async {
+                            //   await launchUrl(Uri.parse(pdfUrls[index]));
+                            // },
+                            // ),
                           ],
                           ),
                         ),
@@ -600,7 +603,7 @@ class _EditCourseContentTeacherState extends State<EditCourseContentTeacher> {
                               ),
                             ],
                           ),
-                          child: Row(
+                          child:const  Row(
                             children: [
                               const Icon(Icons.image, color: Colors.blue),
                               const SizedBox(width: 10),
