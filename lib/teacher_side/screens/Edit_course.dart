@@ -305,7 +305,7 @@ class _EditCourseDescriptionpageState extends State<EditCourseDescriptionpage> {
                   MaterialPageRoute(
                     builder: (context) => ChapterPageTeacher(
                         courseName: _courseInfoController.text, 
-                        description: _isEditable ? _descriptionController.text : widget.courseData['description']),
+                        docIdUser: docId,),
                   ),
                 );
               },

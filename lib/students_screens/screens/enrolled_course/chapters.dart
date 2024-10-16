@@ -5,9 +5,9 @@ import 'package:edu_app/components/coursesbuy.dart'; // Update import if needed 
 import 'package:flutter/material.dart';
 
 class ChapterPageStudent extends StatefulWidget {
-  final String courseName;
+  final String courseId;
 
-  const ChapterPageStudent({super.key, required this.courseName});
+  const ChapterPageStudent({super.key, required this.courseId});
 
   @override
   State<ChapterPageStudent> createState() => _ChapterPageStudentState();
@@ -20,39 +20,48 @@ class _ChapterPageStudentState extends State<ChapterPageStudent> {
   @override
   void initState() {
     super.initState();
-    fetchCourses();
+    fetchChapters();
   }
 
-  Future<void> fetchCourses() async {
-    try {
-      String selectedCourseName = widget.courseName;
 
+  Future<void> fetchChapters() async {
+    try {
+      String courseDocId =
+          widget.courseId; // Get the course document ID from the previous page
+
+      // Fetch the 'chapters' subcollection of the specific course using courseDocId
       QuerySnapshot snapshot = await _firestore
           .collection('course_content')
-          .where('courseName', isEqualTo: selectedCourseName)
+          .doc(courseDocId)
+          .collection('chapters') // Fetch from 'chapters' subcollection
           .get();
 
-      List<Map<String, dynamic>> fetchedCourses = snapshot.docs.map((doc) {
+      List<Map<String, dynamic>> fetchedChapters = snapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
         print(data);
 
         return {
-          'courseName': data.containsKey('courseName')
-              ? data['courseName']
-              : 'Unknown Course',
-          'img': 'assets/CoursePreview.png',
+          'courseId': widget.courseId,
+          'chapterId': doc.id, // Add chapter document ID for reference
           'lessonName': data.containsKey('lessonName')
               ? data['lessonName']
               : 'Unknown Lesson',
+          // 'pdfUrls': data.containsKey('pdfUrls')
+          //     ? List<String>.from(data['pdfUrls'])
+          //     : [],
+          // 'imageUrls': data.containsKey('imageUrls')
+          //     ? List<String>.from(data['imageUrls'])
+          //     : [],
+          // 'notes': data.containsKey('notes') ? data['notes'] : 'No Notes',
         };
       }).toList();
 
       setState(() {
-        chapters = fetchedCourses;
-        print("Courses fetched successfully = $chapters");
+        chapters = fetchedChapters; // Set the fetched chapters
+        print("Chapters fetched successfully: $chapters");
       });
     } catch (e) {
-      print("Error fetching courses: $e");
+      print("Error fetching chapters: $e");
     }
   }
 
@@ -91,9 +100,7 @@ class _ChapterPageStudentState extends State<ChapterPageStudent> {
                       screenWidth,
                     );
                   }).toList()
-                : [
-                    const Center(child: CircularProgressIndicator())
-                  ],
+                : [const Center(child: CircularProgressIndicator())],
           ),
         ),
       ),
