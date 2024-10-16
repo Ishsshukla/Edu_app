@@ -1,6 +1,6 @@
 
 
-// ignore_for_file: use_key_in_widget_constructors
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edu_app/components/button.dart';
@@ -15,10 +15,9 @@ import 'package:edu_app/teacher_side/navbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-
-
-// import 'user_notifier.dart';
+// import 'package:image_cropper/image_cropper.dart'; 
 
 
 class PrflpageT extends StatefulWidget {
@@ -41,7 +40,10 @@ class _PrflpageState extends State<PrflpageT> {
   bool isEditingPhn = false;
   String? userName; // To store the user's name
   bool isLoading = true;
+  
+   File? _image; // File to store the selected image
 
+  final ImagePicker _picker = ImagePicker(); // Image picker instance
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -112,6 +114,20 @@ class _PrflpageState extends State<PrflpageT> {
     }
   }
 
+   // Function to pick an image
+  Future<void> _pickImage(ImageSource source) async {
+    try {
+      final pickedFile = await _picker.pickImage(source: source);
+      if (pickedFile != null) {
+        setState(() {
+          _image = File(pickedFile.path);
+        });
+      }
+    } catch (e) {
+      print('Error picking image: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -139,14 +155,42 @@ class _PrflpageState extends State<PrflpageT> {
                     CircleAvatar(
                       radius: screenWidth * 0.13, // 13% of screen width
                       backgroundColor: Colors.grey[300],
-                      backgroundImage: const AssetImage('assets/profile.png'),
+                      backgroundImage: _image != null
+                          ? FileImage(_image!) // Display the picked image
+                          : const AssetImage('assets/profile.png')
+                              as ImageProvider,
                     ),
                     Positioned(
                       bottom: 0,
                       right: 0,
                       child: GestureDetector(
-                        onTap: () {
-                          // Functionality to update profile image can be added here
+                        onTap: () { // Show dialog to choose between gallery or camera
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  ListTile(
+                                    leading: const Icon(Icons.photo_library),
+                                    title: const Text('Gallery'),
+                                    onTap: () {
+                                      _pickImage(ImageSource.gallery);
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                  ListTile(
+                                    leading: const Icon(Icons.camera_alt),
+                                    title: const Text('Camera'),
+                                    onTap: () {
+                                      _pickImage(ImageSource.camera);
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                         },
                         child: CircleAvatar(
                           radius: screenWidth * 0.05, // 5% of screen width
@@ -309,7 +353,7 @@ class _PrflpageState extends State<PrflpageT> {
   
   }
 
-
+ 
   Widget buildEditableField(
     BuildContext context,
     String labelText,
@@ -325,17 +369,6 @@ class _PrflpageState extends State<PrflpageT> {
       enabled: isEditing, // Toggle between editable and non-editable
       decoration: InputDecoration(
         labelText: labelText,
-
-        // suffixIcon: IconButton(
-        //   icon: Icon(isEditing
-        //       ? Icons.save
-        //       : Icons.edit), // Toggle icon between edit and save
-        //   onPressed: () {
-        //     setState(() {
-        //       onEditTap(); // Call the onEditTap function to toggle the editing state
-        //     });
-        //   },
-        // ),
         prefixIcon: Icon(
           icon,
           color: Colors.black,

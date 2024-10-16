@@ -89,36 +89,65 @@ class _CoursePageTeacherState extends State<CoursePageTeacher> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Add New Course'),
-          content: TextField(
-            onChanged: (value) {
-              newCourseName = value;
-            },
-            decoration: const InputDecoration(
-              labelText: 'Course Name',
-              hintText: 'Enter the name of the course',
-            ),
+          title: const Text(
+            'Add New Course',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                onChanged: (value) {
+                  newCourseName = value;
+                },
+                decoration: InputDecoration(
+                  labelText: 'Course Name',
+                  hintText: 'Enter the name of the course',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 0),
+            ],
           ),
           actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Cancel'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                if (newCourseName.isNotEmpty) {
-                  _addCourse(newCourseName); // Save the course in Firestore
-                  Navigator.pop(context); // Close the dialog
-                }
-              },
-              child: const Text('Add'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    'Cancel',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    if (newCourseName.isNotEmpty) {
+                      _addCourse(newCourseName); // Save the course in Firestore
+                      Navigator.pop(context); // Close the dialog
+                    }
+                  },
+                  icon: const Icon(Icons.add),
+                  label: const Text('Add '),
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white, backgroundColor: const Color(0xFF4A90E2),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         );
       },
     );
+    
+  
   }
 
   @override

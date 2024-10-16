@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edu_app/components/const.dart';
 import 'package:edu_app/teacher_side/screens/chapter_screen.dart';
-import 'package:edu_app/teacher_side/screens/contenteditcourse.dart';
+import 'package:edu_app/teacher_side/screens/Edit_chapter.dart';
 import 'package:flutter/material.dart';
 
 const Color blueColor = Color(0xFF4A90E2);

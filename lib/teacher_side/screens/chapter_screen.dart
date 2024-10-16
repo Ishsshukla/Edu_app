@@ -2,7 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:edu_app/teacher_side/screens/contenteditcourse.dart';
+import 'package:edu_app/teacher_side/screens/Edit_chapter.dart';
 
 class ChapterPageTeacher extends StatefulWidget {
   final String courseName;

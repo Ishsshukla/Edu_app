@@ -143,16 +143,16 @@ class _HomepageState extends State<teachHomepage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   txt('  Latest Current Affairs', context),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => (const Newspage())),
-                      );
-                    },
-                    child: txt('  See all', context),
-                  ),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //           builder: (context) => (const Newspage())),
+                  //     );
+                  //   },
+                  //   child: txt('  See all', context),
+                  // ),
                 ],
               ),
             ],
