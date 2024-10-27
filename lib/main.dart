@@ -57,8 +57,8 @@ class MyApp extends StatelessWidget {
       create: (context) => UserNotifier(),
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/login',
-        // initialRoute: '/homepage',
+        // initialRoute: '/login',
+        initialRoute: '/homepage',
 
         getPages: [
           GetPage(name: '/upi_screen', page: () => const UpiScreen()),
