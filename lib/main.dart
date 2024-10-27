@@ -2,6 +2,7 @@ import 'package:edu_app/components/class_option.dart';
 import 'package:edu_app/firebase_options.dart';
 import 'package:edu_app/quiz/quiz_category.dart';
 import 'package:edu_app/students_screens/auth/emailOTPVerification.dart';
+import 'package:edu_app/students_screens/counsellor_screen/home_counsellor.dart';
 import 'package:edu_app/students_screens/screens/enrolled_course/description_enrooled.dart';
 import 'package:edu_app/students_screens/screens/user_notifier.dart';
 import 'package:edu_app/students_screens/screens/class_options.dart';
@@ -58,7 +59,7 @@ class MyApp extends StatelessWidget {
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         // initialRoute: '/login',
-        initialRoute: '/homepage',
+        initialRoute: '/homecounsellor',
 
         getPages: [
           GetPage(name: '/upi_screen', page: () => const UpiScreen()),
@@ -109,6 +110,13 @@ class MyApp extends StatelessWidget {
           //     name: '/editcoursecontent',
           // page: () =>  EditCourseContentTeacher(courseData: 'hu')),
           // GetPage(name: '/editcourse', page: () => EditCourseDescriptionpage()),
+
+
+
+
+          //COUNSELLOR
+           GetPage(name: '/homecounsellor', page: () =>  HomeStudentCounsellor()),
+         
         ],
       ),
     );
