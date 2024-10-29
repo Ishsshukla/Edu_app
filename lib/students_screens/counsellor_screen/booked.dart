@@ -1,3 +1,4 @@
+import 'package:edu_app/students_screens/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // Add this import for date formatting
 
@@ -27,7 +28,7 @@ class AppointmentConfirmationPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white, // Changed to white for better contrast
       
-      body: SingleChildScrollView(
+      body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -57,53 +58,51 @@ class AppointmentConfirmationPage extends StatelessWidget {
             ),
             SizedBox(height: 30),
 
-            // Appointment Details
-            _buildDetailTile(Icons.calendar_today, 'Date', DateFormat('yyyy-MM-dd').format(appointmentDate)),
-            _buildDetailTile(Icons.access_time, 'Time Slot', timeSlot),
-            _buildDetailTile(Icons.video_call, 'Session Mode', sessionMode),
-            _buildDetailTile(Icons.description, 'Purpose of Counseling', purposeOfCounseling),
-            _buildDetailTile(Icons.note, 'Additional Notes', additionalNotes),
-            SizedBox(height: 30),
+            // Scrollable Appointment Details
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    _buildDetailTile(Icons.calendar_today, 'Date', DateFormat('yyyy-MM-dd').format(appointmentDate)),
+                    _buildDetailTile(Icons.access_time, 'Time Slot', timeSlot),
+                    _buildDetailTile(Icons.video_call, 'Session Mode', sessionMode),
+                    _buildDetailTile(Icons.description, 'Purpose of Counseling', purposeOfCounseling),
+                    _buildDetailTile(Icons.note, 'Additional Notes', additionalNotes),
+                    SizedBox(height: 30),
+                  ],
+                ),
+              ),
+            ),
 
             // Buttons
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.grey[300],
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  child: const Text(
-                    'Home',
-                    style: TextStyle(color: Colors.black87, fontSize: 16),
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    // Navigate to Details or another page if needed
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF0066CC),
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  child: const Text(
-                    'Details',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+              Expanded(
+                child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => Homepage(docIdUser: 'yourDocIdUserValue')),
+                  (route) => false,
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  padding: const EdgeInsets.symmetric(vertical: 16), // Increased padding for larger button
+                  shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
                   ),
                 ),
+                child: const Text(
+                  'Go back to Home',
+                  style: TextStyle(color: Colors.white, fontSize: 18), // Increased font size
+                ),
+                ),
+              ),
               ],
             ),
-            SizedBox(height: 20),
+            // SizedBox(height: 20),
           ],
         ),
       ),

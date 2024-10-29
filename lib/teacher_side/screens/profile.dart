@@ -6,7 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edu_app/components/button.dart';
 import 'package:edu_app/components/profie_text_edit.dart';
 // import 'package:edu_app/screens/authentication/login_screen.dart';
-import 'package:edu_app/screens/navbar.dart';
+// import 'package:edu_app/screens/navbar.dart';///////////////
 import 'package:edu_app/screens/privacypolicy.dart';
 import 'package:edu_app/students_screens/auth/login.dart';
 import 'package:edu_app/students_screens/firebase_services/database.dart';
