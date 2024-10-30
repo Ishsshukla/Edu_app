@@ -1,7 +1,9 @@
-import 'package:edu_app/students_screens/counsellor_screen/book_appointment.dart';
+import 'package:edu_app/students_screens/screens/counsellor_screen/book_appointment.dart';
 import 'package:flutter/material.dart';
 
 class HomeStudentCounsellor extends StatefulWidget {
+  final String docIdUser;
+  const HomeStudentCounsellor({super.key, required this.docIdUser});
   @override
   _HomeStudentCounsellorState createState() => _HomeStudentCounsellorState();
 }
@@ -97,7 +99,7 @@ class _HomeStudentCounsellorState extends State<HomeStudentCounsellor> {
                                 onPressed: () {
                                   Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => BookAppointmentPage()),
+                                  MaterialPageRoute(builder: (context) => BookAppointmentPage(docIdUser: widget.docIdUser,)),
                                   );
                                 },
                                 child: Text(

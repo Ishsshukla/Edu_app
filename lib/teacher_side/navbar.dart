@@ -15,7 +15,8 @@ class NavTeacher extends StatefulWidget {
   final String docidUser;
   final int initialIndex;
 
-  const NavTeacher({super.key, required this.initialIndex, required this.docidUser});
+  const NavTeacher(
+      {super.key, required this.initialIndex, required this.docidUser});
 
   @override
   _NavTeacherState createState() => _NavTeacherState();
@@ -37,45 +38,53 @@ class _NavTeacherState extends State<NavTeacher> {
       case 0:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => teachHomepage(docidUser: widget.docidUser,)),
+          MaterialPageRoute(
+              builder: (context) => teachHomepage(
+                    docidUser: widget.docidUser,
+                  )),
         );
         break;
       case 1:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => CoursePageTeacher(docidUser: widget.docidUser,)),
+          MaterialPageRoute(
+              builder: (context) => CoursePageTeacher(
+                    docidUser: widget.docidUser,
+                  )),
         );
         break;
       case 2:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => PrflpageT(docIdUser: widget.docidUser,)),
+          MaterialPageRoute(
+              builder: (context) => PrflpageT(
+                    docIdUser: widget.docidUser,
+                  )),
         );
         break;
-     case 3:
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => TeacherCounselingPage(
-        requests: [
-          AppointmentRequest(
-            docidUser: '123',
-            studentName: 'John Doe',
-            appointmentDate: DateTime.now(),
-            timeSlot: '10 AM - 12 PM',
-            sessionMode: 'Video Call',
-            purposeOfCounseling: 'Career Guidance',
-            additionalNotes: 'Please be on time',
-            batch: '2023',
-            studentClass: '10th Grade',
-            profileImageUrl: 'https://example.com/profile.jpg',
+      case 3:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TeacherCounselingPage(
+                // requests: [
+                //   AppointmentRequest(
+                //     docidUser: '123',
+                //     studentName: 'John Doe',
+                //     appointmentDate: DateTime.now(),
+                //     timeSlot: '10 AM - 12 PM',
+                //     sessionMode: 'Video Call',
+                //     purposeOfCounseling: 'Career Guidance',
+                //     additionalNotes: 'Please be on time',
+                //     batch: '2023',
+                //     studentClass: '10th Grade',
+                //     profileImageUrl: 'https://example.com/profile.jpg',
+                //   ),
+                // ],
+                ),
           ),
-        ],
-      ),
-    ),
-  );
-  break;
-
+        );
+        break;
     }
   }
 

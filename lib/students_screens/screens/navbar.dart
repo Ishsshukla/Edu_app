@@ -152,12 +152,13 @@
 //   }
 // }
 
-
 import 'package:edu_app/components/const.dart';
 import 'package:edu_app/students_screens/screens/allcrs.dart';
+import 'package:edu_app/students_screens/screens/counsellor_screen/home_counsellor.dart';
 import 'package:edu_app/students_screens/screens/crs_options.dart';
 import 'package:edu_app/students_screens/screens/home.dart';
 import 'package:edu_app/students_screens/screens/profile.dart';
+// import 'package:edu_app/students_screens/screens/home_counsellor.dart';
 import 'package:flutter/material.dart';
 
 class Nav extends StatefulWidget {
@@ -195,7 +196,10 @@ class _NavState extends State<Nav> {
       case 1:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) =>  CoursePageStudent(docIdUser: widget.docIdUser,)),
+          MaterialPageRoute(
+              builder: (context) => CoursePageStudent(
+                    docIdUser: widget.docIdUser,
+                  )),
         );
         break;
       case 2:
@@ -205,6 +209,14 @@ class _NavState extends State<Nav> {
               builder: (context) => Prflpage(
                     docIdUser: widget.docIdUser,
                   )),
+        );
+        break;
+      case 3:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomeStudentCounsellor(docIdUser: widget.docIdUser,),
+          ),
         );
         break;
     }
@@ -255,6 +267,17 @@ class _NavState extends State<Nav> {
             label: 'Profile',
             isSelected: _selectedIndex == 2,
             onTap: () => _onNavItemTapped(2),
+          ),
+          const SizedBox(width: 3),
+          NavBarItem(
+            icon: Icon(
+              Icons.calendar_today,
+              size: 40,
+              color: _selectedIndex == 3 ? txtColor : Colors.grey.shade500,
+            ),
+            label: 'Appointments',
+            isSelected: _selectedIndex == 3,
+            onTap: () => _onNavItemTapped(3),
           ),
         ],
       ),

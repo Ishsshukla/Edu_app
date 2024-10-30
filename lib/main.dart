@@ -18,7 +18,6 @@ import 'package:edu_app/students_screens/screens/transaction_sucess.dart';
 import 'package:edu_app/students_screens/screens/user_notifier.dart';
 import 'package:edu_app/students_screens/upi/upi_screen.dart';
 import 'package:edu_app/teacher_side/home.dart';
-import 'package:edu_app/students_screens/counsellor_screen/home_counsellor.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -65,8 +64,7 @@ class MyApp extends StatelessWidget {
               page: () => const teachHomepage(
                     docidUser: 'h',
                   )),
-          GetPage(
-              name: '/homecounsellor', page: () => HomeStudentCounsellor()),
+          
         ],
       ),
     );
