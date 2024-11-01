@@ -348,7 +348,7 @@ class _PrflpageState extends State<PrflpageT> {
         ),
       ),
       bottomNavigationBar:      
-          NavTeacher(initialIndex: 2, docidUser: widget.docIdUser),
+          NavTeacher(initialIndex: 3, docidUser: widget.docIdUser),
     );// Assuming `Nav` exists
   
   }

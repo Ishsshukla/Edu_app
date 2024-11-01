@@ -57,32 +57,17 @@ class _NavTeacherState extends State<NavTeacher> {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => PrflpageT(
-                    docIdUser: widget.docidUser,
-                  )),
+            builder: (context) => TeacherCounselingPage(),
+          ),
         );
         break;
       case 3:
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => TeacherCounselingPage(
-                // requests: [
-                //   AppointmentRequest(
-                //     docidUser: '123',
-                //     studentName: 'John Doe',
-                //     appointmentDate: DateTime.now(),
-                //     timeSlot: '10 AM - 12 PM',
-                //     sessionMode: 'Video Call',
-                //     purposeOfCounseling: 'Career Guidance',
-                //     additionalNotes: 'Please be on time',
-                //     batch: '2023',
-                //     studentClass: '10th Grade',
-                //     profileImageUrl: 'https://example.com/profile.jpg',
-                //   ),
-                // ],
-                ),
-          ),
+              builder: (context) => PrflpageT(
+                    docIdUser: widget.docidUser,
+                  )),
         );
         break;
     }
@@ -120,22 +105,22 @@ class _NavTeacherState extends State<NavTeacher> {
           const SizedBox(width: 3),
           NavBarItem(
             icon: Icon(
-              Icons.person,
+              Icons.calendar_today,
               size: 40,
               color: _selectedIndex == 2 ? txtColor : Colors.grey.shade500,
             ),
-            label: 'Profile',
+            label: 'Appointments',
             isSelected: _selectedIndex == 2,
             onTap: () => _onNavItemTapped(2),
           ),
           const SizedBox(width: 3),
           NavBarItem(
             icon: Icon(
-              Icons.calendar_today,
+              Icons.person,
               size: 40,
               color: _selectedIndex == 3 ? txtColor : Colors.grey.shade500,
             ),
-            label: 'Appointments',
+            label: 'Profile',
             isSelected: _selectedIndex == 3,
             onTap: () => _onNavItemTapped(3),
           ),

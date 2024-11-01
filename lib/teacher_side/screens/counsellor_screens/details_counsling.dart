@@ -219,9 +219,9 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title:
-            Text('Appointment Details', style: TextStyle(color: Colors.white)),
+        title: Text('Appointment Details', style: TextStyle(color: Colors.white)),
         backgroundColor: Color(0xFF0066CC),
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Padding(
         padding: EdgeInsets.all(16),
@@ -281,7 +281,16 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: ()async {
+                  await FirebaseFirestore.instance
+                    .collection('counselors')
+                    .doc(widget.docid)
+                    .update({
+                    'status': 'accepted',
+                  });
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Appointment accepted successfully.')),
+                  );},
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -302,22 +311,35 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8)),
                   ),
-                  child: Text('Modify', style: TextStyle(color: Colors.white)),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  //  _declineAppointment(context),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8)),
-                  ),
-                  child: Text('Decline',
+                  child: Text('Modify',
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Colors.white)),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                  await FirebaseFirestore.instance
+                    .collection('counselors')
+                    .doc(widget.docid)
+                    .update({
+                    'status': 'declined',
+                  });
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Appointment declined successfully.')),
+                  );
+                  },
+                  style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8)),
+                  ),
+                  child: Text('Decline',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
                 ),
               ],
             ),
