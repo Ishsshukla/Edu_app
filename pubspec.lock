@@ -376,6 +376,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.2.1"
+  google_gemini:
+    dependency: "direct main"
+    description:
+      name: google_gemini
+      sha256: "8cf19c909e5bfb0518391f4d538251f29e3283caa021249b76afcd69b2963e26"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.9"
   google_identity_services_web:
     dependency: transitive
     description:

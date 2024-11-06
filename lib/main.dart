@@ -1,3 +1,5 @@
+import 'package:edu_app/quiz/admin/admin_dashboard.dart';
+import 'package:edu_app/quiz/quiz2.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -54,17 +56,18 @@ class MyApp extends StatelessWidget {
                     userIdDoc: '',
                   )),
           GetPage(name: '/quiz', page: () => const QuizPage()),
+          GetPage(name: '/adminQuiz', page: () => const AdminDashboard()),
           GetPage(name: '/coursefail', page: () => const CourseFailPage()),
           GetPage(name: '/privacy', page: () => const PrivacyPage()),
           GetPage(name: '/news', page: () => const Newspage()),
           GetPage(name: '/login', page: () => const LoginScreen()),
           GetPage(name: '/signup', page: () => const SignUpScreen()),
+          GetPage(name: '/quizWelcome', page: () => WelcomeScreen()),
           GetPage(
               name: '/Thome',
               page: () => const teachHomepage(
                     docidUser: 'h',
                   )),
-          
         ],
       ),
     );
