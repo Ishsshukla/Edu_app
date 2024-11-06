@@ -126,8 +126,17 @@ class TeacherCounselingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Counseling Requests'),
+        title: Text(
+          'Counseling Requests',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: Color(0xFF0066CC),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+        Navigator.of(context).pop();
+          },
+        ),
       ),
       body: FutureBuilder<List<AppointmentRequest>>(
         future: _fetchCounselingRequests(),
@@ -148,7 +157,7 @@ class TeacherCounselingPage extends StatelessWidget {
         },
       ),
       bottomNavigationBar: NavTeacher(
-        initialIndex: 3,
+        initialIndex: 2,
         docidUser: '123',
       ),
     );
