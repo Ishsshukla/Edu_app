@@ -1,12 +1,13 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_gemini/google_gemini.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// const apiKey = "AIzaSyC9TxHKC1llcF3kOlcr_Kfk6_PAKCI5t5g";
-const apiKey = "AIzaSyDOfAfmX6VBhFpk6JH_tOTViDlJnBvRIuU";
+
+   
 
 
 class cyberMitr extends StatefulWidget {
@@ -20,6 +21,7 @@ class cyberMitr extends StatefulWidget {
 
 class _cyberMitrState extends State<cyberMitr> {
   late SharedPreferences prefs;
+   
   @override
   void initState() {
     // TODO: implement initState
@@ -104,6 +106,7 @@ class TextOnly extends StatefulWidget {
 }
 
 class _TextOnlyState extends State<TextOnly> {
+  
   bool loading = false;
   List textChat = [];
   List textWithImageChat = [];
@@ -113,7 +116,7 @@ class _TextOnlyState extends State<TextOnly> {
 
   // Create Gemini Instance
   final gemini = GoogleGemini(
-    apiKey: apiKey,
+    apiKey: '${dotenv.env['GEMINI_API_KEY']}',
   );
 
   // Text only input
@@ -2144,7 +2147,7 @@ class _TextWithImageState extends State<TextWithImage> {
 
   // Create Gemini Instance
   final gemini = GoogleGemini(
-    apiKey: apiKey,
+    apiKey: "${dotenv.env['GEMINI_API_KEY']}",
   );
 
   // Text only input

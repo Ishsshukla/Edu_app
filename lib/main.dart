@@ -20,8 +20,10 @@ import 'package:edu_app/students_screens/screens/transaction_sucess.dart';
 import 'package:edu_app/students_screens/screens/user_notifier.dart';
 import 'package:edu_app/students_screens/upi/upi_screen.dart';
 import 'package:edu_app/teacher_side/home.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> main() async {
+  await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

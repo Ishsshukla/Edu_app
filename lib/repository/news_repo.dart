@@ -76,16 +76,15 @@
 import 'dart:convert';
 import 'package:edu_app/models/headline.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:edu_app/models/news_model.dart';
 
 class NewsRepository {
-  final String _apiKey =
-      '65f8ae3b4a8b41bb813bd0b06074aa5f';
+  final String _apiKey = '${dotenv.env['NEWS_API_KEY']}';
   final String _baseUrl = 'https://newsapi.org/v2/everything';
 
   Future<NewsChannelsHeadlineModels> fetchNewsChannelHeadlineApi() async {
-    // Query to fetch news related to Sainik School exams, RIMC, and defense sector
     final String query = 'latest current affairs in India';
     final String url = '$_baseUrl?q=$query&language=en&apiKey=$_apiKey';
 
